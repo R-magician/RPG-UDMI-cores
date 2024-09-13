@@ -1,26 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Lit2DSceneTemplate
-  m_EditorClassIdentifier: 
-  templateScene: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
-  templateName: Lit 2D (URP)
-  description: "\u5305\u542B\u4E00\u4E2A\u6B63\u5C04\u5F71\u76F8\u673A\u548C\u4E00\u4E2A\u5168\u5C40\u51492D\u3002\u4E0E\u901A\u7528RP\u4E2D\u76842D\u6E32\u67D3\u5668\u4E00\u8D77\u5DE5\u4F5C\u3002"
-  preview: {fileID: 0}
-  dependencies: []
-  templatePipeline: {fileID: 0}
-  badge: {fileID: 0}
-  addToDefaults: 1
---- !u!28 &1878252276921732227
+--- !u!28 &-3122993409673433560
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,3 +46,23 @@ Texture2D:
     offset: 0
     size: 0
     path: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: Lit2DSceneTemplate
+  m_EditorClassIdentifier: 
+  templateScene: {fileID: 102900000, guid: d0eaf7ad6f8754c44a2964ee713e6acb, type: 3}
+  templateName: Lit 2D (URP)
+  description: "\u5305\u542B\u4E00\u4E2A\u6B63\u5C04\u5F71\u76F8\u673A\u548C\u4E00\u4E2A\u5168\u5C40\u51492D\u3002\u4E0E\u901A\u7528RP\u4E2D\u76842D\u6E32\u67D3\u5668\u4E00\u8D77\u5DE5\u4F5C\u3002"
+  preview: {fileID: 0}
+  dependencies: []
+  templatePipeline: {fileID: 0}
+  badge: {fileID: 0}
+  addToDefaults: 1
