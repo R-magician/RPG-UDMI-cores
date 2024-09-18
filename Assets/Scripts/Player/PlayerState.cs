@@ -37,7 +37,8 @@ public class PlayerState
     {
         //获取移动时候的值
         inputDirection = player.inputControl.Player.Move.ReadValue<Vector2>();
-        
+        //通过上升下降的速度值传递给动画器--这样在其他状态中如果y值有变化也会更新值
+        player.anim.SetFloat("yVelocity",rb.linearVelocity.y);
         Debug.Log("更新 "+animBoolName+" 动画");
     }
     

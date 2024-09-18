@@ -1,7 +1,7 @@
 //玩家移动状态
 using UnityEngine;
 
-public class PlayerMoveState : PlayerState
+public class PlayerMoveState : PlayerGroundedState
 {
     
     

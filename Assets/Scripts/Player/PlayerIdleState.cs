@@ -1,7 +1,7 @@
 //玩家等待状态
 using UnityEngine;
 
-public class PlayerIdleState :PlayerState
+public class PlayerIdleState :PlayerGroundedState
 {
     public PlayerIdleState(Player _player, PlayerStateMachine _stateMachine, string _animeBoolName) : base(_player, _stateMachine, _animeBoolName)
     {
