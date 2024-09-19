@@ -16,7 +16,10 @@ public class PlayerGroundedState : PlayerState
     public override void Update()
     {
         base.Update();
+        //跳跃
         player.inputControl.Player.Jump.started += Jump;
+        //冲刺
+        player.inputControl.Player.Dash.started += Dash;
     }
 
     public override void Exit()
@@ -32,5 +35,11 @@ public class PlayerGroundedState : PlayerState
             //碰撞体检测到地面才能起跳
             stateMachine.ChangeState(player.playerJumpState);
         }
+    }
+    
+    //玩家冲刺
+    private void Dash(InputAction.CallbackContext obj)
+    {
+        stateMachine.ChangeState(player.playerDashState);
     }
 }

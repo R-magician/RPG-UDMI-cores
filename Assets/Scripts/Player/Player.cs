@@ -9,9 +9,12 @@ public class Player : MonoBehaviour
     [Header("移动相关")]
     //移动速度
     public float moveSpeed = 12f;
-
     //掉落速度
     public float jumpForce;
+    //冲刺速度
+    public float dashSpeed;
+    //冲刺时间
+    public float dashDuration;
 
     [Header("碰撞检测")]
     //地面检测
@@ -61,11 +64,9 @@ public class Player : MonoBehaviour
 
     //空中状态
     public PlayerAirState playerAirState { get; private set; }
-
-    //计算器
-    public float timer;
-    //计算器冷却时间
-    public float cooldown;
+    
+    //冲刺状态
+    public PlayerDashState playerDashState { get; private set; }
 
     /// <summary>
     /// 初始化执行
@@ -82,6 +83,8 @@ public class Player : MonoBehaviour
         playerJumpState = new PlayerJumpState(this, playerStateMachine, "Jump");
         //新建停留空中状态--对应动画器中的变量
         playerAirState = new PlayerAirState(this, playerStateMachine, "Jump");
+        //新建冲刺状态--对应动画器中的变量
+        playerDashState = new PlayerDashState(this, playerStateMachine, "Dash");
 
         //创建一个实例
         inputControl = new PlayerInputControl();
@@ -100,16 +103,8 @@ public class Player : MonoBehaviour
     {
         //执行更新状态机里面当前动画的更新
         playerStateMachine.currentState.Update();
-        
-        timer -= Time.deltaTime;
-
-        //冷却时间结束并且按下
-        if (timer <= 0)
-        {
-            timer = cooldown;
-        }
     }
-
+    
     private void OnEnable()
     {
         //启动玩家控制

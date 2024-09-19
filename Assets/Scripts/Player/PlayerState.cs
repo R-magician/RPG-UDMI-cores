@@ -7,11 +7,14 @@ public class PlayerState
     protected PlayerStateMachine stateMachine;
     //玩家
     protected Player player;
-
+    //为了方便赋值
     protected Rigidbody2D rb;
     
     //播放动画
-    private string animBoolName; 
+    private string animBoolName;
+    //冲刺时间
+    protected float stateTime;
+    
     //移动方向
     protected Vector2 inputDirection;
 
@@ -35,6 +38,9 @@ public class PlayerState
     //动画进行更新
     public virtual void Update()
     {
+        //持续更新冲刺时间
+        stateTime -= Time.deltaTime;
+        
         //获取移动时候的值
         inputDirection = player.inputControl.Player.Move.ReadValue<Vector2>();
         //通过上升下降的速度值传递给动画器--这样在其他状态中如果y值有变化也会更新值

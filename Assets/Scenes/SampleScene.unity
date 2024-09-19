@@ -429,13 +429,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   jumpForce: 12
+  dashSpeed: 25
+  dashDuration: 0.2
   groundCheck: {fileID: 56988953}
   groundCheckDistance: 0.15
+  wallCheck: {fileID: 764466995}
+  wallCheckDistance: 0.15
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
-  wallCheck: {fileID: 764466995}
-  wallCheckDistance: 0.15
   rb: {fileID: 0}
 --- !u!4 &544670612
 Transform:

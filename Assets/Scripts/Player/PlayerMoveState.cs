@@ -35,5 +35,7 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Exit()
     {
         base.Exit();
+        //退出状态的时候重置一下速度
+        player.SetVelocity(0,rb.linearVelocity.y);
     }
 }
