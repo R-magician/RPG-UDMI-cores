@@ -11,10 +11,18 @@ public class Player : MonoBehaviour
     public float moveSpeed = 12f;
     //掉落速度
     public float jumpForce;
+    
+    [Header("冲刺相关")]
+    //冲刺冷却时间
+    [SerializeField] private float dashCooldown;
+    //冲刺冷却记时器
+    [SerializeField] private float dashUsageTimer;
     //冲刺速度
     public float dashSpeed;
     //冲刺时间
     public float dashDuration;
+    //冲刺方向
+    public float dashDir;
 
     [Header("碰撞检测")]
     //地面检测
@@ -67,6 +75,9 @@ public class Player : MonoBehaviour
     
     //冲刺状态
     public PlayerDashState playerDashState { get; private set; }
+    
+    //滑墙状态
+    public PlayerWallSlideState playerWallSlideState { get; private set; }
 
     /// <summary>
     /// 初始化执行
@@ -85,6 +96,8 @@ public class Player : MonoBehaviour
         playerAirState = new PlayerAirState(this, playerStateMachine, "Jump");
         //新建冲刺状态--对应动画器中的变量
         playerDashState = new PlayerDashState(this, playerStateMachine, "Dash");
+        //新建滑墙状态--对应动画器中的变量
+        playerWallSlideState = new PlayerWallSlideState(this, playerStateMachine, "WallSlide");
 
         //创建一个实例
         inputControl = new PlayerInputControl();
@@ -97,12 +110,17 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         //初始化状态机--等待
         playerStateMachine.initialize(playerIdleState);
+        //冲刺监听
+        inputControl.Player.Dash.started += Dash;
     }
 
     private void Update()
     {
         //执行更新状态机里面当前动画的更新
         playerStateMachine.currentState.Update();
+        
+        //冲刺开始冷却记时
+        dashUsageTimer -= Time.deltaTime;
     }
     
     private void OnEnable()
@@ -129,6 +147,9 @@ public class Player : MonoBehaviour
     //是否检测到地面--这种不用在updata中没帧执行，在需要值的地方调用一下就行
     public bool IsGroundDetected() =>
         Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
+    
+    //是否检测到墙面
+    public bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround);
 
     //翻转角色
     public void Flip()
@@ -152,6 +173,26 @@ public class Player : MonoBehaviour
             //如果x轴的速度小于0，并且没有翻转，翻转角色面向-x
             Flip();
         }
+    }
+    
+    //玩家冲刺
+    private void Dash(InputAction.CallbackContext obj)
+    {
+        //在冷却时间中可以激活
+        if (dashUsageTimer < 0)
+        {
+            //重新赋值冷却
+            dashUsageTimer = dashCooldown;
+            
+            //有冲刺方向
+            if (dashDir == 0)
+            {
+                dashDir = facingDir;
+            }
+            playerStateMachine.ChangeState(playerDashState);
+        }
+        
+        
     }
 
     //绘制检测区域

@@ -19,7 +19,7 @@ public class PlayerDashState : PlayerState
         base.Update();
         
         //设置玩家冲刺
-        player.SetVelocity(player.dashSpeed * player.facingDir,rb.linearVelocity.y);
+        player.SetVelocity(player.dashSpeed * player.dashDir,0);
         
         if (stateTime < 0)
         {
@@ -31,5 +31,7 @@ public class PlayerDashState : PlayerState
     public override void Exit()
     {
         base.Exit();
+        //退出状态的时候重置一下速度
+        player.SetVelocity(0,rb.linearVelocity.y);
     }
 }

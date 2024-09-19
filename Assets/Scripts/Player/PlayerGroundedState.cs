@@ -11,15 +11,18 @@ public class PlayerGroundedState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        //跳跃
+        player.inputControl.Player.Jump.started += Jump;
     }
 
     public override void Update()
     {
         base.Update();
-        //跳跃
-        player.inputControl.Player.Jump.started += Jump;
-        //冲刺
-        player.inputControl.Player.Dash.started += Dash;
+        //当角色在空中的时候切换状态
+        if (!player.IsGroundDetected())
+        {
+            stateMachine.ChangeState(player.playerAirState);
+        }
     }
 
     public override void Exit()
@@ -35,11 +38,5 @@ public class PlayerGroundedState : PlayerState
             //碰撞体检测到地面才能起跳
             stateMachine.ChangeState(player.playerJumpState);
         }
-    }
-    
-    //玩家冲刺
-    private void Dash(InputAction.CallbackContext obj)
-    {
-        stateMachine.ChangeState(player.playerDashState);
     }
 }

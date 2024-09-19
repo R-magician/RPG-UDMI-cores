@@ -20,6 +20,11 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Update()
     {
         base.Update();
+
+        if (inputDirection.x!=0)
+        {
+            player.dashDir = inputDirection.x;
+        }
         
         //设置移动速度
         player.SetVelocity(inputDirection.x * player.moveSpeed,rb.linearVelocity.y);
@@ -35,7 +40,5 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Exit()
     {
         base.Exit();
-        //退出状态的时候重置一下速度
-        player.SetVelocity(0,rb.linearVelocity.y);
     }
 }
