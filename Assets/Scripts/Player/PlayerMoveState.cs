@@ -20,7 +20,8 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Update()
     {
         base.Update();
-
+        
+        //获取冲刺方向
         if (inputDirection.x!=0)
         {
             player.dashDir = inputDirection.x;
@@ -28,9 +29,10 @@ public class PlayerMoveState : PlayerGroundedState
         
         //设置移动速度
         player.SetVelocity(inputDirection.x * player.moveSpeed,rb.linearVelocity.y);
-        //切换移动动画
+        
+        //切换移动动画--停止移动或者面向墙
         bool isMoving = Mathf.Abs(inputDirection.x) > 0;
-        if (!isMoving)
+        if (!isMoving || player.IsWallDetected())
         {
             stateMachine.ChangeState(player.playerIdleState);
         }

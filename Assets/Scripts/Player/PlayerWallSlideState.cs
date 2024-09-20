@@ -1,5 +1,6 @@
 //滑墙状态
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerWallSlideState : PlayerState
 {
@@ -10,6 +11,7 @@ public class PlayerWallSlideState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        player.inputControl.Player.Jump.started += Jump;
     }
 
     public override void Update()
@@ -50,5 +52,16 @@ public class PlayerWallSlideState : PlayerState
     public override void Exit()
     {
         base.Exit();
+    }
+    
+    //跳跃
+    private void Jump(InputAction.CallbackContext obj)
+    {
+        //在墙上跳跃，切换到跳下墙状态--玩家没到地上
+        if (player.IsWallDetected() && !player.IsGroundDetected())
+        {
+            //切换到墙跳状态
+            stateMachine.ChangeState(player.playerWallJumpState);
+        }
     }
 }

@@ -73,11 +73,14 @@ public class Player : MonoBehaviour
     //空中状态
     public PlayerAirState playerAirState { get; private set; }
     
-    //冲刺状态
-    public PlayerDashState playerDashState { get; private set; }
-    
     //滑墙状态
     public PlayerWallSlideState playerWallSlideState { get; private set; }
+    
+    //墙上跳跃状态
+    public PlayerWallJumpState playerWallJumpState { get; private set; }
+    
+    //冲刺状态
+    public PlayerDashState playerDashState { get; private set; }
 
     /// <summary>
     /// 初始化执行
@@ -98,6 +101,8 @@ public class Player : MonoBehaviour
         playerDashState = new PlayerDashState(this, playerStateMachine, "Dash");
         //新建滑墙状态--对应动画器中的变量
         playerWallSlideState = new PlayerWallSlideState(this, playerStateMachine, "WallSlide");
+        //新建墙上跳跃状态--对应动画器中的变量
+        playerWallJumpState = new PlayerWallJumpState(this, playerStateMachine, "Jump");
 
         //创建一个实例
         inputControl = new PlayerInputControl();
@@ -144,6 +149,12 @@ public class Player : MonoBehaviour
         FlipController(xVelocity);
     }
 
+    //停止x轴上的速度
+    public void SetZeroVelocityX()
+    {
+        this.SetVelocity(0, rb.linearVelocity.y);
+    }
+
     //是否检测到地面--这种不用在updata中没帧执行，在需要值的地方调用一下就行
     public bool IsGroundDetected() =>
         Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
@@ -178,6 +189,12 @@ public class Player : MonoBehaviour
     //玩家冲刺
     private void Dash(InputAction.CallbackContext obj)
     {
+        // 检测到墙，不允许冲刺
+        if (IsWallDetected())
+        {
+            return;
+        }
+        
         //在冷却时间中可以激活
         if (dashUsageTimer < 0)
         {

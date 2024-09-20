@@ -12,6 +12,8 @@ public class PlayerIdleState :PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
+        //角色材质没有摩擦力，进入idle状态，把x轴的惯性重置为0
+        player.SetZeroVelocityX();
     }
 
     //更新
@@ -21,9 +23,14 @@ public class PlayerIdleState :PlayerGroundedState
         
         //切换移动动画
         bool isMoving = Mathf.Abs(inputDirection.x) > 0;
+        
+        //玩家在移动，但是没有碰到墙
         if (isMoving)
         {
-            stateMachine.ChangeState(player.playerMoveState);
+            if (!player.IsWallDetected() || player.facingDir!=inputDirection.x)
+            {
+                stateMachine.ChangeState(player.playerMoveState);
+            }
         }
     }
     

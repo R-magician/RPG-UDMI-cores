@@ -12,7 +12,7 @@ public class PlayerState
     
     //播放动画
     private string animBoolName;
-    //冲刺时间
+    //状态定时
     protected float stateTime;
     
     //移动方向
@@ -38,7 +38,7 @@ public class PlayerState
     //动画进行更新
     public virtual void Update()
     {
-        //持续更新冲刺时间
+        //持续更新状态时间
         stateTime -= Time.deltaTime;
         
         //获取移动时候的值
