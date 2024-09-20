@@ -81,6 +81,9 @@ public class Player : MonoBehaviour
     
     //冲刺状态
     public PlayerDashState playerDashState { get; private set; }
+    
+    //玩家主要攻击
+    public PlayerPrimaryAttack playerPrimaryAttack { get; private set; }
 
     /// <summary>
     /// 初始化执行
@@ -103,6 +106,9 @@ public class Player : MonoBehaviour
         playerWallSlideState = new PlayerWallSlideState(this, playerStateMachine, "WallSlide");
         //新建墙上跳跃状态--对应动画器中的变量
         playerWallJumpState = new PlayerWallJumpState(this, playerStateMachine, "Jump");
+
+        //玩家主要攻击状态
+        playerPrimaryAttack = new PlayerPrimaryAttack(this, playerStateMachine, "Attack");
 
         //创建一个实例
         inputControl = new PlayerInputControl();
@@ -140,6 +146,9 @@ public class Player : MonoBehaviour
         inputControl.Disable();
     }
 
+    //调用玩家触发器--动画触发
+    public void AnimationTrigger() => playerStateMachine.currentState.AnimationFinishTrigger();
+    
     //设置移动速度
     public void SetVelocity(float xVelocity, float yVelocity)
     {
@@ -152,7 +161,7 @@ public class Player : MonoBehaviour
     //停止x轴上的速度
     public void SetZeroVelocityX()
     {
-        this.SetVelocity(0, rb.linearVelocity.y);
+        SetVelocity(0, rb.linearVelocity.y);
     }
 
     //是否检测到地面--这种不用在updata中没帧执行，在需要值的地方调用一下就行

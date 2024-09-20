@@ -13,7 +13,7 @@ public class PlayerWallJumpState : PlayerState
         base.Enter();
         
         //状态定时器
-        stateTime = 1f;
+        stateTimer = 1f;
 
         //反方向调整冲刺方向
         player.dashDir = -player.dashDir;
@@ -25,7 +25,7 @@ public class PlayerWallJumpState : PlayerState
     {
         base.Update();
 
-        if (stateTime < 0)
+        if (stateTimer < 0)
         {
             //超过时间变成空中状态
             stateMachine.ChangeState(player.playerAirState);

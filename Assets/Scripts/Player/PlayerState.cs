@@ -13,7 +13,9 @@ public class PlayerState
     //播放动画
     private string animBoolName;
     //状态定时
-    protected float stateTime;
+    protected float stateTimer;
+    //触发器状态
+    protected bool triggerCalled;
     
     //移动方向
     protected Vector2 inputDirection;
@@ -31,15 +33,16 @@ public class PlayerState
     {
         //Debug.Log("开始 "+animBoolName+" 动画");
         player.anim.SetBool(animBoolName, true);
-        
         rb = player.rb;
+        //刚开始触发器关
+        triggerCalled = false;
     }
     
     //动画进行更新
     public virtual void Update()
     {
         //持续更新状态时间
-        stateTime -= Time.deltaTime;
+        stateTimer -= Time.deltaTime;
         
         //获取移动时候的值
         inputDirection = player.inputControl.Player.Move.ReadValue<Vector2>();
@@ -54,5 +57,11 @@ public class PlayerState
     {
         //Debug.Log("动画 "+animBoolName+" 退出");
         player.anim.SetBool(animBoolName, false);
+    }
+
+    //动画完成的时候触发-比如：(攻击玩，在动画时间轴中可以添加时间)
+    public virtual void AnimationFinishTrigger()
+    {
+        triggerCalled = true;
     }
 }

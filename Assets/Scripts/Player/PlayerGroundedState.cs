@@ -13,6 +13,8 @@ public class PlayerGroundedState : PlayerState
         base.Enter();
         //跳跃
         player.inputControl.Player.Jump.started += Jump;
+        //攻击
+        player.inputControl.Player.Attack.started += Attack;
     }
 
     public override void Update()
@@ -38,5 +40,11 @@ public class PlayerGroundedState : PlayerState
             //碰撞体检测到地面才能起跳
             stateMachine.ChangeState(player.playerJumpState);
         }
+    }
+    
+    //玩家攻击
+    private void Attack(InputAction.CallbackContext obj)
+    {
+        stateMachine.ChangeState(player.playerPrimaryAttack);
     }
 }

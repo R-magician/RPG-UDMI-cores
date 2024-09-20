@@ -11,7 +11,7 @@ public class PlayerDashState : PlayerState
     {
         base.Enter();
         //冲刺时间
-        stateTime = player.dashDuration;
+        stateTimer = player.dashDuration;
     }
 
     public override void Update()
@@ -28,7 +28,7 @@ public class PlayerDashState : PlayerState
         //设置玩家冲刺
         player.SetVelocity(player.dashSpeed * player.dashDir,0);
         
-        if (stateTime < 0)
+        if (stateTimer < 0)
         {
             //当冲刺时间结束，切换成等待状态
             stateMachine.ChangeState(player.playerIdleState);
