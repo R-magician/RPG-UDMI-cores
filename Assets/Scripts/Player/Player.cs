@@ -1,11 +1,19 @@
 //玩家控制
 
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    [Header("攻击移动详情")]
+    //攻击动作
+    public Vector2[] attackMovement;
+    
+    //是否忙碌--经过携程该值
+    public bool isBusy{get; private set;}
+    
     [Header("移动相关")]
     //移动速度
     public float moveSpeed = 12f;
@@ -83,7 +91,7 @@ public class Player : MonoBehaviour
     public PlayerDashState playerDashState { get; private set; }
     
     //玩家主要攻击
-    public PlayerPrimaryAttack playerPrimaryAttack { get; private set; }
+    public PlayerPrimaryAttackState playerPrimaryAttack { get; private set; }
 
     /// <summary>
     /// 初始化执行
@@ -108,7 +116,7 @@ public class Player : MonoBehaviour
         playerWallJumpState = new PlayerWallJumpState(this, playerStateMachine, "Jump");
 
         //玩家主要攻击状态
-        playerPrimaryAttack = new PlayerPrimaryAttack(this, playerStateMachine, "Attack");
+        playerPrimaryAttack = new PlayerPrimaryAttackState(this, playerStateMachine, "Attack");
 
         //创建一个实例
         inputControl = new PlayerInputControl();
@@ -124,7 +132,7 @@ public class Player : MonoBehaviour
         //冲刺监听
         inputControl.Player.Dash.started += Dash;
     }
-
+    
     private void Update()
     {
         //执行更新状态机里面当前动画的更新
@@ -132,6 +140,16 @@ public class Player : MonoBehaviour
         
         //冲刺开始冷却记时
         dashUsageTimer -= Time.deltaTime;
+    }
+    
+    //携程--暂停一段时间执行
+    public IEnumerator BusyFor(float _seconds)
+    {
+        isBusy = true;
+        
+        yield return new WaitForSeconds(_seconds);
+        
+        isBusy = false;
     }
     
     private void OnEnable()
@@ -148,7 +166,9 @@ public class Player : MonoBehaviour
 
     //调用玩家触发器--动画触发
     public void AnimationTrigger() => playerStateMachine.currentState.AnimationFinishTrigger();
-    
+
+    #region 玩家速度
+
     //设置移动速度
     public void SetVelocity(float xVelocity, float yVelocity)
     {
@@ -157,6 +177,9 @@ public class Player : MonoBehaviour
         //移动的时候永远更新角色方向
         FlipController(xVelocity);
     }
+    
+    //将速度归至0
+    public void ZeroVelocity() => rb.linearVelocity = new Vector2(0f, 0f);
 
     //停止x轴上的速度
     public void SetZeroVelocityX()
@@ -164,12 +187,32 @@ public class Player : MonoBehaviour
         SetVelocity(0, rb.linearVelocity.y);
     }
 
+
+    #endregion
+    
+    #region 碰撞区域
+
     //是否检测到地面--这种不用在updata中没帧执行，在需要值的地方调用一下就行
     public bool IsGroundDetected() =>
         Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
     
     //是否检测到墙面
     public bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround);
+    
+    //绘制检测区域
+    private void OnDrawGizmos()
+    {
+        //检测地面碰撞
+        Gizmos.DrawLine(groundCheck.position,
+            new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
+        //检测墙体碰撞
+        Gizmos.DrawLine(wallCheck.position,
+            new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
+    }
+
+    #endregion
+
+    #region 角色翻转
 
     //翻转角色
     public void Flip()
@@ -194,6 +237,8 @@ public class Player : MonoBehaviour
             Flip();
         }
     }
+
+    #endregion
     
     //玩家冲刺
     private void Dash(InputAction.CallbackContext obj)
@@ -219,16 +264,5 @@ public class Player : MonoBehaviour
         }
         
         
-    }
-
-    //绘制检测区域
-    private void OnDrawGizmos()
-    {
-        //检测地面碰撞
-        Gizmos.DrawLine(groundCheck.position,
-            new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
-        //检测墙体碰撞
-        Gizmos.DrawLine(wallCheck.position,
-            new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
     }
 }

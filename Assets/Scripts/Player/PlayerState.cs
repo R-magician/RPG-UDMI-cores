@@ -34,6 +34,7 @@ public class PlayerState
         //Debug.Log("开始 "+animBoolName+" 动画");
         player.anim.SetBool(animBoolName, true);
         rb = player.rb;
+        
         //刚开始触发器关
         triggerCalled = false;
     }

@@ -13,7 +13,7 @@ public class PlayerIdleState :PlayerGroundedState
     {
         base.Enter();
         //角色材质没有摩擦力，进入idle状态，把x轴的惯性重置为0
-        player.SetZeroVelocityX();
+        player.ZeroVelocity();
     }
 
     //更新
@@ -27,7 +27,8 @@ public class PlayerIdleState :PlayerGroundedState
         //玩家在移动，但是没有碰到墙
         if (isMoving)
         {
-            if (!player.IsWallDetected() || player.facingDir!=inputDirection.x)
+            //isBusy--携程没有忙碌的时候可以移动
+            if ((!player.IsWallDetected() || player.facingDir != inputDirection.x) && !player.isBusy)
             {
                 stateMachine.ChangeState(player.playerMoveState);
             }
