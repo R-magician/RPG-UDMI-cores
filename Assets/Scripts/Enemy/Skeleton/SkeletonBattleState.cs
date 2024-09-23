@@ -1,4 +1,4 @@
-//骷髅战斗状态
+//骷髅准备战斗状态
 using UnityEngine;
 
 public class SkeletonBattleState : EnemyState
