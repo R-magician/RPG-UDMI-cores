@@ -19,10 +19,16 @@ public class SkeletonAttackState : EnemyState
     public override void Update()
     {
         base.Update();
+        enemy.ZeroVelocity();
+        if (triggerCalled)
+        {
+            stateMachine.ChangeState(enemy.battleState);
+        }
     }
 
     public override void Exit()
     {
         base.Exit();
+        enemy.lastTimeAttacked = Time.time;
     }
 }

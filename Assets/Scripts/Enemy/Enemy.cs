@@ -14,7 +14,12 @@ public class Enemy : Enity
     public float idleTime;
     
     [Header("攻击信息")]
+    //攻击距离
     public float attackDistance;
+    //攻击冷却
+    public float attackCooldown;
+    //攻击最后时间
+    [HideInInspector]public float lastTimeAttacked;
 
     //新建状态机
     public EnemyStateMachine stateMachine;
@@ -31,6 +36,8 @@ public class Enemy : Enity
         //更新状态里面的更新
         stateMachine.currentState.Update();
     }
+    
+    public virtual void AnimationFinishTrigger()=>stateMachine.currentState.AnimationFinishTrigger();
     
     //是否检测到玩家
     public virtual RaycastHit2D isPlayerDetected() =>

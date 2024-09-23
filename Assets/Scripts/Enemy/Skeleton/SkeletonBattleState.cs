@@ -32,9 +32,11 @@ public class SkeletonBattleState : EnemyState
             //当检测距离小于骷髅攻击距离--停下，发动攻击
             if (enemy.isPlayerDetected().distance < enemy.attackDistance)
             {
-                //移动归0
-                enemy.ZeroVelocity();
-                return;
+                if (CanAttack())
+                {
+                    //切换成攻击状态
+                    stateMachine.ChangeState(enemy.attackState);
+                }
             }
         }
 
@@ -42,7 +44,7 @@ public class SkeletonBattleState : EnemyState
         {
             //骷髅在左边
             moveDir = 1;
-        }
+        } 
         else if(player.position.x < enemy.transform.position.x)
         {
             //骷髅在右边
@@ -55,5 +57,16 @@ public class SkeletonBattleState : EnemyState
     public override void Exit()
     {
         base.Exit();
+    }
+
+    //是否可以攻击
+    private bool CanAttack()
+    {
+        if (Time.time >= enemy.lastTimeAttacked + enemy.attackCooldown)
+        {
+            enemy.lastTimeAttacked = Time.time;
+            return true;
+        }
+        return false;
     }
 }

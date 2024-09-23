@@ -3629,6 +3629,7 @@ GameObject:
   - component: {fileID: 172174304}
   - component: {fileID: 172174303}
   - component: {fileID: 172174305}
+  - component: {fileID: 172174306}
   m_Layer: 7
   m_Name: Animator
   m_TagString: Untagged
@@ -3728,6 +3729,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &172174306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172174302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16f9a738d64f3384a8dd630190330953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &415170386
 GameObject:
   m_ObjectHideFlags: 0
@@ -21030,6 +21043,8 @@ MonoBehaviour:
   moveSpeed: 1.5
   idleTime: 2
   attackDistance: 1.5
+  attackCooldown: 1
+  lastTimeAttacked: 0
 --- !u!50 &1149477168
 Rigidbody2D:
   serializedVersion: 5

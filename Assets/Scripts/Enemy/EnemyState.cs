@@ -43,4 +43,10 @@ public class EnemyState
     {
         enemyBase.anim.SetBool(animBoolName,false);
     }
+
+    //动画完成的时候触发-比如：(攻击玩，在动画时间轴中可以添加时间)
+    public virtual void AnimationFinishTrigger()
+    {
+        triggerCalled = true;
+    }
 }
