@@ -4185,7 +4185,7 @@ Transform:
   m_GameObject: {fileID: 544670610}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.38, y: -1.81, z: 0}
+  m_LocalPosition: {x: 26.78, y: -1.81, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20995,7 +20995,7 @@ Transform:
   m_GameObject: {fileID: 1149477164}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.96, y: -2.11, z: 0}
+  m_LocalPosition: {x: 32.71, y: -0.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21029,6 +21029,7 @@ MonoBehaviour:
     m_Bits: 64
   moveSpeed: 1.5
   idleTime: 2
+  attackDistance: 1.5
 --- !u!50 &1149477168
 Rigidbody2D:
   serializedVersion: 5
