@@ -5,7 +5,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+public class Player : Enity
 {
     [Header("攻击移动详情")]
     //攻击动作
@@ -31,35 +31,6 @@ public class Player : MonoBehaviour
     public float dashDuration;
     //冲刺方向
     public float dashDir;
-
-    [Header("碰撞检测")]
-    //地面检测
-    [SerializeField]
-    private Transform groundCheck;
-
-    //地面检测距离
-    [SerializeField] private float groundCheckDistance;
-
-    //墙体检测
-    [SerializeField] private Transform wallCheck;
-
-    //墙体检测距离
-    [SerializeField] private float wallCheckDistance;
-
-    //地面图层是哪一个
-    [SerializeField] private LayerMask whatIsGround;
-
-    //角色方向
-    public int facingDir { get; private set; } = 1;
-
-    //角色是否翻转-是
-    private bool facingRight = true;
-
-    [Header("组件")]
-    //动画器
-    public Animator anim { get; private set; }
-
-    public Rigidbody2D rb;
 
     //玩家控制系统
     public PlayerInputControl inputControl;
@@ -96,8 +67,9 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 初始化执行
     /// </summary>
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         //新建状态机
         playerStateMachine = new PlayerStateMachine();
         //新建等待状态--对应动画器中的变量
@@ -122,19 +94,18 @@ public class Player : MonoBehaviour
         inputControl = new PlayerInputControl();
     }
 
-    private void Start()
+    protected override void Start()
     {
-        //获取子节点的Animator
-        anim = GetComponentInChildren<Animator>();
-        rb = GetComponent<Rigidbody2D>();
+        base.Start();
         //初始化状态机--等待
         playerStateMachine.initialize(playerIdleState);
         //冲刺监听
         inputControl.Player.Dash.started += Dash;
     }
     
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         //执行更新状态机里面当前动画的更新
         playerStateMachine.currentState.Update();
         
@@ -166,79 +137,6 @@ public class Player : MonoBehaviour
 
     //调用玩家触发器--动画触发
     public void AnimationTrigger() => playerStateMachine.currentState.AnimationFinishTrigger();
-
-    #region 玩家速度
-
-    //设置移动速度
-    public void SetVelocity(float xVelocity, float yVelocity)
-    {
-        rb.linearVelocity = new Vector2(xVelocity, yVelocity);
-        
-        //移动的时候永远更新角色方向
-        FlipController(xVelocity);
-    }
-    
-    //将速度归至0
-    public void ZeroVelocity() => rb.linearVelocity = new Vector2(0f, 0f);
-
-    //停止x轴上的速度
-    public void SetZeroVelocityX()
-    {
-        SetVelocity(0, rb.linearVelocity.y);
-    }
-
-
-    #endregion
-    
-    #region 碰撞区域
-
-    //是否检测到地面--这种不用在updata中没帧执行，在需要值的地方调用一下就行
-    public bool IsGroundDetected() =>
-        Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
-    
-    //是否检测到墙面
-    public bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallCheckDistance, whatIsGround);
-    
-    //绘制检测区域
-    private void OnDrawGizmos()
-    {
-        //检测地面碰撞
-        Gizmos.DrawLine(groundCheck.position,
-            new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
-        //检测墙体碰撞
-        Gizmos.DrawLine(wallCheck.position,
-            new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
-    }
-
-    #endregion
-
-    #region 角色翻转
-
-    //翻转角色
-    public void Flip()
-    {
-        facingDir = facingDir * -1;
-        facingRight = !facingRight;
-        //控制角色本身旋转180°
-        transform.Rotate(0, 180, 0);
-    }
-
-    //翻转控制-单独提供一个参数是为了后面可能有什么特殊操作，比如（跳起来不能转方向）
-    public void FlipController(float x)
-    {
-        if (x > 0 && !facingRight)
-        {
-            //如果x轴的速度大于0，并且翻转了，翻转角色面向x
-            Flip();
-        }
-        else if (x < 0 && facingRight)
-        {
-            //如果x轴的速度小于0，并且没有翻转，翻转角色面向-x
-            Flip();
-        }
-    }
-
-    #endregion
     
     //玩家冲刺
     private void Dash(InputAction.CallbackContext obj)
