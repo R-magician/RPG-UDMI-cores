@@ -11,4 +11,22 @@ public class PlayerAnimationTriggers : MonoBehaviour
         //调用player上的触发器
         player.AnimationTrigger();
     }
+
+    //攻击触发器
+    private void AttackTrigger()
+    {
+        //创建一个圆形检测，获取所在范围的碰撞-这将只存在一帧
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(player.attackCheck.position, player.attackCheckRadius);
+
+        foreach (var hit in colliders)
+        {
+            //如果检测到敌人
+            if (hit.GetComponent<Enemy>() != null)
+            {
+                //执行受伤
+                hit.GetComponent<Enemy>().Damage();
+            }
+        }
+    }
 }
+ 

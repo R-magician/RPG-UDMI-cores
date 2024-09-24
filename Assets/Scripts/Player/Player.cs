@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class Player : Enity
 {
-    [Header("攻击移动详情")]
+    [Header("攻击详情")]
     //攻击动作
     public Vector2[] attackMovement;
     

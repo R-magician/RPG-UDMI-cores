@@ -1,4 +1,6 @@
 //实体类
+
+using System.Collections;
 using UnityEngine;
 
 public class Enity : MonoBehaviour
@@ -8,8 +10,21 @@ public class Enity : MonoBehaviour
    //动画器
    public Animator anim { get; private set; }
    public Rigidbody2D rb ;
+   public EnityFX fx { get; private set; }
+
+   [Header("击退信息")] 
+   //击退方向
+   [SerializeField] protected Vector2 knockbackDirection;
+   //击退间隔时长
+   [SerializeField] protected float knockbackDuration;
+   //是否被击退
+   protected bool isKnockback;
    
-   [Header("碰撞检测")]
+   [Header("检测信息")]
+   //命中判定
+   public Transform attackCheck;
+   //攻击检测半径
+   public float attackCheckRadius;
    //地面检测
    [SerializeField]
    protected Transform groundCheck;
@@ -36,6 +51,7 @@ public class Enity : MonoBehaviour
    //开始执行
    protected virtual void Start()
    {
+      fx = GetComponent<EnityFX>();
       //获取子节点的Animator
       anim = GetComponentInChildren<Animator>();
       rb = GetComponent<Rigidbody2D>();
@@ -46,12 +62,34 @@ public class Enity : MonoBehaviour
    {
       
    }
+
+   //受伤
+   public virtual void Damage()
+   {
+      //调用fx组件中的携程--动画特效
+      fx.StartCoroutine("FlashFx");
+      StartCoroutine("HitKnockback");
+   }
+
+   //击退携程
+   protected virtual IEnumerator HitKnockback()
+   {
+      isKnockback = true;
+      rb.linearVelocity = new Vector2(knockbackDirection.x * -facingDir, knockbackDirection.y);
+      yield return new WaitForSeconds(knockbackDuration);
+      isKnockback = false;
+   }
    
    #region 玩家速度
 
    //设置移动速度
    public void SetVelocity(float xVelocity, float yVelocity)
    {
+      //被击退不能移动
+      if (isKnockback)
+      {
+         return;
+      }
       rb.linearVelocity = new Vector2(xVelocity, yVelocity);
         
       //移动的时候永远更新角色方向
@@ -59,7 +97,10 @@ public class Enity : MonoBehaviour
    }
     
    //将速度归至0
-   public void ZeroVelocity() => rb.linearVelocity = new Vector2(0f, 0f);
+   public void ZeroVelocity() 
+   {
+      SetVelocity(0f, 0f);
+   }
 
    //停止x轴上的速度
    public void SetZeroVelocityX()
@@ -88,6 +129,8 @@ public class Enity : MonoBehaviour
       //检测墙体碰撞
       Gizmos.DrawLine(wallCheck.position,
          new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
+      //攻击范围检测
+      Gizmos.DrawWireSphere(attackCheck.position,attackCheckRadius);
    }
 
    #endregion

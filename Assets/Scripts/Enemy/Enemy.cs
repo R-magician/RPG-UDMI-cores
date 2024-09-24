@@ -6,6 +6,16 @@ public class Enemy : Enity
 {
     //检测图层是否是player层
     [SerializeField] protected LayerMask whatIsPlayer;
+
+    [Header("眩晕信息")] 
+    //眩晕时长
+    public float stunDuration;
+    //眩晕方向
+    public Vector2 stunDirection;
+    //是否能被反击
+    protected bool canBeStunned;
+    //反击时的图片
+    [SerializeField] protected GameObject counterImage;
     
     [Header("移动信息")]
     //移动速度
@@ -37,6 +47,21 @@ public class Enemy : Enity
         base.Update();
         //更新状态里面的更新
         stateMachine.currentState.Update();
+    }
+
+    //打开反击窗口
+    public virtual void openCounterAttackWindow()
+    {
+        //在反击
+        canBeStunned = true;
+        //显示图片
+        counterImage.SetActive(true);
+    }
+
+    //关闭反击窗口
+    public virtual void CloseCounterAttackWindow()
+    {
+        
     }
     
     public virtual void AnimationFinishTrigger()=>stateMachine.currentState.AnimationFinishTrigger();
