@@ -27,5 +27,10 @@ public class SkeletonAnimationTriggers : MonoBehaviour
             }
         }
     }
-    
+
+    //触发反击
+    private void OpenCounterWindow() => enemy.openCounterAttackWindow();
+
+    //关闭反击
+    private void CloseCounterWindow() => enemy.CloseCounterAttackWindow();
 }

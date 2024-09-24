@@ -61,7 +61,9 @@ public class Enemy : Enity
     //关闭反击窗口
     public virtual void CloseCounterAttackWindow()
     {
-        
+        canBeStunned = false;
+        //关闭显示图片
+        counterImage.SetActive(false);
     }
     
     public virtual void AnimationFinishTrigger()=>stateMachine.currentState.AnimationFinishTrigger();
