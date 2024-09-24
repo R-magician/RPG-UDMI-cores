@@ -12,6 +12,8 @@ public class Enemy : Enity
     public float moveSpeed;
     //等待时间
     public float idleTime;
+    //战斗时间
+    public float battleTime; 
     
     [Header("攻击信息")]
     //攻击距离

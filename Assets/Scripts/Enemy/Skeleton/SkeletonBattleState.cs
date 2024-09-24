@@ -29,6 +29,7 @@ public class SkeletonBattleState : EnemyState
 
         if (enemy.isPlayerDetected())
         {
+            stateTimer = enemy.battleTime;
             //当检测距离小于骷髅攻击距离--停下，发动攻击
             if (enemy.isPlayerDetected().distance < enemy.attackDistance)
             {
@@ -37,6 +38,14 @@ public class SkeletonBattleState : EnemyState
                     //切换成攻击状态
                     stateMachine.ChangeState(enemy.attackState);
                 }
+            }
+        }
+        else
+        {
+            //当战斗时间过了，恢复空闲状态,或者当玩家远离骷髅7个单位
+            if (stateTimer < 0 || Vector2.Distance(player.transform.position,enemy.transform.position) > 7)
+            {
+                stateMachine.ChangeState(enemy.idleState);
             }
         }
 
