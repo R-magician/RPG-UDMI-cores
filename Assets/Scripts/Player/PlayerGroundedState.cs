@@ -22,6 +22,8 @@ public class PlayerGroundedState : PlayerState
     public override void Update()
     {
         base.Update();
+        //移动
+        Move();
         //当角色在空中的时候切换状态
         if (!player.IsGroundDetected())
         {
@@ -54,5 +56,21 @@ public class PlayerGroundedState : PlayerState
     private void CounterAttack(InputAction.CallbackContext obj)
     {
         stateMachine.ChangeState(player.playerCounterAttackState);
+    }
+
+    private void Move()
+    {
+        //切换移动动画
+        bool isMoving = Mathf.Abs(inputDirection.x) > 0;
+        
+        //玩家在移动，但是没有碰到墙
+        if (isMoving)
+        {
+            //isBusy--携程没有忙碌的时候可以移动
+            if ((!player.IsWallDetected() || player.facingDir != inputDirection.x) && !player.isBusy)
+            {
+                stateMachine.ChangeState(player.playerMoveState);
+            }
+        }
     }
 }
