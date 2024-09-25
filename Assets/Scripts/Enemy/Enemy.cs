@@ -65,6 +65,20 @@ public class Enemy : Enity
         //关闭显示图片
         counterImage.SetActive(false);
     }
+
+    //能否被反击
+    public virtual bool CanBeStunned()
+    {
+        //能否被反击
+        if (canBeStunned)
+        {
+            //关闭反击窗口
+            CloseCounterAttackWindow();
+            return true;
+        }
+
+        return false;
+    }
     
     public virtual void AnimationFinishTrigger()=>stateMachine.currentState.AnimationFinishTrigger();
     

@@ -15,6 +15,8 @@ public class PlayerGroundedState : PlayerState
         player.inputControl.Player.Jump.started += Jump;
         //攻击
         player.inputControl.Player.Attack.started += Attack;
+        //反击
+        player.inputControl.Player.CounterAttack.started += CounterAttack;
     }
 
     public override void Update()
@@ -46,5 +48,11 @@ public class PlayerGroundedState : PlayerState
     private void Attack(InputAction.CallbackContext obj)
     {
         stateMachine.ChangeState(player.playerPrimaryAttack);
+    }
+    
+    //玩家反击
+    private void CounterAttack(InputAction.CallbackContext obj)
+    {
+        stateMachine.ChangeState(player.playerCounterAttackState);
     }
 }

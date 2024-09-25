@@ -10,6 +10,8 @@ public class Player : Enity
     [Header("攻击详情")]
     //攻击动作
     public Vector2[] attackMovement;
+    //反击时间
+    public float counterAttackDuration =.2f;
     
     //是否忙碌--经过携程该值
     public bool isBusy{get; private set;}
@@ -63,6 +65,9 @@ public class Player : Enity
     
     //玩家主要攻击
     public PlayerPrimaryAttackState playerPrimaryAttack { get; private set; }
+    
+    //玩家反击状态
+    public PlayerCounterAttackState playerCounterAttackState { get; private set; }
 
     /// <summary>
     /// 初始化执行
@@ -89,6 +94,8 @@ public class Player : Enity
 
         //玩家主要攻击状态
         playerPrimaryAttack = new PlayerPrimaryAttackState(this, playerStateMachine, "Attack");
+        //玩家反击状态
+        playerCounterAttackState = new PlayerCounterAttackState(this, playerStateMachine, "CounterAttack");
 
         //创建一个实例
         inputControl = new PlayerInputControl();

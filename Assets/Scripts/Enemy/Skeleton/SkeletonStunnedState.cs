@@ -20,7 +20,7 @@ public class SkeletonStunnedState : EnemyState
         //眩晕时长
         stateTimer = enemy.stunDuration;
         //设置眩晕速度
-        rb.linearVelocity = new (enemy.facingDir * enemy.stunDirection.x,enemy.stunDirection.y);
+        rb.linearVelocity = new (-enemy.facingDir * enemy.stunDirection.x,enemy.stunDirection.y);
     }
 
     public override void Update()
