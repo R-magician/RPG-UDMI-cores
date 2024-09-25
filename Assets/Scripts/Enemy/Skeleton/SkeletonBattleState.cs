@@ -20,7 +20,7 @@ public class SkeletonBattleState : EnemyState
     {
         base.Enter();
 
-        player = GameObject.Find("Player").transform;
+        player = PlayerManager.instance.Player.transform;
     }
 
     public override void Update()
