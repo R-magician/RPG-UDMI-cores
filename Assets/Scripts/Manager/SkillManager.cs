@@ -6,6 +6,11 @@ public class SkillManager : MonoBehaviour
 {
     public static SkillManager instance;
 
+    //冲刺技能
+    public DashSkill dash{get; private set;}
+    //克隆技能
+    public CloneSkill clone{get; private set;}
+
     private void Awake()
     {
         if (instance != null)
@@ -16,5 +21,11 @@ public class SkillManager : MonoBehaviour
         {
             instance = this;
         }
+    }
+
+    private void Start()
+    {
+        dash = GetComponent<DashSkill>();
+        clone = GetComponent<CloneSkill>();
     }
 }

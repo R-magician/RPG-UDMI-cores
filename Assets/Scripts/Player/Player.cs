@@ -23,10 +23,6 @@ public class Player : Enity
     public float jumpForce;
     
     [Header("冲刺相关")]
-    //冲刺冷却时间
-    [SerializeField] private float dashCooldown;
-    //冲刺冷却记时器
-    [SerializeField] private float dashUsageTimer;
     //冲刺速度
     public float dashSpeed;
     //冲刺时间
@@ -36,6 +32,9 @@ public class Player : Enity
 
     //玩家控制系统
     public PlayerInputControl inputControl;
+    
+    //技能管理
+    public SkillManager skill { get; private set; }
 
 
     [Header("玩家状态")]
@@ -104,6 +103,9 @@ public class Player : Enity
     protected override void Start()
     {
         base.Start();
+
+        skill = SkillManager.instance;
+        
         //初始化状态机--等待
         playerStateMachine.initialize(playerIdleState);
         //冲刺监听
@@ -115,9 +117,6 @@ public class Player : Enity
         base.Update();
         //执行更新状态机里面当前动画的更新
         playerStateMachine.currentState.Update();
-        
-        //冲刺开始冷却记时
-        dashUsageTimer -= Time.deltaTime;
     }
     
     //携程--暂停一段时间执行
@@ -155,11 +154,8 @@ public class Player : Enity
         }
         
         //在冷却时间中可以激活
-        if (dashUsageTimer < 0)
+        if (SkillManager.instance.dash.CanUseSkill())
         {
-            //重新赋值冷却
-            dashUsageTimer = dashCooldown;
-            
             //有冲刺方向
             if (dashDir == 0)
             {
