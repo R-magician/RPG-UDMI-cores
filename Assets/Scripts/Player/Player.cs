@@ -40,33 +40,28 @@ public class Player : Enity
     [Header("玩家状态")]
     //声明一个状态机
     public PlayerStateMachine playerStateMachine { get; private set; }
-
     //等待状态
     public PlayerIdleState playerIdleState { get; private set; }
-
     //移动状态
     public PlayerMoveState playerMoveState { get; private set; }
-
     //跳跃状态
     public PlayerJumpState playerJumpState { get; private set; }
-
     //空中状态
     public PlayerAirState playerAirState { get; private set; }
-    
     //滑墙状态
     public PlayerWallSlideState playerWallSlideState { get; private set; }
-    
     //墙上跳跃状态
     public PlayerWallJumpState playerWallJumpState { get; private set; }
-    
     //冲刺状态
     public PlayerDashState playerDashState { get; private set; }
-    
     //玩家主要攻击
     public PlayerPrimaryAttackState playerPrimaryAttack { get; private set; }
-    
     //玩家反击状态
     public PlayerCounterAttackState playerCounterAttackState { get; private set; }
+    //玩家瞄准剑状态
+    public PlayerAimSwordState playerAimSwordState { get; private set; }
+    //玩家掌握剑的状态
+    public PlayerCatchSwordState playerCatchSwordState { get; private set; }
 
     /// <summary>
     /// 初始化执行
@@ -95,6 +90,11 @@ public class Player : Enity
         playerPrimaryAttack = new PlayerPrimaryAttackState(this, playerStateMachine, "Attack");
         //玩家反击状态
         playerCounterAttackState = new PlayerCounterAttackState(this, playerStateMachine, "CounterAttack");
+        
+        //玩家瞄准剑状态
+        playerAimSwordState = new PlayerAimSwordState(this, playerStateMachine, "AimSword");
+        //玩家瞄准剑状态
+        playerCatchSwordState = new PlayerCatchSwordState(this, playerStateMachine, "CatchSword");
 
         //创建一个实例
         inputControl = new PlayerInputControl();

@@ -17,6 +17,8 @@ public class PlayerGroundedState : PlayerState
         player.inputControl.Player.Attack.started += Attack;
         //反击
         player.inputControl.Player.CounterAttack.started += CounterAttack;
+        //手里剑--按键开始
+        player.inputControl.Player.ViceSkill.started  += ViceSkill;
     }
 
     public override void Update()
@@ -56,6 +58,12 @@ public class PlayerGroundedState : PlayerState
     private void CounterAttack(InputAction.CallbackContext obj)
     {
         stateMachine.ChangeState(player.playerCounterAttackState);
+    }
+    
+    //手里剑
+    private void ViceSkill(InputAction.CallbackContext obj)
+    {
+        stateMachine.ChangeState(player.playerAimSwordState);
     }
 
     private void Move()

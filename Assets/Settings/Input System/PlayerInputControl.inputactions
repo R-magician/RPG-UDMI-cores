@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ViceSkill",
+                    "type": "Button",
+                    "id": "dd5a1867-500c-46ec-9157-e5323c8847b4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "CounterAttack",
                     "type": "Button",
                     "id": "9b920800-070f-45d0-ad01-23dd1f460c6b",
@@ -192,6 +201,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "CounterAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0ee048f8-9cb1-4722-979e-ccfe63cf5639",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ViceSkill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
