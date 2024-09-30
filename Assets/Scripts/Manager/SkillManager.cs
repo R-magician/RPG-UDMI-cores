@@ -10,6 +10,8 @@ public class SkillManager : MonoBehaviour
     public DashSkill dash{get; private set;}
     //克隆技能
     public CloneSkill clone{get; private set;}
+    //飞剑技能
+    public SwordSkill sword { get; private set; }
 
     private void Awake()
     {
@@ -21,11 +23,11 @@ public class SkillManager : MonoBehaviour
         {
             instance = this;
         }
-    }
-
-    private void Start()
-    {
+        
+        //获取挂载的组件
         dash = GetComponent<DashSkill>();
         clone = GetComponent<CloneSkill>();
+        sword = GetComponent<SwordSkill>();
     }
+    
 }

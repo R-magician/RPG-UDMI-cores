@@ -13,6 +13,8 @@ public class PlayerAimSwordState : PlayerState
         base.Enter();
         //手里剑--按键结束
         player.inputControl.Player.ViceSkill.canceled += ViceSkill;
+        //瞄准状态开启点
+        player.skill.sword.DotsActive(true);
     }
     
 

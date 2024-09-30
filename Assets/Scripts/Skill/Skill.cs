@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Skill : MonoBehaviour
 {
@@ -6,6 +8,13 @@ public class Skill : MonoBehaviour
     [SerializeReference] protected float cooldown;
     //更新冷却时间
     protected float cooldownTimer;
+
+    protected Player player;
+
+    protected virtual void Awake()
+    {
+        player = PlayerManager.instance.Player;
+    }
 
     protected virtual void Update()
     {
