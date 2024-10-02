@@ -2,8 +2,32 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//飞剑类型
+public enum SwordType
+{
+    Regular,//常规
+    Bounce,//弹跳
+    Pierce,//穿透
+    Spin,//旋转
+}
+
 public class SwordSkill : Skill
 {
+    
+    public SwordType swordType = SwordType.Regular;
+    
+    [Header("弹跳相关")] 
+    //反弹次数
+    [SerializeField] private int bounceAmount;
+    //反弹重力
+    [SerializeField] private float bounceGravity;
+    
+    [Header("穿透信息")]
+    //穿透数量
+    [SerializeField] private int pierceAmount;
+    //穿透重力
+    [SerializeField] private float pierceGravity;
+    
     [Header("技能信息")] 
     //剑预制体
     [SerializeField] private GameObject swordPrefab;
@@ -36,6 +60,24 @@ public class SwordSkill : Skill
         
         //生成点
         GenereateDots();
+        
+        //设置重力
+        SetupGravity();
+    }
+
+    //设置重力
+    private void SetupGravity()
+    {
+        //飞剑类型是穿透
+        if (swordType == SwordType.Bounce)
+        {
+            //弹跳重力
+            swordGravity = bounceGravity;
+        }else if (swordType == SwordType.Pierce)
+        {
+            //穿透重力
+            swordGravity = pierceGravity;
+        }
     }
 
     protected override void Update()
@@ -76,13 +118,24 @@ public class SwordSkill : Skill
         GameObject newSword = Instantiate(swordPrefab, (player.transform.position)+new Vector3(.5f*player.facingDir,1f,0),transform.rotation);
         //获得剑技能控制器的组件
         SwordSkillControler newSwordScript = newSword.GetComponent<SwordSkillControler>();
+
+        if (swordType == SwordType.Bounce)
+        {
+            //飞剑类型是弹跳
+            newSwordScript.SetupBounce(true,bounceAmount);
+        }else if (swordType == SwordType.Pierce)
+        {
+            //飞剑类型是穿透
+            newSwordScript.SetupPierce(pierceAmount);
+        }
         //开始飞剑
         newSwordScript.SetupSword(finalDir,swordGravity,player);
         player.AssignNewSword(newSword);
         //创建好了剑，就关闭点
         DotsActive(false);
     }
-    
+
+    #region 瞄准区域
     //目标方向
     public Vector2 AimDirection()
     {
@@ -126,4 +179,5 @@ public class SwordSkill : Skill
 
         return position;
     }
+    #endregion
 }

@@ -7,27 +7,39 @@ using UnityEngine;
 public class SwordSkillControler : MonoBehaviour
 {
     //飞剑返回速度
-    [SerializeField] private float returnSpeed =12f;
-    
+    [SerializeField] private float returnSpeed = 12f;
+
     //动画控制器
     private Animator anim;
     private Rigidbody2D rb;
     private CircleCollider2D cd;
     private Player player;
-    
+
     //是否可以旋转
     private bool canRotate = true;
+
     //正在返回状态
     private bool isReturning;
-    
+
+    [Header("穿透信息")]
+    //穿透数量
+    [SerializeField]
+    private float pierceAmount;
+
+    [Header("弹跳信息")]
     //弹跳速度
-    public float bounceSpeed;
+    [SerializeField]
+    private float bounceSpeed;
+
     //是否在弹跳
-    public bool isBouncing = true;
+    private bool isBouncing;
+
     //反弹的次数
-    public int amountOfBouce = 4;
+    private int amountOfBouce;
+
     //目标敌人列表
-    public List<Transform> enemyTarget;
+    private List<Transform> enemyTarget;
+
     //目标索引
     private int targetIndex;
 
@@ -38,15 +50,34 @@ public class SwordSkillControler : MonoBehaviour
         cd = GetComponent<CircleCollider2D>();
     }
 
-    //开始飞剑--方向，重力
-    public void SetupSword(Vector2 dir,float gravityScale,Player _player)
+    //设置飞剑--方向，重力
+    public void SetupSword(Vector2 dir, float gravityScale, Player _player)
     {
         player = _player;
         rb.linearVelocity = dir;
         rb.gravityScale = gravityScale;
+
+        //当没有穿透数量的时候播放 飞剑旋转
+        if (pierceAmount <= 0)
+        {
+            //播放剑旋转动画
+            anim.SetBool("Rotation", true);
+        }
         
-        //播放剑旋转动画
-        anim.SetBool("Rotation",true);
+    }
+
+    //设置弹跳
+    public void SetupBounce(bool _isBouncing, int _amountOfBouces)
+    {
+        isBouncing = _isBouncing;
+        amountOfBouce = _amountOfBouces;
+        enemyTarget = new List<Transform>();
+    }
+
+    //设置穿透
+    public void SetupPierce(int _pierceAmount)
+    {
+        pierceAmount = _pierceAmount;
     }
 
     //剑返回到player
@@ -56,7 +87,7 @@ public class SwordSkillControler : MonoBehaviour
         //冻结所有旋转轴
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
         transform.parent = null;
-        
+
         //正在返回中
         isReturning = true;
     }
@@ -71,7 +102,8 @@ public class SwordSkillControler : MonoBehaviour
         //返回剑
         if (isReturning)
         {
-            transform.position = Vector2.MoveTowards(transform.position, player.transform.position+ new Vector3(.5f*player.facingDir,1f,0), Time.deltaTime * returnSpeed);
+            transform.position = Vector2.MoveTowards(transform.position,
+                player.transform.position + new Vector3(.5f * player.facingDir, 1f, 0), Time.deltaTime * returnSpeed);
 
             //如果剑与玩家之间的距离小于1
             if (Vector2.Distance(transform.position, player.transform.position) < 2f)
@@ -80,12 +112,19 @@ public class SwordSkillControler : MonoBehaviour
                 player.CatchTheSword();
             }
         }
-        
+
+        BounceLogic();
+    }
+
+    //反弹的逻辑
+    private void BounceLogic()
+    {
         //在弹跳
         if (isBouncing && enemyTarget.Count > 0)
         {
             //按时间返回一个点到另一个点的位置
-            transform.position = Vector2.MoveTowards(transform.position,enemyTarget[targetIndex].position,bounceSpeed*Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, enemyTarget[targetIndex].position,
+                bounceSpeed * Time.deltaTime);
 
             //两点之间的距离小于0.5
             if (Vector2.Distance(transform.position, enemyTarget[targetIndex].position) < 0.1f)
@@ -103,6 +142,7 @@ public class SwordSkillControler : MonoBehaviour
                     //开始返回
                     isReturning = true;
                 }
+
                 if (targetIndex >= enemyTarget.Count)
                 {
                     targetIndex = 0;
@@ -118,6 +158,9 @@ public class SwordSkillControler : MonoBehaviour
         {
             return;
         }
+        
+        //执行受伤
+        other.GetComponent<Enemy>()?.Damage();
 
         if (other.GetComponent<Enemy>() != null)
         {
@@ -140,16 +183,22 @@ public class SwordSkillControler : MonoBehaviour
         StuckInfo(other);
     }
 
-    //插入
+    //插入墙体、敌人
     private void StuckInfo(Collider2D other)
     {
+        //当有穿透数，并且是敌人
+        if (pierceAmount>0 && other.GetComponent<Enemy>()!=null)
+        {
+            pierceAmount--;
+            return;
+        }
         //当前碰撞器接触到物体
         canRotate = false;
         //碰撞器关闭
         cd.enabled = false;
-        
+
         //刚体类型改为运动型
-        rb.bodyType  = RigidbodyType2D.Kinematic;
+        rb.bodyType = RigidbodyType2D.Kinematic;
         //冻结所有轴
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
@@ -158,8 +207,9 @@ public class SwordSkillControler : MonoBehaviour
         {
             return;
         }
+
         //遇到碰撞物，关闭剑旋转动画
-        anim.SetBool("Rotation",false);
+        anim.SetBool("Rotation", false);
         //将父级设置为碰撞物
         transform.parent = other.transform;
     }
