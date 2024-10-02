@@ -21,11 +21,30 @@ public class PlayerAimSwordState : PlayerState
     public override void Update()
     {
         base.Update();
+        
+        //返回归0
+        player.ZeroVelocity();
+        
+        //获取鼠标点击的坐标
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        //判断鼠标在player的左边,并且玩家朝右
+        if (player.transform.position.x > mousePos.x && player.facingDir ==1)
+        {
+            //翻转角色
+            player.Flip();
+        }else if (player.transform.position.x < mousePos.x && player.facingDir == -1)
+        {
+            player.Flip();
+        }
     }
 
     public override void Exit()
     {
         base.Exit();
+
+        //携程--让当前动画执行完毕
+        player.StartCoroutine("BusyFor", .2f);
     }
     
     //手里剑

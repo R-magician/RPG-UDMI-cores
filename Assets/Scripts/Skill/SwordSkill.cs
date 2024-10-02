@@ -73,11 +73,12 @@ public class SwordSkill : Skill
     public void CreateSword()
     {
         //生成手里剑的复制体
-        GameObject newSword = Instantiate(swordPrefab,player.transform.position,transform.rotation);
+        GameObject newSword = Instantiate(swordPrefab, (player.transform.position)+new Vector3(.5f*player.facingDir,1f,0),transform.rotation);
         //获得剑技能控制器的组件
         SwordSkillControler newSwordScript = newSword.GetComponent<SwordSkillControler>();
         //开始飞剑
-        newSwordScript.SetupSword(finalDir,swordGravity);
+        newSwordScript.SetupSword(finalDir,swordGravity,player);
+        player.AssignNewSword(newSword);
         //创建好了剑，就关闭点
         DotsActive(false);
     }
@@ -110,7 +111,7 @@ public class SwordSkill : Skill
         dots = new GameObject[numberOfDots];
         for (int i = 0; i < numberOfDots; i++)
         {
-            dots[i] = Instantiate(dotPrefab,player.transform.position,Quaternion.identity,dotsParent);
+            dots[i] = Instantiate(dotPrefab,player.transform.position+new Vector3(.5f*player.facingDir,1f,0),Quaternion.identity,dotsParent);
             //不显示
             dots[i].SetActive(false);
         }
@@ -119,7 +120,7 @@ public class SwordSkill : Skill
     //设置点的位置
     private Vector2 DotsPosition(float t)
     {
-        Vector2 position = (Vector2)player.transform.position + new Vector2(
+        Vector2 position = (Vector2)player.transform.position+new Vector2(.5f*player.facingDir,1f) + new Vector2(
             AimDirection().normalized.x * launchForce.x,
             AimDirection().normalized.y * launchForce.y) * t + .5f * (Physics2D.gravity * swordGravity) * (t * t);
 

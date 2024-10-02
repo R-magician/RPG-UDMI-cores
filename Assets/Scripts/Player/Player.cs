@@ -21,6 +21,8 @@ public class Player : Enity
     public float moveSpeed = 12f;
     //掉落速度
     public float jumpForce;
+    //回收剑冲击力
+    public float swordReturnImpact;
     
     [Header("冲刺相关")]
     //冲刺速度
@@ -35,6 +37,8 @@ public class Player : Enity
     
     //技能管理
     public SkillManager skill { get; private set; }
+    //飞剑，只能保证有一个
+    public GameObject sword{ get; private set; }
 
 
     [Header("玩家状态")]
@@ -93,7 +97,7 @@ public class Player : Enity
         
         //玩家瞄准剑状态
         playerAimSwordState = new PlayerAimSwordState(this, playerStateMachine, "AimSword");
-        //玩家瞄准剑状态
+        //玩家抓住剑状态
         playerCatchSwordState = new PlayerCatchSwordState(this, playerStateMachine, "CatchSword");
 
         //创建一个实例
@@ -117,6 +121,19 @@ public class Player : Enity
         base.Update();
         //执行更新状态机里面当前动画的更新
         playerStateMachine.currentState.Update();
+    }
+
+    //分配飞剑
+    public void AssignNewSword(GameObject newSword)
+    {
+        sword = newSword;
+    }
+    
+    //抓住飞剑
+    public void CatchTheSword()
+    {
+        playerStateMachine.ChangeState(playerCatchSwordState);
+        Destroy(sword);
     }
     
     //携程--暂停一段时间执行

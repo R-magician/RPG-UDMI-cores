@@ -63,7 +63,11 @@ public class PlayerGroundedState : PlayerState
     //手里剑
     private void ViceSkill(InputAction.CallbackContext obj)
     {
-        stateMachine.ChangeState(player.playerAimSwordState);
+        //只有飞剑为空的时候允许
+        if (HasNoSword())
+        {
+            stateMachine.ChangeState(player.playerAimSwordState);
+        }
     }
 
     private void Move()
@@ -80,5 +84,18 @@ public class PlayerGroundedState : PlayerState
                 stateMachine.ChangeState(player.playerMoveState);
             }
         }
+    }
+
+    //是否没有飞剑
+    private bool HasNoSword()
+    {
+        if (!player.sword)
+        {
+            return true;
+        }
+        
+        //返回飞剑
+        player.sword.GetComponent<SwordSkillControler>().ReturnSword();
+        return false;
     }
 }

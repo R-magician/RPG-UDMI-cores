@@ -9,7 +9,7 @@ public class Enity : MonoBehaviour
    [Header("组件")]
    //动画器
    public Animator anim { get; private set; }
-   public Rigidbody2D rb ;
+   public Rigidbody2D rb { get; private set; }
    public EnityFX fx { get; private set; }
 
    [Header("击退信息")] 
@@ -45,16 +45,16 @@ public class Enity : MonoBehaviour
    //初始化执行
    protected virtual void Awake()
    {
-      
+      fx = GetComponent<EnityFX>();
+      //获取子节点的Animator
+      anim = GetComponentInChildren<Animator>();
+      rb = GetComponent<Rigidbody2D>();
    }
    
    //开始执行
    protected virtual void Start()
    {
-      fx = GetComponent<EnityFX>();
-      //获取子节点的Animator
-      anim = GetComponentInChildren<Animator>();
-      rb = GetComponent<Rigidbody2D>();
+      
    }
    
    //更新执行
