@@ -8,7 +8,7 @@ public enum SwordType
     Regular,//常规
     Bounce,//弹跳
     Pierce,//穿透
-    Spin,//旋转
+    Spin,//旋转滞空
 }
 
 public class SwordSkill : Skill
@@ -21,12 +21,24 @@ public class SwordSkill : Skill
     [SerializeField] private int bounceAmount;
     //反弹重力
     [SerializeField] private float bounceGravity;
+    //弹跳速度
+    [SerializeField] private float bounceSpeed;
     
     [Header("穿透信息")]
     //穿透数量
     [SerializeField] private int pierceAmount;
     //穿透重力
     [SerializeField] private float pierceGravity;
+
+    [Header("旋转信息")]
+    //伤害冷却
+    [SerializeField] private float hitCooldown=0.35f;
+    //最大移动距离
+    [SerializeField] private float maxTravelDistance=7;
+    //旋转时间
+    [SerializeField] private float spinDuration =2;
+    //旋转重力
+    [SerializeField] private float spinGravity=1;
     
     [Header("技能信息")] 
     //剑预制体
@@ -35,6 +47,10 @@ public class SwordSkill : Skill
     [SerializeField] private Vector2 launchForce;
     //飞行重力
     [SerializeField] private float swordGravity;
+    //冻结时间
+    [SerializeField] private float freezeTimeDuration;
+    //飞剑返回速度
+    [SerializeField] private float returnSpeed;
 
     [Header("弧线点")]
     //点的数量
@@ -77,6 +93,10 @@ public class SwordSkill : Skill
         {
             //穿透重力
             swordGravity = pierceGravity;
+        }else if (swordType == SwordType.Spin)
+        {
+            //旋转重力
+            swordGravity = spinDuration;
         }
     }
 
@@ -122,14 +142,18 @@ public class SwordSkill : Skill
         if (swordType == SwordType.Bounce)
         {
             //飞剑类型是弹跳
-            newSwordScript.SetupBounce(true,bounceAmount);
+            newSwordScript.SetupBounce(true,bounceAmount,bounceSpeed);
         }else if (swordType == SwordType.Pierce)
         {
             //飞剑类型是穿透
             newSwordScript.SetupPierce(pierceAmount);
+        }else if (swordType == SwordType.Spin)
+        {
+            //飞剑类型是旋转
+            newSwordScript.SetupSpin(true,maxTravelDistance,spinDuration,hitCooldown);
         }
         //开始飞剑
-        newSwordScript.SetupSword(finalDir,swordGravity,player);
+        newSwordScript.SetupSword(finalDir,swordGravity,player,freezeTimeDuration,returnSpeed);
         player.AssignNewSword(newSword);
         //创建好了剑，就关闭点
         DotsActive(false);

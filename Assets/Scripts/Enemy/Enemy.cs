@@ -1,5 +1,6 @@
 //敌人基类
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : Enity
@@ -24,6 +25,8 @@ public class Enemy : Enity
     public float idleTime;
     //战斗时间
     public float battleTime; 
+    //默认速度
+    private float defaultMoveSpeed;
     
     [Header("攻击信息")]
     //攻击距离
@@ -40,6 +43,7 @@ public class Enemy : Enity
     {
         base.Awake();
         stateMachine = new EnemyStateMachine();
+        defaultMoveSpeed = moveSpeed;
     }
 
     protected override void Update()
@@ -49,6 +53,33 @@ public class Enemy : Enity
         stateMachine.currentState.Update();
     }
 
+    //冻结时间
+    public virtual void FreezeTime(bool timeFreeze)
+    {
+        if (timeFreeze)
+        {
+            //如果是冻结，移动速度为0
+            moveSpeed = 0f;
+            //动画的播放速度也暂停
+            anim.speed = 0f;
+        }
+        else
+        { 
+            moveSpeed = defaultMoveSpeed;
+            anim.speed = 1;
+        }
+    }
+
+    //携程，冻结几秒
+    protected virtual IEnumerator FreezeTimerFor(float seconds)
+    {
+        FreezeTime(true);
+        yield return new WaitForSeconds(seconds);
+        FreezeTime(false);
+    }
+    
+    #region 反击
+    
     //打开反击窗口
     public virtual void openCounterAttackWindow()
     {
@@ -65,6 +96,7 @@ public class Enemy : Enity
         //关闭显示图片
         counterImage.SetActive(false);
     }
+    #endregion
 
     //能否被反击
     public virtual bool CanBeStunned()
