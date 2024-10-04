@@ -11,6 +11,7 @@ public class Enity : MonoBehaviour
    public Animator anim { get; private set; }
    public Rigidbody2D rb { get; private set; }
    public EnityFX fx { get; private set; }
+   public SpriteRenderer sr { get; private set; }
 
    [Header("击退信息")] 
    //击退方向
@@ -45,9 +46,10 @@ public class Enity : MonoBehaviour
    //初始化执行
    protected virtual void Awake()
    {
-      fx = GetComponent<EnityFX>();
       //获取子节点的Animator
       anim = GetComponentInChildren<Animator>();
+      sr = GetComponentInChildren<SpriteRenderer>();
+      fx = GetComponent<EnityFX>();
       rb = GetComponent<Rigidbody2D>();
    }
    
@@ -162,4 +164,17 @@ public class Enity : MonoBehaviour
    }
 
    #endregion
+
+   //设置透明
+   public void MakeTransparent(bool _transparent)
+   {
+      if (_transparent)
+      {
+         sr.color = Color.clear;
+      }
+      else
+      {
+         sr.color = Color.white;
+      }
+   }
 }

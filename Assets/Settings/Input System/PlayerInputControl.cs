@@ -81,6 +81,15 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Blackhole"",
+                    ""type"": ""Button"",
+                    ""id"": ""74411ae1-db41-4798-9844-1a77af1245fc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -237,6 +246,17 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
                     ""action"": ""ViceSkill"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f975a32-b053-416a-9795-e5cf53cf66bc"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Blackhole"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -312,6 +332,7 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_ViceSkill = m_Player.FindAction("ViceSkill", throwIfNotFound: true);
         m_Player_CounterAttack = m_Player.FindAction("CounterAttack", throwIfNotFound: true);
+        m_Player_Blackhole = m_Player.FindAction("Blackhole", throwIfNotFound: true);
     }
 
     ~@PlayerInputControl()
@@ -384,6 +405,7 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_ViceSkill;
     private readonly InputAction m_Player_CounterAttack;
+    private readonly InputAction m_Player_Blackhole;
     public struct PlayerActions
     {
         private @PlayerInputControl m_Wrapper;
@@ -394,6 +416,7 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @ViceSkill => m_Wrapper.m_Player_ViceSkill;
         public InputAction @CounterAttack => m_Wrapper.m_Player_CounterAttack;
+        public InputAction @Blackhole => m_Wrapper.m_Player_Blackhole;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -421,6 +444,9 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
             @CounterAttack.started += instance.OnCounterAttack;
             @CounterAttack.performed += instance.OnCounterAttack;
             @CounterAttack.canceled += instance.OnCounterAttack;
+            @Blackhole.started += instance.OnBlackhole;
+            @Blackhole.performed += instance.OnBlackhole;
+            @Blackhole.canceled += instance.OnBlackhole;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -443,6 +469,9 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
             @CounterAttack.started -= instance.OnCounterAttack;
             @CounterAttack.performed -= instance.OnCounterAttack;
             @CounterAttack.canceled -= instance.OnCounterAttack;
+            @Blackhole.started -= instance.OnBlackhole;
+            @Blackhole.performed -= instance.OnBlackhole;
+            @Blackhole.canceled -= instance.OnBlackhole;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -513,5 +542,6 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnViceSkill(InputAction.CallbackContext context);
         void OnCounterAttack(InputAction.CallbackContext context);
+        void OnBlackhole(InputAction.CallbackContext context);
     }
 }

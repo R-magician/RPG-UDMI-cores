@@ -66,6 +66,8 @@ public class Player : Enity
     public PlayerAimSwordState playerAimSwordState { get; private set; }
     //玩家掌握剑的状态
     public PlayerCatchSwordState playerCatchSwordState { get; private set; }
+    //玩家释放黑洞状态
+    public PlayerBlackHallState playerBlackHallState { get; private set; }  
 
     /// <summary>
     /// 初始化执行
@@ -99,6 +101,9 @@ public class Player : Enity
         playerAimSwordState = new PlayerAimSwordState(this, playerStateMachine, "AimSword");
         //玩家抓住剑状态
         playerCatchSwordState = new PlayerCatchSwordState(this, playerStateMachine, "CatchSword");
+        
+        //玩家释放黑洞状态
+        playerBlackHallState = new PlayerBlackHallState(this, playerStateMachine, "Jump");
 
         //创建一个实例
         inputControl = new PlayerInputControl();

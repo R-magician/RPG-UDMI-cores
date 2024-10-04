@@ -13,10 +13,10 @@ public class CloneSkill : Skill
 
 
     //创建克隆体--传递位置
-    public void CreateClone(Transform clonePosition)
+    public void CreateClone(Transform clonePosition,Vector3 offset)
     {
         GameObject newClone = Instantiate(clonePrefab);
         //在指定位置生成
-        newClone.GetComponent<CloneSkillControler>().SetupClone(clonePosition,cloneDuration,canAttack);
+        newClone.GetComponent<CloneSkillControler>().SetupClone(clonePosition,cloneDuration,canAttack,offset);
     }
 }

@@ -19,6 +19,8 @@ public class PlayerGroundedState : PlayerState
         player.inputControl.Player.CounterAttack.started += CounterAttack;
         //手里剑--按键开始
         player.inputControl.Player.ViceSkill.started  += ViceSkill;
+        //黑洞
+        player.inputControl.Player.Blackhole.started += Blackhole;
     }
 
     public override void Update()
@@ -67,6 +69,16 @@ public class PlayerGroundedState : PlayerState
         if (HasNoSword())
         {
             stateMachine.ChangeState(player.playerAimSwordState);
+        }
+    }
+    
+    //使用黑洞
+    private void Blackhole(InputAction.CallbackContext obj)
+    {
+        //如果没有blackhole才切为黑洞状态
+        if (!SkillManager.instance?.blackhole?.blackhole)
+        {
+            stateMachine.ChangeState(player.playerBlackHallState);
         }
     }
 

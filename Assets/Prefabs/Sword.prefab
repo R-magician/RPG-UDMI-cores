@@ -220,5 +220,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d881ffe9099e44a42a24a34e4dfd63a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  returnSpeed: 12
-  bounceSpeed: 20

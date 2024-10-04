@@ -12,7 +12,7 @@ public class PlayerDashState : PlayerState
         base.Enter();
         
         //创建一个克隆体
-        player.skill.clone.CreateClone(player.transform);
+        player.skill.clone.CreateClone(player.transform,Vector3.zero);
         
         //冲刺时间
         stateTimer = player.dashDuration;

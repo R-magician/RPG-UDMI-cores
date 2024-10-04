@@ -43,7 +43,7 @@ public class CloneSkillControler : MonoBehaviour
     }
 
     //开始克隆
-    public void SetupClone(Transform newTransform,float _cloneDuration,bool _canAttack)
+    public void SetupClone(Transform newTransform,float _cloneDuration,bool _canAttack,Vector3 _offset)
     {
         //是否可以攻击
         if (_canAttack)
@@ -51,7 +51,7 @@ public class CloneSkillControler : MonoBehaviour
             //随机攻击动画
             anim.SetInteger("AttackNumber",Random.Range(1,4));
         }
-        transform.position= newTransform.position;
+        transform.position= newTransform.position + _offset;
         cloneTimer = _cloneDuration;
 
         FaceCloseTarget();
