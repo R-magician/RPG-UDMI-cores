@@ -17,6 +17,8 @@ public class Player : Enity
     public bool isBusy{get; private set;}
     
     [Header("移动相关")]
+    //移动方向
+    public Vector2 inputDirection;
     //移动速度
     public float moveSpeed = 12f;
     //掉落速度
@@ -75,6 +77,8 @@ public class Player : Enity
     protected override void Awake()
     {
         base.Awake();
+        //创建一个实例
+        inputControl = new PlayerInputControl();
         //新建状态机
         playerStateMachine = new PlayerStateMachine();
         //新建等待状态--对应动画器中的变量
@@ -104,26 +108,28 @@ public class Player : Enity
         
         //玩家释放黑洞状态
         playerBlackHallState = new PlayerBlackHallState(this, playerStateMachine, "Jump");
-
-        //创建一个实例
-        inputControl = new PlayerInputControl();
     }
 
     protected override void Start()
     {
         base.Start();
-
+        
+        //冲刺监听
+        inputControl.Player.Dash.started += Dash;
+        //水晶
+        inputControl.Player.Crystal.started += Crystal;
+        
         skill = SkillManager.instance;
         
         //初始化状态机--等待
         playerStateMachine.initialize(playerIdleState);
-        //冲刺监听
-        inputControl.Player.Dash.started += Dash;
     }
     
     protected override void Update()
     {
         base.Update();
+        //获取移动时候的值
+        inputDirection = inputControl.Player.Move.ReadValue<Vector2>();
         //执行更新状态机里面当前动画的更新
         playerStateMachine.currentState.Update();
     }
@@ -186,6 +192,11 @@ public class Player : Enity
             playerStateMachine.ChangeState(playerDashState);
         }
         
-        
+    }
+    
+    //水晶
+    private void Crystal(InputAction.CallbackContext obj)
+    {
+        skill.crystal.CanUseSkill();
     }
 }

@@ -1,7 +1,7 @@
 //玩家动画状态
 using UnityEngine;
 
-public class PlayerState 
+public class PlayerState
 {
     //记录玩家状态
     protected PlayerStateMachine stateMachine;
@@ -37,8 +37,6 @@ public class PlayerState
         
         //刚开始触发器关
         triggerCalled = false;
-        //获取移动时候的值
-        inputDirection = player.inputControl.Player.Move.ReadValue<Vector2>();
     }
     
     //动画进行更新
@@ -47,7 +45,7 @@ public class PlayerState
         //持续更新状态时间
         stateTimer -= Time.deltaTime;
         //获取移动时候的值
-        inputDirection = player.inputControl.Player.Move.ReadValue<Vector2>();
+        inputDirection = player.inputDirection;
         //通过上升下降的速度值传递给动画器--这样在其他状态中如果y值有变化也会更新值
         player.anim.SetFloat("yVelocity",rb.linearVelocity.y);
         //Debug.Log("更新 "+animBoolName+" 动画");

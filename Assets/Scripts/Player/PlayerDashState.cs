@@ -12,7 +12,7 @@ public class PlayerDashState : PlayerState
         base.Enter();
         
         //创建一个克隆体
-        player.skill.clone.CreateClone(player.transform,Vector3.zero);
+        player.skill.clone.CreateCloneOnDashStart();
         
         //冲刺时间
         stateTimer = player.dashDuration;
@@ -42,6 +42,7 @@ public class PlayerDashState : PlayerState
     public override void Exit()
     {
         base.Exit();
+        player.skill.clone.CreateCloneOnDashOver();
         //退出状态的时候重置一下速度
         player.SetVelocity(0,rb.linearVelocity.y);
     }

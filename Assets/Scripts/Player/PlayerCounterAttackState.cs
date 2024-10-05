@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class PlayerCounterAttackState : PlayerState
 {
+    //能创建克隆体
+    private bool canCreateClone;
+    
     public PlayerCounterAttackState(Player _player, PlayerStateMachine _stateMachine, string _animeBoolName) : base(_player, _stateMachine, _animeBoolName)
     {
     }
@@ -11,6 +14,7 @@ public class PlayerCounterAttackState : PlayerState
     {
         base.Enter();
 
+        canCreateClone = true;
         //设置反击时间
         stateTimer = player.counterAttackDuration;
         //关闭成功反击动画
@@ -38,6 +42,13 @@ public class PlayerCounterAttackState : PlayerState
                     stateTimer = 10;//任意值，大于1
                     //开启成功反击动画
                     player.anim.SetBool("SuccessfulCounterAttack",true);
+
+                    if (canCreateClone)
+                    {
+                        canCreateClone = false;
+                        //反击成功创建一个克隆体
+                        player.skill.clone.CreateCloneOnCounterAttack(hit.transform);
+                    }
                 }
             }
         }

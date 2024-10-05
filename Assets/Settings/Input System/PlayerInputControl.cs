@@ -90,6 +90,15 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crystal"",
+                    ""type"": ""Button"",
+                    ""id"": ""71f6b826-71dc-4b2b-ad77-d720f211d09b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -257,6 +266,17 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
                     ""action"": ""Blackhole"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3e1562a-02f0-4b96-83d7-a62c2052aebe"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Crystal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -333,6 +353,7 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         m_Player_ViceSkill = m_Player.FindAction("ViceSkill", throwIfNotFound: true);
         m_Player_CounterAttack = m_Player.FindAction("CounterAttack", throwIfNotFound: true);
         m_Player_Blackhole = m_Player.FindAction("Blackhole", throwIfNotFound: true);
+        m_Player_Crystal = m_Player.FindAction("Crystal", throwIfNotFound: true);
     }
 
     ~@PlayerInputControl()
@@ -406,6 +427,7 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ViceSkill;
     private readonly InputAction m_Player_CounterAttack;
     private readonly InputAction m_Player_Blackhole;
+    private readonly InputAction m_Player_Crystal;
     public struct PlayerActions
     {
         private @PlayerInputControl m_Wrapper;
@@ -417,6 +439,7 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         public InputAction @ViceSkill => m_Wrapper.m_Player_ViceSkill;
         public InputAction @CounterAttack => m_Wrapper.m_Player_CounterAttack;
         public InputAction @Blackhole => m_Wrapper.m_Player_Blackhole;
+        public InputAction @Crystal => m_Wrapper.m_Player_Crystal;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -447,6 +470,9 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
             @Blackhole.started += instance.OnBlackhole;
             @Blackhole.performed += instance.OnBlackhole;
             @Blackhole.canceled += instance.OnBlackhole;
+            @Crystal.started += instance.OnCrystal;
+            @Crystal.performed += instance.OnCrystal;
+            @Crystal.canceled += instance.OnCrystal;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -472,6 +498,9 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
             @Blackhole.started -= instance.OnBlackhole;
             @Blackhole.performed -= instance.OnBlackhole;
             @Blackhole.canceled -= instance.OnBlackhole;
+            @Crystal.started -= instance.OnCrystal;
+            @Crystal.performed -= instance.OnCrystal;
+            @Crystal.canceled -= instance.OnCrystal;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -543,5 +572,6 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         void OnViceSkill(InputAction.CallbackContext context);
         void OnCounterAttack(InputAction.CallbackContext context);
         void OnBlackhole(InputAction.CallbackContext context);
+        void OnCrystal(InputAction.CallbackContext context);
     }
 }

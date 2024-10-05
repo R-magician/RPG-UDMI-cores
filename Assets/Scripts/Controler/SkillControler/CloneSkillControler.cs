@@ -18,7 +18,7 @@ public class CloneSkillControler : MonoBehaviour
     [SerializeField] private Transform attackCheck;
     //攻击范围
     [SerializeField] private float attackCheckRadius = .8f;
-    //敌人进距离
+    //最近的敌人
     private Transform closestEnemy;
 
     private void Awake()
@@ -43,7 +43,7 @@ public class CloneSkillControler : MonoBehaviour
     }
 
     //开始克隆
-    public void SetupClone(Transform newTransform,float _cloneDuration,bool _canAttack,Vector3 _offset)
+    public void SetupClone(Transform newTransform,float _cloneDuration,bool _canAttack,Vector3 _offset,Transform _closestEnemy)
     {
         //是否可以攻击
         if (_canAttack)
@@ -54,6 +54,7 @@ public class CloneSkillControler : MonoBehaviour
         transform.position= newTransform.position + _offset;
         cloneTimer = _cloneDuration;
 
+        closestEnemy = _closestEnemy;
         FaceCloseTarget();
     }
     
@@ -83,27 +84,7 @@ public class CloneSkillControler : MonoBehaviour
     //面对目标--创建碰撞区，让克隆体面向敌人
     private void FaceCloseTarget()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 25f);
-        
-        //默认等于无限大
-        float closestDistance = Mathf.Infinity;
-
-        foreach (var hit in colliders)
-        {
-            if (hit.GetComponent<Enemy>() != null)
-            {
-                //区域范围中用敌人--获取之间相隔的距离
-                float distanceToEnemy = Vector2.Distance(transform.position, hit.transform.position);
-                if (distanceToEnemy < closestDistance)
-                {
-                    //找到最近的那个敌人
-                    closestDistance = distanceToEnemy;
-                    closestEnemy = hit.transform;
-                }
-            }
-        }
-
-        //近距离不等于null
+        //最近的敌人null
         if (closestEnemy != null)
         {
             if (transform.position.x > closestEnemy.position.x)

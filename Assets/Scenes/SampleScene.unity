@@ -4467,6 +4467,7 @@ MonoBehaviour:
   - {x: 1, y: 2.5}
   - {x: 4, y: 1.5}
   counterAttackDuration: 0.2
+  inputDirection: {x: 0, y: 0}
   moveSpeed: 8
   jumpForce: 12
   swordReturnImpact: 3.25
@@ -22342,6 +22343,7 @@ GameObject:
   - component: {fileID: 1365205765}
   - component: {fileID: 1365205766}
   - component: {fileID: 1365205767}
+  - component: {fileID: 1365205768}
   m_Layer: 0
   m_Name: SkillManager
   m_TagString: Untagged
@@ -22405,6 +22407,9 @@ MonoBehaviour:
   clonePrefab: {fileID: 1977109214370170637, guid: 627eb597ac188164eb94e2cc4fb544a8, type: 3}
   cloneDuration: 0
   canAttack: 1
+  createCloneOnDashStart: 1
+  createCloneOnDashOver: 1
+  createCloneOnCounterAttack: 1
 --- !u!114 &1365205766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22457,6 +22462,35 @@ MonoBehaviour:
   maxSize: 15
   growSpeed: 3
   shrinkSpeed: 6
+  blackhole: {fileID: 0}
+--- !u!114 &1365205768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365205761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58d2b9c6ca5ec924c9a75f620ed20076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0
+  crystalDuration: 5
+  crystalPrefab: {fileID: 4233050289536428514, guid: 4fada09f5eefccd46a8172183000412d, type: 3}
+  cloneInsteadOfCrystal: 1
+  canExplode: 0
+  growSpeed: 5
+  canMoveToEnemy: 0
+  moveSpeed: 4
+  canUseMultiStacks: 0
+  amountOfStacks: 3
+  multiStackCooldown: 4
+  useTimeWindow: 2.5
+  crystalLeft:
+  - {fileID: 4233050289536428514, guid: 4fada09f5eefccd46a8172183000412d, type: 3}
+  - {fileID: 4233050289536428514, guid: 4fada09f5eefccd46a8172183000412d, type: 3}
+  - {fileID: 4233050289536428514, guid: 4fada09f5eefccd46a8172183000412d, type: 3}
 --- !u!1 &1465136418
 GameObject:
   m_ObjectHideFlags: 0
