@@ -56,6 +56,11 @@ public class BlackholeSkillController : MonoBehaviour
         amountOfAttacks = _amountOfAttacks;
         cloneAttackCooldown = _cloneAttackCooldown;
         blackholeTimer = _blackholeTimer;
+        if (SkillManager.instance.clone.crystalInseadOfClone)
+        {
+            //玩家不能消失
+            playerCanDisapear = false;
+        }
     }
 
     private void Update()
@@ -142,7 +147,20 @@ public class BlackholeSkillController : MonoBehaviour
             {
                 xOffset = -1.5f;
             }
-            SkillManager.instance.clone.CreateClone(targets[randomIndex],new Vector3(xOffset,-1.1f,0));
+
+            //水晶代替克隆
+            if (SkillManager.instance.clone.crystalInseadOfClone)
+            {
+                //创建水晶
+                SkillManager.instance.crystal.CreateCrystal();
+                //选择最近的敌人
+                SkillManager.instance.crystal.CurrentCrystalChooseRandomTarget();
+            }
+            else
+            {
+                //创建克隆体，发动攻击
+                SkillManager.instance.clone.CreateClone(targets[randomIndex],new Vector3(xOffset,-1.1f,0));
+            }
             amountOfAttacks--;
 
             //攻击次数小于0

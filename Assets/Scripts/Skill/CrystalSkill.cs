@@ -51,10 +51,8 @@ public class CrystalSkill : Skill
 
         if (currentCrystal == null)
         {
-            //生成一个水晶
-            currentCrystal = Instantiate(crystalPrefab,player.transform.position+new Vector3(0,1.1f,0),Quaternion.identity);
-            CrystalSkillController crystalSkillController = currentCrystal.GetComponent<CrystalSkillController>();
-            crystalSkillController.SetupCrystalSkill(crystalDuration,canExplode,canMoveToEnemy, moveSpeed,growSpeed,FindClosestEnemy(currentCrystal.transform)); 
+            //创建水晶
+            CreateCrystal();
         }
         else
         {
@@ -80,6 +78,20 @@ public class CrystalSkill : Skill
                 currentCrystal.GetComponent<CrystalSkillController>()?.FinishCrystal();
             }
         }
+    }
+
+    public void CreateCrystal()
+    {
+        //生成一个水晶
+        currentCrystal = Instantiate(crystalPrefab,player.transform.position+new Vector3(0,1.1f,0),Quaternion.identity);
+        CrystalSkillController crystalSkillController = currentCrystal.GetComponent<CrystalSkillController>();
+        crystalSkillController.SetupCrystalSkill(crystalDuration,canExplode,canMoveToEnemy, moveSpeed,growSpeed,FindClosestEnemy(currentCrystal.transform));
+    }
+
+    public void CurrentCrystalChooseRandomTarget()
+    {
+        //旋转随机的敌人
+        currentCrystal.GetComponent<CrystalSkillController>().ChooseRandomEnemy();
     }
 
     //可以使用多个晶体

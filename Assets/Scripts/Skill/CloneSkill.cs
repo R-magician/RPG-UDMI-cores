@@ -17,13 +17,30 @@ public class CloneSkill : Skill
     [SerializeField] private bool createCloneOnDashOver;
     //在反击时创建克隆
     [SerializeField] private bool createCloneOnCounterAttack;
+    
+    [Header("可以克隆的概率")]
+    //可以复制克隆
+    [SerializeField] private bool canDuplicateClone;
+    //克隆概率
+    private float chanceToDuplicate;
+    
+    [Header("水晶克隆")]
+    //水晶代替克隆
+    public bool crystalInseadOfClone;
 
     //创建克隆体--传递位置
     public void CreateClone(Transform clonePosition,Vector3 offset)
     {
+        if (crystalInseadOfClone)
+        {
+            //创建水晶
+            SkillManager.instance.crystal.CreateCrystal();
+            return;
+        }
+        
         GameObject newClone = Instantiate(clonePrefab);
         //在指定位置生成
-        newClone.GetComponent<CloneSkillControler>().SetupClone(clonePosition,cloneDuration,canAttack,offset,FindClosestEnemy(newClone.transform));
+        newClone.GetComponent<CloneSkillControler>().SetupClone(clonePosition,cloneDuration,canAttack,offset,FindClosestEnemy(newClone.transform),canDuplicateClone,chanceToDuplicate);
     }
 
     //在Dash开始时创建克隆
@@ -49,7 +66,7 @@ public class CloneSkill : Skill
     {
         if (createCloneOnCounterAttack)
         {
-            StartCoroutine(CreateCloneDelay(_enemyTransform, new Vector3(2 * player.facingDir, -1.1f)));
+            StartCoroutine(CreateCloneDelay(_enemyTransform, new Vector3(1 * player.facingDir, -1.1f)));
         }
     }
 

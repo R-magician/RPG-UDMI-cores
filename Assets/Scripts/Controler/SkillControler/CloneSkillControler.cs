@@ -20,6 +20,13 @@ public class CloneSkillControler : MonoBehaviour
     [SerializeField] private float attackCheckRadius = .8f;
     //最近的敌人
     private Transform closestEnemy;
+    //面向方向
+    private int facingDir = 1;
+    
+    //可以复制克隆
+    private bool canDuplicatClone;
+    //克隆概率
+    private float chanceToDuplicate;
 
     private void Awake()
     {
@@ -43,7 +50,7 @@ public class CloneSkillControler : MonoBehaviour
     }
 
     //开始克隆
-    public void SetupClone(Transform newTransform,float _cloneDuration,bool _canAttack,Vector3 _offset,Transform _closestEnemy)
+    public void SetupClone(Transform newTransform,float _cloneDuration,bool _canAttack,Vector3 _offset,Transform _closestEnemy,bool _canDuplicatClone,float _chanceToDuplicate)
     {
         //是否可以攻击
         if (_canAttack)
@@ -55,6 +62,8 @@ public class CloneSkillControler : MonoBehaviour
         cloneTimer = _cloneDuration;
 
         closestEnemy = _closestEnemy;
+        canDuplicatClone = _canDuplicatClone;
+        chanceToDuplicate = _chanceToDuplicate;
         FaceCloseTarget();
     }
     
@@ -77,6 +86,15 @@ public class CloneSkillControler : MonoBehaviour
             {
                 //执行受伤
                 hit.GetComponent<Enemy>().Damage();
+
+                if (canDuplicatClone)
+                {
+                    //概率为35
+                    if (Random.Range(0, 100) < 35)
+                    {
+                        SkillManager.instance.clone.CreateClone(hit.transform,new Vector3(1f *facingDir,-1.1f));
+                    }
+                }
             }
         }
     }
@@ -89,6 +107,7 @@ public class CloneSkillControler : MonoBehaviour
         {
             if (transform.position.x > closestEnemy.position.x)
             {
+                facingDir = -1;
                 transform.Rotate(0,180,0);
             }
         }

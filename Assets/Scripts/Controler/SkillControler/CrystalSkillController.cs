@@ -2,6 +2,7 @@
 
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class CrystalSkillController : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class CrystalSkillController : MonoBehaviour
     
     //最近敌人的距离
     private Transform closestTarget;
+    //敌人所在图层
+    [SerializeField] private LayerMask whatIsEnemy;
     
     //设置水晶技能
     public void SetupCrystalSkill(float _crystalDuration, bool _canExplode, bool _canMoveToEnemy, float _moveSpeed,float _growSpeed,Transform _closestTarget)
@@ -34,6 +37,19 @@ public class CrystalSkillController : MonoBehaviour
         moveSpeed = _moveSpeed;
         growSpeed = _growSpeed;
         closestTarget = _closestTarget;
+    }
+
+    //在范围内随机找到敌人
+    public void ChooseRandomEnemy()
+    {
+        float radius = SkillManager.instance.blackhole.GetBlackholeRadius();
+        //创建一个圆形检测，获取所在范围的碰撞-这将只存在一帧
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius,whatIsEnemy);
+
+        if (colliders.Length > 0)
+        {
+            closestTarget = colliders[Random.Range(0, colliders.Length)].transform;
+        }
     }
 
     private void Update()

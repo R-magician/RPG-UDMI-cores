@@ -64,4 +64,10 @@ public class BlackholeSkill : Skill
         }
         return false;
     }
+    
+    //获取黑洞半径
+    public float GetBlackholeRadius()
+    {
+        return maxSize / 2;
+    }
 }
