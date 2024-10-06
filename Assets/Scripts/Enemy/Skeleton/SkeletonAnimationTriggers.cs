@@ -22,8 +22,10 @@ public class SkeletonAnimationTriggers : MonoBehaviour
             //如果检测到玩家
             if (hit.GetComponent<Player>() != null)
             {
-                //执行受伤
-                hit.GetComponent<Player>().Damage();
+                //获取player身上的统计
+                PlayerStats target = hit.GetComponent<PlayerStats>();
+                //对player造成伤害
+                enemy.stats.DoDamage(target);
             }
         }
     }

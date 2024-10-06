@@ -12,6 +12,7 @@ public class Enity : MonoBehaviour
    public Rigidbody2D rb { get; private set; }
    public EnityFX fx { get; private set; }
    public SpriteRenderer sr { get; private set; }
+   public CharacterStats stats { get; private set; }
 
    [Header("击退信息")] 
    //击退方向
@@ -51,6 +52,7 @@ public class Enity : MonoBehaviour
       sr = GetComponentInChildren<SpriteRenderer>();
       fx = GetComponent<EnityFX>();
       rb = GetComponent<Rigidbody2D>();
+      stats = GetComponent<CharacterStats>();
    }
    
    //开始执行
@@ -66,7 +68,7 @@ public class Enity : MonoBehaviour
    }
 
    //受伤
-   public virtual void Damage()
+   public virtual void DamageEffect()
    {
       //调用fx组件中的携程--动画特效
       fx.StartCoroutine("FlashFx");

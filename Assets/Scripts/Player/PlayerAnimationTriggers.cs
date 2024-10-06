@@ -23,8 +23,10 @@ public class PlayerAnimationTriggers : MonoBehaviour
             //如果检测到敌人
             if (hit.GetComponent<Enemy>() != null)
             {
-                //执行受伤
-                hit.GetComponent<Enemy>().Damage();
+                //获取敌人身上的统计
+                EnemyStats _target = hit.GetComponent<EnemyStats>();
+                //对敌人造成伤害
+                player.stats.DoDamage(_target);
             }
         }
     }
