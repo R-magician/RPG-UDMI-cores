@@ -22,6 +22,12 @@ public class Stat
         return finalValue;
     }
 
+    //设置默认值
+    public void SetDefaultValue(int value)
+    {
+        baseValue = value;
+    }
+
     //添加buff数值
     public void AddModifier(int _modifier)
     {
