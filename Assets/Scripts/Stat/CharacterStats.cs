@@ -40,12 +40,35 @@ public class CharacterStats : MonoBehaviour
     public Stat lightningDamage;
 
     [Header("状态反馈")]
-    //是否被点燃
+    //是否被点燃--随着时间的推移造成伤害
     public bool isIgnited;
-    //是否是冰冷
+    //是否是冰冷--减缓速度
     public bool isChilled;
-    //是否被电
+    //是否被电--增加后续伤害
     public bool isShocked;
+
+    //点燃计时器
+    private float ignitedTimer;
+    //冰冻计时器
+    private float chilledTimer;
+    //电击计时器
+    private float shockTimer;
+    
+    //点燃冷却时间
+    private float ignitedDamageCooldown = .3f;
+    //冰冻冷却时间
+    private float chilledDamageCooldown = .3f;
+    //电击冷却时间
+    private float shockedDamageCooldown = .3f;
+    //点燃伤害计时器
+    private float ignitedDamageTimer;
+    //冰冻伤害计时器
+    private float chilledDamageTimer;
+    //电击伤害计时器
+    private float shockedDamageTimer;
+    //点燃伤害
+    private int igniteDamage;
+    
     
     //当前血量
     [SerializeField]private int currentHealth;
@@ -54,6 +77,56 @@ public class CharacterStats : MonoBehaviour
     {
         critPower.SetDefaultValue(150);
         currentHealth = maxHealth.GetValue();
+    }
+
+    protected virtual void Update()
+    {
+        //点燃计时器
+        ignitedTimer -= Time.deltaTime;
+        chilledTimer -= Time.deltaTime;
+        shockTimer -= Time.deltaTime;
+        
+        //点燃伤害计时器
+        ignitedDamageTimer -= Time.deltaTime;
+        chilledDamageTimer -= Time.deltaTime;
+        shockedDamageTimer -= Time.deltaTime;
+
+        if (ignitedTimer < 0)
+        {
+            //点燃结束
+            isIgnited = false;
+            if (ignitedDamageTimer < 0)
+            {
+                //点燃伤害结束
+                TakeDamage(igniteDamage);
+                
+                ignitedDamageTimer = ignitedDamageCooldown;
+            }
+        }
+        
+        if (chilledTimer < 0)
+        {
+            //冰冻结束
+            isChilled = false;
+            if (chilledDamageTimer < 0)
+            {
+                //冰冻伤害结束
+                chilledDamageTimer = chilledDamageCooldown;
+            }
+        }
+        
+        if (shockTimer < 0)
+        {
+            //电击结束
+            isShocked = false;
+            if (shockedDamageTimer < 0)
+            {
+                //电击伤害结束
+                shockedDamageTimer = shockedDamageCooldown;
+            }
+        }
+        
+        
     }
 
     //造成伤害--目标数据
@@ -130,6 +203,12 @@ public class CharacterStats : MonoBehaviour
                 return;
             }
         }
+
+        if (canApplyIgnite)
+        {
+            //设置伤害，点燃的20%
+            _targetStats.SetupIgniteDamage(Mathf.RoundToInt(_fireDamage * .2f));
+        }
         
         //状态应用
         _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
@@ -138,8 +217,16 @@ public class CharacterStats : MonoBehaviour
     //检查目标抵抗力
     private int CheckTargetResistance(CharacterStats _targetStats, int totalMagicalDamage)
     {
-        //魔法伤害 - 目标魔法抗性
-        totalMagicalDamage -= (_targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3));
+        //如果目标是冰冻的
+        if (_targetStats.isChilled)
+        {
+            totalMagicalDamage -= Mathf.RoundToInt(_targetStats.armor.GetValue() * .8f);
+        }
+        else
+        {
+            //魔法伤害 - 目标魔法抗性
+            totalMagicalDamage -= (_targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3));
+        }
         //返回0--伤害中间的一个值
         totalMagicalDamage = Mathf.Clamp(totalMagicalDamage,0,int.MaxValue);
         return totalMagicalDamage;
@@ -152,9 +239,35 @@ public class CharacterStats : MonoBehaviour
         {
             return;
         }
-        isIgnited = _ignite;
-        isShocked = _shock;
-        isChilled = _chill;
+
+        if (_ignite)
+        {
+            //点燃
+            isIgnited = _ignite;
+            ignitedTimer = 2;
+        }
+
+        if (_chill)
+        {
+            //冰冻
+            isChilled = _chill;
+            chilledTimer = 2;
+        }
+
+        if (_shock)
+        {
+            //电击
+            isShocked = _shock;
+            shockTimer = 2;
+        }
+        
+       
+    }
+
+    //设置点燃伤害
+    public void SetupIgniteDamage(int _damage)
+    {
+        igniteDamage = _damage;
     }
 
     //受到伤害
@@ -173,12 +286,19 @@ public class CharacterStats : MonoBehaviour
         
     }
     
-    //可以闪避攻击
+    //目标可以闪避攻击
     private bool TargetCanAvoidAttack(CharacterStats _targetStats)
     {
         //闪避总值
         int totalEvasion = _targetStats.evasion.GetValue() + _targetStats.agility.GetValue();
 
+        //被电
+        if (isShocked)
+        {
+            //目标闪避+20
+            totalEvasion += 20;
+        }
+        
         if (Random.Range(0, 100) < totalEvasion)
         {
             Debug.Log("闪避");
@@ -188,7 +308,7 @@ public class CharacterStats : MonoBehaviour
         return false;
     }
     
-    //检查攻击伤害
+    //检查目标攻击伤害
     private int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
     {
         //总伤害减去护甲伤害
