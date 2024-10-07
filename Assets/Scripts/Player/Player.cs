@@ -70,6 +70,8 @@ public class Player : Enity
     public PlayerCatchSwordState playerCatchSwordState { get; private set; }
     //玩家释放黑洞状态
     public PlayerBlackHallState playerBlackHallState { get; private set; }  
+    //玩家死亡状态
+    public PlayerDeadState playerDeadState { get; private set; }
 
     /// <summary>
     /// 初始化执行
@@ -108,6 +110,9 @@ public class Player : Enity
         
         //玩家释放黑洞状态
         playerBlackHallState = new PlayerBlackHallState(this, playerStateMachine, "Jump");
+        
+        //玩家死亡状态
+        playerDeadState = new PlayerDeadState(this, playerStateMachine, "Die");
     }
 
     protected override void Start()
@@ -198,5 +203,12 @@ public class Player : Enity
     private void Crystal(InputAction.CallbackContext obj)
     {
         skill.crystal.CanUseSkill();
+    }
+
+    //玩家死亡
+    public override void Die()
+    {
+        base.Die();
+        playerStateMachine.ChangeState(playerDeadState);
     }
 }

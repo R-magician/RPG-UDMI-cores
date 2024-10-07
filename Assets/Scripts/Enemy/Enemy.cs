@@ -38,6 +38,9 @@ public class Enemy : Enity
 
     //新建状态机
     public EnemyStateMachine stateMachine;
+    
+    //最后一个动画名称
+    public string lastAnimBoolName{ get; private set; }
 
     protected override void Awake()
     {
@@ -53,6 +56,11 @@ public class Enemy : Enity
         stateMachine.currentState.Update();
     }
 
+    public virtual void AssignlastAnimName(String _animName)
+    {
+        lastAnimBoolName = _animName;
+    }
+    
     //冻结时间
     public virtual void FreezeTime(bool timeFreeze)
     {

@@ -15,4 +15,10 @@ public class EnemyStats : CharacterStats
         //播放受伤动画
         enemy.DamageEffect();
     }
+
+    protected override void Die()
+    {
+        base.Die();
+        enemy.Die();
+    }
 }

@@ -13,6 +13,7 @@ public class Enity : MonoBehaviour
    public EnityFX fx { get; private set; }
    public SpriteRenderer sr { get; private set; }
    public CharacterStats stats { get; private set; }
+   public CapsuleCollider2D cd { get; private set; }
 
    [Header("击退信息")] 
    //击退方向
@@ -53,6 +54,7 @@ public class Enity : MonoBehaviour
       fx = GetComponent<EnityFX>();
       rb = GetComponent<Rigidbody2D>();
       stats = GetComponent<CharacterStats>();
+      cd = GetComponent<CapsuleCollider2D>();
    }
    
    //开始执行
@@ -178,5 +180,11 @@ public class Enity : MonoBehaviour
       {
          sr.color = Color.white;
       }
+   }
+   
+   //死亡
+   public virtual void Die()
+   {
+      
    }
 }

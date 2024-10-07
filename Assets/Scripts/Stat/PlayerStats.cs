@@ -16,4 +16,11 @@ public class PlayerStats : CharacterStats
         //播放受伤动画
         player.DamageEffect();
     }
+
+    protected override void Die()
+    {
+        base.Die();
+        //播放死亡动画
+        player.Die();
+    }
 }
