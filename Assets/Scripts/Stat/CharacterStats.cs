@@ -39,6 +39,7 @@ public class CharacterStats : MonoBehaviour
     //雷电伤害
     public Stat lightningDamage;
 
+    [Header("状态反馈")]
     //是否被点燃
     public bool isIgnited;
     //是否是冰冷
@@ -75,6 +76,7 @@ public class CharacterStats : MonoBehaviour
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
 
         //_targetStats.TakeDamage(totalDamage);
+        DoMagicalDamage(_targetStats);
     }
 
     //魔法攻击
@@ -90,6 +92,47 @@ public class CharacterStats : MonoBehaviour
         totalMagicalDamage = CheckTargetResistance(_targetStats, totalMagicalDamage);
         //目标受伤
         _targetStats.TakeDamage(totalMagicalDamage);
+
+        if (Mathf.Max(_fireDamage, _iceDamage, _lightningDamage) <= 0)
+        {
+            //当没有魔法伤害退出
+            return;
+        }
+        
+        //能被点燃--火的伤害大于冰，并且火的伤害大于雷
+        bool canApplyIgnite = _fireDamage > _iceDamage && _fireDamage > _lightningDamage;
+        //能被冰冻--冰的伤害大于火，并且冰的伤害大于雷
+        bool canApplyChill = _iceDamage > _fireDamage && _iceDamage > _lightningDamage;
+        //能被点击--雷的伤害大于火，并且雷的伤害大于冰
+        bool canApplyShock = _lightningDamage > _fireDamage && _lightningDamage > _iceDamage;
+
+        while (!canApplyIgnite && !canApplyChill && !canApplyShock)
+        {
+            //当所以都不满足时--Random.value--(0,1)
+            if (Random.value < .5f && _fireDamage > 0)
+            {
+                canApplyIgnite = true;
+                _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
+                return;
+            }
+            
+            if (Random.value < .5f && _iceDamage > 0)
+            {
+                canApplyChill = true;
+                _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
+                return;
+            }
+            
+            if (Random.value < .5f && _lightningDamage > 0)
+            {
+                canApplyShock = true;
+                _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
+                return;
+            }
+        }
+        
+        //状态应用
+        _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
     }
 
     //检查目标抵抗力
