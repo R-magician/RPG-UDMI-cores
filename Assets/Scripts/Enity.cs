@@ -44,6 +44,9 @@ public class Enity : MonoBehaviour
    public int facingDir { get; private set; } = 1;
    //角色是否翻转-是
    protected bool facingRight = true;
+
+   //创建一个事件
+   public System.Action onFlipped;
    
    //初始化执行
    protected virtual void Awake()
@@ -150,6 +153,12 @@ public class Enity : MonoBehaviour
       facingRight = !facingRight;
       //控制角色本身旋转180°
       transform.Rotate(0, 180, 0);
+
+      //事件发布
+      if (onFlipped != null)
+      {
+         onFlipped();
+      }
    }
 
    //翻转控制-单独提供一个参数是为了后面可能有什么特殊操作，比如（跳起来不能转方向）

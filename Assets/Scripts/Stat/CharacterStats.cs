@@ -69,14 +69,18 @@ public class CharacterStats : MonoBehaviour
     //点燃伤害
     private int igniteDamage;
     
+    //注册事件--血量更新
+    public System.Action onHealthChanged;
+    
     
     //当前血量
-    [SerializeField]private int currentHealth;
+    public int currentHealth;
 
     protected virtual void Awake()
     {
         critPower.SetDefaultValue(150);
-        currentHealth = maxHealth.GetValue();
+        //当前生命值
+        currentHealth = GetMaxHealthValue();
     }
 
     protected virtual void Update()
@@ -95,35 +99,26 @@ public class CharacterStats : MonoBehaviour
         {
             //点燃结束
             isIgnited = false;
-            if (ignitedDamageTimer < 0)
-            {
-                //点燃伤害结束
-                TakeDamage(igniteDamage);
-                
-                ignitedDamageTimer = ignitedDamageCooldown;
-            }
         }
         
         if (chilledTimer < 0)
         {
             //冰冻结束
             isChilled = false;
-            if (chilledDamageTimer < 0)
-            {
-                //冰冻伤害结束
-                chilledDamageTimer = chilledDamageCooldown;
-            }
         }
         
         if (shockTimer < 0)
         {
             //电击结束
             isShocked = false;
-            if (shockedDamageTimer < 0)
-            {
-                //电击伤害结束
-                shockedDamageTimer = shockedDamageCooldown;
-            }
+        }
+        
+        if (ignitedDamageTimer < 0 && isIgnited)
+        {
+            //点燃伤害结束 
+            TakeDamage(igniteDamage);
+                
+            ignitedDamageTimer = ignitedDamageCooldown;
         }
         
         
@@ -273,10 +268,23 @@ public class CharacterStats : MonoBehaviour
     //受到伤害
     public virtual void TakeDamage(int _damage)
     {
-        currentHealth -= _damage;
+        //减少生命值
+        DecreaseHealthBy(_damage);
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    //减少生命值
+    protected virtual void DecreaseHealthBy(int _damage)
+    {
+        currentHealth -= _damage;
+        
+        if (onHealthChanged!=null)
+        {
+            //更新UI
+            onHealthChanged();
         }
     }
 
@@ -342,5 +350,12 @@ public class CharacterStats : MonoBehaviour
         
         //四舍五入
         return Mathf.RoundToInt(critDamage);
+    }
+
+    //获取当前最大生命值
+    public int GetMaxHealthValue()
+    {
+        //当前血量=最大生命值+活力
+        return maxHealth.GetValue() + vitality.GetValue() * 5;
     }
 }
