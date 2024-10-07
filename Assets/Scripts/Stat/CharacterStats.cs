@@ -28,9 +28,23 @@ public class CharacterStats : MonoBehaviour
     public Stat armor;
     //基础闪避
     public Stat evasion;
+    //魔法抗性
+    public Stat magicResistance;
     
-    
-   
+    [Header("魔法统计")]
+    //魔法伤害
+    public Stat fireDamage;
+    //冰雪伤害
+    public Stat iceDamage;
+    //雷电伤害
+    public Stat lightningDamage;
+
+    //是否被点燃
+    public bool isIgnited;
+    //是否是冰冷
+    public bool isChilled;
+    //是否被电
+    public bool isShocked;
     
     //当前血量
     [SerializeField]private int currentHealth;
@@ -60,7 +74,44 @@ public class CharacterStats : MonoBehaviour
         //检查攻击伤害
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
 
-        _targetStats.TakeDamage(totalDamage);
+        //_targetStats.TakeDamage(totalDamage);
+    }
+
+    //魔法攻击
+    public virtual void DoMagicalDamage(CharacterStats _targetStats)
+    {
+        int _fireDamage = fireDamage.GetValue();
+        int _iceDamage = iceDamage.GetValue();
+        int _lightningDamage = lightningDamage.GetValue();
+        
+        // 魔法伤害 + 智力
+        int totalMagicalDamage= _fireDamage + _iceDamage + _lightningDamage + intelligence.GetValue();
+        //检查目标抵抗力
+        totalMagicalDamage = CheckTargetResistance(_targetStats, totalMagicalDamage);
+        //目标受伤
+        _targetStats.TakeDamage(totalMagicalDamage);
+    }
+
+    //检查目标抵抗力
+    private int CheckTargetResistance(CharacterStats _targetStats, int totalMagicalDamage)
+    {
+        //魔法伤害 - 目标魔法抗性
+        totalMagicalDamage -= (_targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3));
+        //返回0--伤害中间的一个值
+        totalMagicalDamage = Mathf.Clamp(totalMagicalDamage,0,int.MaxValue);
+        return totalMagicalDamage;
+    }
+
+    //应用
+    public void ApplyAilments(bool _ignite, bool _chill, bool _shock)
+    {
+        if (isChilled || isIgnited || isShocked)
+        {
+            return;
+        }
+        isIgnited = _ignite;
+        isShocked = _shock;
+        isChilled = _chill;
     }
 
     //受到伤害
