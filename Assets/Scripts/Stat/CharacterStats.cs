@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    //特效
+    private EnityFX fx;
+    
     [Header("主要统计")]
     //攻击力--可以增加伤害1，重击率增加1%
     public Stat strength;
@@ -54,6 +57,8 @@ public class CharacterStats : MonoBehaviour
     //电击计时器
     private float shockTimer;
     
+    //Debuff持续时间
+    [SerializeField] private float alimentsDuration = 4;
     //点燃冷却时间
     private float ignitedDamageCooldown = .3f;
     //冰冻冷却时间
@@ -81,6 +86,8 @@ public class CharacterStats : MonoBehaviour
         critPower.SetDefaultValue(150);
         //当前生命值
         currentHealth = GetMaxHealthValue();
+        
+        fx = GetComponent<EnityFX>();
     }
 
     protected virtual void Update()
@@ -239,21 +246,27 @@ public class CharacterStats : MonoBehaviour
         {
             //点燃
             isIgnited = _ignite;
-            ignitedTimer = 2;
+            ignitedTimer = alimentsDuration;
+            //点燃特效
+            fx.IgniteFxFor(alimentsDuration);
         }
 
         if (_chill)
         {
             //冰冻
             isChilled = _chill;
-            chilledTimer = 2;
+            chilledTimer = alimentsDuration;
+            //冰冻特效
+            fx.ChillFxFor(alimentsDuration);
         }
 
         if (_shock)
         {
             //电击
             isShocked = _shock;
-            shockTimer = 2;
+            shockTimer = alimentsDuration;
+            //雷电特效
+            fx.ShockFxFor(alimentsDuration);
         }
         
        

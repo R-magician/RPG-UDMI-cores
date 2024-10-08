@@ -36,6 +36,6 @@ public class SkeletonStunnedState : EnemyState
     {
         base.Exit();
         //立即执行关闭红色
-        enemy.fx.Invoke("CancelRedBlink",0);
+        enemy.fx.Invoke("CancelColorChange",0);
     }
 }

@@ -5137,8 +5137,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935c1ea8cc3c58146a8fac2070428586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashDuration: 0.2
+  flashDuration: 0.3
   hitMat: {fileID: 2100000, guid: a283c3827c63ef84d929553a7afc4c82, type: 2}
+  chillColors:
+  - {r: 0.6179246, g: 0.9839849, b: 1, a: 1}
+  - {r: 0.61960787, g: 0.9843137, b: 1, a: 1}
+  igniteColors:
+  - {r: 0.9622642, g: 0.4845691, b: 0.4221253, a: 1}
+  - {r: 0.9811321, g: 0.80989677, b: 0.80989677, a: 1}
+  shockColor:
+  - {r: 0.990566, g: 0.9872577, b: 0.53733534, a: 1}
+  - {r: 1, g: 0.87516385, b: 0.051886797, a: 1}
 --- !u!114 &544670616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5185,17 +5194,18 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   fireDamage:
-    baseValue: 5
+    baseValue: 1
     modifiers: 
   iceDamage:
-    baseValue: 5
+    baseValue: 2
     modifiers: 
   lightningDamage:
-    baseValue: 5
+    baseValue: 0
     modifiers: 
   isIgnited: 0
   isChilled: 0
   isShocked: 0
+  alimentsDuration: 2
   currentHealth: 0
 --- !u!1 &581879775
 GameObject:
@@ -22540,6 +22550,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashDuration: 0.3
   hitMat: {fileID: 2100000, guid: a283c3827c63ef84d929553a7afc4c82, type: 2}
+  chillColors:
+  - {r: 0.61960787, g: 0.9843137, b: 1, a: 1}
+  - {r: 0.61960787, g: 0.9843137, b: 1, a: 1}
+  igniteColors:
+  - {r: 0.9622642, g: 0.4845691, b: 0.4221253, a: 1}
+  - {r: 0.9811321, g: 0.80989677, b: 0.80989677, a: 1}
+  shockColor:
+  - {r: 0.990566, g: 0.9872577, b: 0.53733534, a: 1}
+  - {r: 1, g: 0.87516385, b: 0.051886797, a: 1}
 --- !u!114 &1149477171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22586,17 +22605,18 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   fireDamage:
-    baseValue: 5
+    baseValue: 0
     modifiers: 
   iceDamage:
-    baseValue: 5
+    baseValue: 0
     modifiers: 
   lightningDamage:
-    baseValue: 5
+    baseValue: 0
     modifiers: 
   isIgnited: 0
   isChilled: 0
   isShocked: 0
+  alimentsDuration: 2
   currentHealth: 0
 --- !u!70 &1149477172
 CapsuleCollider2D:
