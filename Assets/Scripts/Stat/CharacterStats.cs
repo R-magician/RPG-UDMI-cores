@@ -112,12 +112,15 @@ public class CharacterStats : MonoBehaviour
         {
             //冰冻结束
             isChilled = false;
+            chilledTimer = chilledDamageCooldown;
+            
         }
         
         if (shockTimer < 0)
         {
             //电击结束
             isShocked = false;
+            shockedDamageTimer = shockedDamageCooldown;
         }
         
         if (ignitedDamageTimer < 0 && isIgnited)

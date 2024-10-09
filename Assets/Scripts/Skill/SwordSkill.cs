@@ -96,7 +96,7 @@ public class SwordSkill : Skill
         }else if (swordType == SwordType.Spin)
         {
             //旋转重力
-            swordGravity = spinDuration;
+            swordGravity = spinGravity;
         }
     }
 
