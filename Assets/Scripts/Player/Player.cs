@@ -25,12 +25,18 @@ public class Player : Enity
     public float jumpForce;
     //回收剑冲击力
     public float swordReturnImpact;
+    //默认速度
+    private float defaultMoveSpeed;
+    //默认跳跃力
+    private float defaultJumpForce;
     
     [Header("冲刺相关")]
     //冲刺速度
     public float dashSpeed;
     //冲刺时间
     public float dashDuration;
+    //默认冲刺速度
+    private float defaultDashSpeed;
     //冲刺方向
     public float dashDir;
 
@@ -128,6 +134,10 @@ public class Player : Enity
         
         //初始化状态机--等待
         playerStateMachine.initialize(playerIdleState);
+
+        defaultMoveSpeed = moveSpeed;
+        defaultJumpForce = jumpForce;
+        defaultDashSpeed = dashSpeed;
     }
     
     protected override void Update()
@@ -137,6 +147,24 @@ public class Player : Enity
         inputDirection = inputControl.Player.Move.ReadValue<Vector2>();
         //执行更新状态机里面当前动画的更新
         playerStateMachine.currentState.Update();
+    }
+
+    public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
+    {
+        moveSpeed = moveSpeed * (1 - _slowPercentage);
+        jumpForce = jumpForce * (1 - _slowPercentage);
+        dashSpeed = dashSpeed * (1 - _slowPercentage);
+        anim.speed = anim.speed * (1 - _slowPercentage);
+        //延迟执行
+        Invoke("ReturnDefaultSpeed",_slowDuration);
+    }
+
+    protected override void ReturnDefaultSpeed()
+    {
+        base.ReturnDefaultSpeed();
+        moveSpeed = defaultMoveSpeed;
+        jumpForce = defaultJumpForce;
+        dashSpeed = defaultDashSpeed;
     }
 
     //分配飞剑

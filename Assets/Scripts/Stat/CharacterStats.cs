@@ -256,6 +256,10 @@ public class CharacterStats : MonoBehaviour
             //冰冻
             isChilled = _chill;
             chilledTimer = alimentsDuration;
+
+            float slowPercentage = .2f;
+            //减速0.2s
+            GetComponent<Enity>().SlowEntityBy(slowPercentage,alimentsDuration);
             //冰冻特效
             fx.ChillFxFor(alimentsDuration);
         }

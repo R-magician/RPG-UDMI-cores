@@ -60,7 +60,6 @@ public class Enity : MonoBehaviour
       cd = GetComponent<CapsuleCollider2D>();
    }
    
-   //开始执行
    protected virtual void Start()
    {
       
@@ -70,6 +69,18 @@ public class Enity : MonoBehaviour
    protected virtual void Update()
    {
       
+   }
+
+   //实体减速
+   public virtual void SlowEntityBy(float _slowPercentage, float _slowDuration)
+   {
+      
+   }
+
+   //返回默认速度
+   protected virtual void ReturnDefaultSpeed()
+   {
+      anim.speed = 1;
    }
 
    //受伤

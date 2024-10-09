@@ -28,6 +28,7 @@ public class Enemy : Enity
     //默认速度
     private float defaultMoveSpeed;
     
+    
     [Header("攻击信息")]
     //攻击距离
     public float attackDistance;
@@ -60,7 +61,21 @@ public class Enemy : Enity
     {
         lastAnimBoolName = _animName;
     }
-    
+
+    public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
+    {
+        moveSpeed = moveSpeed * (1 - _slowPercentage);
+        anim.speed = anim.speed * (1 - _slowPercentage);
+        
+        Invoke("ReturnDefaultSpeed",_slowDuration);
+    }
+
+    protected override void ReturnDefaultSpeed()
+    {
+        base.ReturnDefaultSpeed();
+        moveSpeed = defaultMoveSpeed;
+    }
+
     //冻结时间
     public virtual void FreezeTime(bool timeFreeze)
     {
