@@ -157,13 +157,15 @@ public class CharacterStats : MonoBehaviour
         //检查攻击伤害
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
 
-        //_targetStats.TakeDamage(totalDamage);
-        DoMagicalDamage(_targetStats);
+        _targetStats.TakeDamage(totalDamage);
+        //如果有属性伤害就能造成魔法攻击
+        //DoMagicalDamage(_targetStats);
     }
 
     //魔法攻击
     public virtual void DoMagicalDamage(CharacterStats _targetStats)
     {
+        Debug.Log("11111111");
         int _fireDamage = fireDamage.GetValue();
         int _iceDamage = iceDamage.GetValue();
         int _lightningDamage = lightningDamage.GetValue();

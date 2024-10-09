@@ -40,7 +40,7 @@ public class CloneSkill : Skill
         
         GameObject newClone = Instantiate(clonePrefab);
         //在指定位置生成
-        newClone.GetComponent<CloneSkillControler>().SetupClone(clonePosition,cloneDuration,canAttack,offset,FindClosestEnemy(newClone.transform),canDuplicateClone,chanceToDuplicate);
+        newClone.GetComponent<CloneSkillControler>().SetupClone(clonePosition,cloneDuration,canAttack,offset,FindClosestEnemy(newClone.transform),canDuplicateClone,chanceToDuplicate,player);
     }
 
     //在Dash开始时创建克隆

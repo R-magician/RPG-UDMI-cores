@@ -85,7 +85,7 @@ public class CrystalSkill : Skill
         //生成一个水晶
         currentCrystal = Instantiate(crystalPrefab,player.transform.position+new Vector3(0,1.1f,0),Quaternion.identity);
         CrystalSkillController crystalSkillController = currentCrystal.GetComponent<CrystalSkillController>();
-        crystalSkillController.SetupCrystalSkill(crystalDuration,canExplode,canMoveToEnemy, moveSpeed,growSpeed,FindClosestEnemy(currentCrystal.transform));
+        crystalSkillController.SetupCrystalSkill(crystalDuration,canExplode,canMoveToEnemy, moveSpeed,growSpeed,FindClosestEnemy(currentCrystal.transform),player);
     }
 
     public void CurrentCrystalChooseRandomTarget()
@@ -119,7 +119,7 @@ public class CrystalSkill : Skill
                 
                 //设置水晶技能
                 newCrystal.GetComponent<CrystalSkillController>()?.
-                    SetupCrystalSkill(crystalDuration,canExplode,canMoveToEnemy,moveSpeed,growSpeed,FindClosestEnemy(newCrystal.transform));
+                    SetupCrystalSkill(crystalDuration,canExplode,canMoveToEnemy,moveSpeed,growSpeed,FindClosestEnemy(newCrystal.transform),player);
                 
                 if (crystalLeft.Count <= 0)
                 {

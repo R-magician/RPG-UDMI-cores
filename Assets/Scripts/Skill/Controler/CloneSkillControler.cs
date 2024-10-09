@@ -6,6 +6,7 @@ using Random = UnityEngine.Random;
 
 public class CloneSkillControler : MonoBehaviour
 {
+    private Player player;
     //获取自身的精灵
     private SpriteRenderer sr;
     private Animator anim;
@@ -50,7 +51,7 @@ public class CloneSkillControler : MonoBehaviour
     }
 
     //开始克隆
-    public void SetupClone(Transform newTransform,float _cloneDuration,bool _canAttack,Vector3 _offset,Transform _closestEnemy,bool _canDuplicatClone,float _chanceToDuplicate)
+    public void SetupClone(Transform newTransform,float _cloneDuration,bool _canAttack,Vector3 _offset,Transform _closestEnemy,bool _canDuplicatClone,float _chanceToDuplicate,Player _player)
     {
         //是否可以攻击
         if (_canAttack)
@@ -64,6 +65,7 @@ public class CloneSkillControler : MonoBehaviour
         closestEnemy = _closestEnemy;
         canDuplicatClone = _canDuplicatClone;
         chanceToDuplicate = _chanceToDuplicate;
+        player = _player;
         FaceCloseTarget();
     }
     
@@ -85,7 +87,7 @@ public class CloneSkillControler : MonoBehaviour
             if (hit.GetComponent<Enemy>() != null)
             {
                 //执行受伤
-                hit.GetComponent<Enemy>().DamageEffect();
+                player.stats.DoDamage(hit.GetComponent<CharacterStats>());
 
                 if (canDuplicatClone)
                 {

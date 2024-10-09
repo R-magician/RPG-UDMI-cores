@@ -8,6 +8,7 @@ public class CrystalSkillController : MonoBehaviour
 {
     private Animator anim => GetComponent<Animator>();
     private CircleCollider2D cd => GetComponent<CircleCollider2D>();
+    private Player player;
     
     //水晶持续时间
     private float crystalExistTimer;
@@ -29,7 +30,7 @@ public class CrystalSkillController : MonoBehaviour
     [SerializeField] private LayerMask whatIsEnemy;
     
     //设置水晶技能
-    public void SetupCrystalSkill(float _crystalDuration, bool _canExplode, bool _canMoveToEnemy, float _moveSpeed,float _growSpeed,Transform _closestTarget)
+    public void SetupCrystalSkill(float _crystalDuration, bool _canExplode, bool _canMoveToEnemy, float _moveSpeed,float _growSpeed,Transform _closestTarget,Player _player)
     {
         crystalExistTimer = _crystalDuration;   
         canExplode = _canExplode;
@@ -37,6 +38,7 @@ public class CrystalSkillController : MonoBehaviour
         moveSpeed = _moveSpeed;
         growSpeed = _growSpeed;
         closestTarget = _closestTarget;
+        player = _player;
     }
 
     //在范围内随机找到敌人
@@ -99,14 +101,14 @@ public class CrystalSkillController : MonoBehaviour
     {
         //创建一个圆形检测，获取所在范围的碰撞-这将只存在一帧
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, cd.radius);
-
+        
         foreach (var hit in colliders)
         {
             //如果检测到敌人
             if (hit.GetComponent<Enemy>() != null)
             {
                 //执行受伤
-                hit.GetComponent<Enemy>().DamageEffect();
+                player.stats.DoMagicalDamage(hit.GetComponent<CharacterStats>());
             }
         }
     }
