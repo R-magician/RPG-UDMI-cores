@@ -71,8 +71,12 @@ public class CharacterStats : MonoBehaviour
     private float chilledDamageTimer;
     //电击伤害计时器
     private float shockedDamageTimer;
-    //点燃伤害
+    //点燃时候持续伤害
     private int igniteDamage;
+    //电击时候持续伤害
+    private int shockDamage;
+    //雷电预制体
+    [SerializeField] private GameObject shockStrikePrefab;
     
     //注册事件--血量更新
     public System.Action onHealthChanged;
@@ -186,7 +190,7 @@ public class CharacterStats : MonoBehaviour
 
         while (!canApplyIgnite && !canApplyChill && !canApplyShock)
         {
-            //当所以都不满足时--Random.value--(0,1)
+            //当所以都不满足时--Random.value--(0,1)--概率百分之50触发
             if (Random.value < .5f && _fireDamage > 0)
             {
                 canApplyIgnite = true;
@@ -211,8 +215,14 @@ public class CharacterStats : MonoBehaviour
 
         if (canApplyIgnite)
         {
-            //设置伤害，点燃的20%
+            //设置持续伤害，点燃的20%
             _targetStats.SetupIgniteDamage(Mathf.RoundToInt(_fireDamage * .2f));
+        }
+        
+        if (canApplyShock)
+        {
+            //设置持续伤害，电击的20%
+            _targetStats.SetupIgniteDamage(Mathf.RoundToInt(_iceDamage * .1f));
         }
         
         //状态应用
@@ -240,12 +250,14 @@ public class CharacterStats : MonoBehaviour
     //应用
     public void ApplyAilments(bool _ignite, bool _chill, bool _shock)
     {
-        if (isChilled || isIgnited || isShocked)
-        {
-            return;
-        }
+        //可以被点燃
+        bool canApplyIgnite = !isIgnited && !isChilled && !isShocked;
+        //可以冰冻
+        bool canApplyChill = !isIgnited && !isChilled && !isShocked;
+        //可以电击
+        bool canApplyShock = !isIgnited && !isChilled;
 
-        if (_ignite)
+        if (_ignite && canApplyIgnite)
         {
             //点燃
             isIgnited = _ignite;
@@ -254,7 +266,7 @@ public class CharacterStats : MonoBehaviour
             fx.IgniteFxFor(alimentsDuration);
         }
 
-        if (_chill)
+        if (_chill && canApplyChill)
         {
             //冰冻
             isChilled = _chill;
@@ -267,22 +279,94 @@ public class CharacterStats : MonoBehaviour
             fx.ChillFxFor(alimentsDuration);
         }
 
-        if (_shock)
+        //电击可以传染
+        if (_shock && canApplyShock)
         {
-            //电击
-            isShocked = _shock;
-            shockTimer = alimentsDuration;
-            //雷电特效
-            fx.ShockFxFor(alimentsDuration);
+            if (!isShocked)
+            {
+                //应用闪电持续伤害
+                ApplyShock(_shock);
+            }
+            else
+            {
+                //当前对象是player 直接退出-不传递电击
+                if (GetComponent<Player>() != null)
+                {
+                    return;
+                }
+                //攻击最近的目标--只对敌人有效
+                HitNearestTargetWith();
+            }
         }
-        
-       
     }
 
-    //设置点燃伤害
+    //应用闪电持续伤害
+    public void ApplyShock(bool _shock)
+    {
+        //如果已经被电了，返回
+        if (isShocked)
+        {
+            return;
+        }
+        //电击
+        isShocked = _shock;
+        shockTimer = alimentsDuration;
+            
+        //雷电特效
+        fx.ShockFxFor(alimentsDuration);
+    }
+
+    //攻击最近的目标--只对敌人有效
+    private void HitNearestTargetWith()
+    {
+        //找到最近的目标，只在敌人中寻找
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 25f);
+        
+        //默认等于无限大
+        float closestDistance = Mathf.Infinity;
+        
+        Transform closestEnemy = null;
+
+        foreach (var hit in colliders)
+        {
+            //防止获取的对象是当前 -- Vector2.Distance(transform.position,hit.transform.position)>1
+            if (hit.GetComponent<Enemy>() != null && Vector2.Distance(transform.position,hit.transform.position)>1)
+            {
+                //区域范围中用敌人--获取之间相隔的距离
+                float distanceToEnemy = Vector2.Distance(transform.position, hit.transform.position);
+                if (distanceToEnemy < closestDistance)
+                {
+                    //找到最近的那个敌人
+                    closestDistance = distanceToEnemy;
+                    closestEnemy = hit.transform;
+                }
+            }
+
+            if (closestEnemy == null)
+            {
+                closestEnemy = transform;
+            }
+        }
+
+        if (closestEnemy != null)
+        {
+            //生成预制体
+            GameObject newShockStrike = Instantiate(shockStrikePrefab, transform.position, Quaternion.identity);
+            //设置伤害和数据统计
+            newShockStrike.GetComponent<ThunderStrikeController>().Setup(shockDamage,closestEnemy.GetComponent<CharacterStats>());
+        }
+    }
+
+    //设置点燃持续伤害
     public void SetupIgniteDamage(int _damage)
     {
         igniteDamage = _damage;
+    }
+    
+    //设置电击持续伤害
+    public void SetupShockDamage(int _damage)
+    {
+        shockDamage = _damage;
     }
 
     //受到伤害
