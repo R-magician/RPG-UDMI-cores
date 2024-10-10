@@ -20,8 +20,8 @@ public class ItemObject : MonoBehaviour
    {
       if (other.GetComponent<Player>() != null)
       {
-         //如果玩家碰上--拾取到物品
-         Debug.Log("获得神器");
+         //如果玩家碰上--拾取到物品--添加到库存
+         Inventory.instance.AddItem(itemData);
          Destroy(gameObject);
       }
    }
