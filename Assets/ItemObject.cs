@@ -9,11 +9,13 @@ public class ItemObject : MonoBehaviour
    //物品数据
    [SerializeField] private ItemData itemData;
 
-   private void Awake()
+   //当脚本的属性在编辑器中被修改时调用
+   private void OnValidate()
    {
-      sr = GetComponent<SpriteRenderer>();
       //设置图标
-      sr.sprite = itemData.icon;
+      GetComponent<SpriteRenderer>().sprite = itemData.icon;
+      //设置名字
+      gameObject.name = "ItemObject - "+itemData.itemName;
    }
 
    private void OnTriggerEnter2D(Collider2D other)

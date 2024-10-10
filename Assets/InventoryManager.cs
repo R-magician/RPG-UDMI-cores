@@ -13,6 +13,13 @@ public class Inventory : MonoBehaviour
     //两个参数的公共字典 物品数据--库存物品
     public Dictionary<ItemData, InventoryItem> inventoryDictiatiory;
 
+    [Header("库存UI")] 
+    //库存插槽的父节点
+    [SerializeField] private Transform inventorySlotParent;
+
+    //插槽list
+    private UIItemSlot[] itemSlots; 
+    
     private void Awake()
     {
         if (instance == null)
@@ -24,11 +31,24 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    //更新UI插槽列表
+    private void UpdateSlotsUI()
+    {
+        //获取库存列表
+        for (int i = 0; i < inventoryItems.Count; i++)
+        {
+            //动态的每一个插槽Object更新物品信息
+            itemSlots[i].UpdataSlot(inventoryItems[i]);
+        }
+    }
+
     private void Start()
     {
         //赋初值
         inventoryItems = new List<InventoryItem>();
         inventoryDictiatiory = new Dictionary<ItemData, InventoryItem>();
+        //获取插槽列表
+        itemSlots = inventorySlotParent.GetComponentsInChildren<UIItemSlot>();
     }
 
     //添加库存
@@ -49,6 +69,9 @@ public class Inventory : MonoBehaviour
             //添加到库存字典--有数量
             inventoryDictiatiory.Add(_item,newItem);
         }
+
+        //更新插槽UI
+        UpdateSlotsUI();
     }
 
     //移除物品
@@ -70,5 +93,7 @@ public class Inventory : MonoBehaviour
                 value.RemoveStack();
             }
         }
+        //更新插槽UI
+        UpdateSlotsUI();
     }
 }
