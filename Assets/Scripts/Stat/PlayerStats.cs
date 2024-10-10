@@ -13,8 +13,6 @@ public class PlayerStats : CharacterStats
     public override void TakeDamage(int _damage)
     {
         base.TakeDamage(_damage);
-        //播放受伤动画
-        player.DamageEffect();
     }
 
     protected override void Die()

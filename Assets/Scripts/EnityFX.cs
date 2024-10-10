@@ -30,6 +30,19 @@ public class EnityFX : MonoBehaviour
         //获取材质
         orignalMat = sr.material;
     }
+    
+    //设置透明
+    public void MakeTransparent(bool _transparent)
+    {
+        if (_transparent)
+        {
+            sr.color = Color.clear;
+        }
+        else
+        {
+            sr.color = Color.white;
+        }
+    }
 
     //携程动画特效--
     private IEnumerator FlashFx()

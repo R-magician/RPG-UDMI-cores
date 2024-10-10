@@ -125,7 +125,7 @@ public class BlackholeSkillController : MonoBehaviour
         {
             playerCanDisapear = false;
             //玩家设置透明
-            PlayerManager.instance.Player.MakeTransparent(true);
+            PlayerManager.instance.Player.fx.MakeTransparent(true);
         }
         
     }
@@ -182,7 +182,7 @@ public class BlackholeSkillController : MonoBehaviour
         canShrink = true;
         cloneAttackReleas = false;
         //玩家设置透明
-        PlayerManager.instance.Player.MakeTransparent(false);
+        PlayerManager.instance.Player.fx.MakeTransparent(false);
     }
 
     private void DestroyHotKeys()

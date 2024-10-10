@@ -84,10 +84,9 @@ public class Enity : MonoBehaviour
    }
 
    //受伤
-   public virtual void DamageEffect()
+   public virtual void DamageImpact()
    {
       //调用fx组件中的携程--动画特效
-      fx.StartCoroutine("FlashFx");
       StartCoroutine("HitKnockback");
    }
 
@@ -188,19 +187,6 @@ public class Enity : MonoBehaviour
    }
 
    #endregion
-
-   //设置透明
-   public void MakeTransparent(bool _transparent)
-   {
-      if (_transparent)
-      {
-         sr.color = Color.clear;
-      }
-      else
-      {
-         sr.color = Color.white;
-      }
-   }
    
    //死亡
    public virtual void Die()

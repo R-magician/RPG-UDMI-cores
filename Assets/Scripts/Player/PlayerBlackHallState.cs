@@ -59,6 +59,6 @@ public class PlayerBlackHallState :PlayerState
         base.Exit();
         player.rb.gravityScale = defaultGravity;
         //玩家设置透明
-        //PlayerManager.instance.Player.MakeTransparent(false);
+        player.fx.MakeTransparent(false);
     }
 }

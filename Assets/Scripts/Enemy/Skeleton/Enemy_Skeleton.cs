@@ -24,7 +24,7 @@ public class Enemy_Skeleton : Enemy
         battleState = new SkeletonBattleState(this, stateMachine, "Move", this);
         attackState = new SkeletonAttackState(this, stateMachine, "Attack", this);
         stunnedState = new SkeletonStunnedState(this, stateMachine, "Stunned", this);
-        deadState = new SkelectonDeadState(this, stateMachine, "idle", this);
+        deadState = new SkelectonDeadState(this, stateMachine, "Idle", this);
     }
 
     protected override void Start()

@@ -30,6 +30,7 @@ public class EnemyState
         triggerCalled = false;
         rb = enemyBase.rb;
         enemyBase.anim.SetBool(animBoolName,true);
+        enemyBase.AssignlastAnimName(animBoolName);
     }
     
     //更新执行

@@ -69,7 +69,7 @@ public class CrystalSkillController : MonoBehaviour
             //水晶向目标移动
             transform.position = Vector2.MoveTowards(transform.position, closestTarget.position, moveSpeed * Time.deltaTime);
             //水晶与敌人之间的距离小于1
-            if (Vector2.Distance(transform.position, closestTarget.position) < 1f)
+            if (Vector2.Distance(transform.position, closestTarget.position) < .8f)
             {
                 FinishCrystal();
                 canMove = false;

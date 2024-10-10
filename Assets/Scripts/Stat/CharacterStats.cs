@@ -80,6 +80,8 @@ public class CharacterStats : MonoBehaviour
     
     //注册事件--血量更新
     public System.Action onHealthChanged;
+    //死亡状态
+    protected bool isDead;
     
     
     //当前血量
@@ -126,15 +128,11 @@ public class CharacterStats : MonoBehaviour
             isShocked = false;
             shockedDamageTimer = shockedDamageCooldown;
         }
-        
-        if (ignitedDamageTimer < 0 && isIgnited)
+
+        if (isIgnited)
         {
-            //点燃伤害结束 
-            TakeDamage(igniteDamage);
-                
-            ignitedDamageTimer = ignitedDamageCooldown;
+            ApplyIgniteDamage();
         }
-        
         
     }
 
@@ -162,10 +160,11 @@ public class CharacterStats : MonoBehaviour
         //DoMagicalDamage(_targetStats);
     }
 
+    #region 魔法伤害
+
     //魔法攻击
     public virtual void DoMagicalDamage(CharacterStats _targetStats)
     {
-        Debug.Log("11111111");
         int _fireDamage = fireDamage.GetValue();
         int _iceDamage = iceDamage.GetValue();
         int _lightningDamage = lightningDamage.GetValue();
@@ -182,7 +181,14 @@ public class CharacterStats : MonoBehaviour
             //当没有魔法伤害退出
             return;
         }
-        
+        //尝试应用元素
+        AttemptyToApplyAilements(_targetStats, _fireDamage, _iceDamage, _lightningDamage);
+    }
+
+    //尝试应用元素
+    private void AttemptyToApplyAilements(CharacterStats _targetStats, int _fireDamage, int _iceDamage,
+        int _lightningDamage)
+    {
         //能被点燃--火的伤害大于冰，并且火的伤害大于雷
         bool canApplyIgnite = _fireDamage > _iceDamage && _fireDamage > _lightningDamage;
         //能被冰冻--冰的伤害大于火，并且冰的伤害大于雷
@@ -224,29 +230,11 @@ public class CharacterStats : MonoBehaviour
         if (canApplyShock)
         {
             //设置持续伤害，电击的20%
-            _targetStats.SetupIgniteDamage(Mathf.RoundToInt(_iceDamage * .1f));
+            _targetStats.SetupShockDamage(Mathf.RoundToInt(_iceDamage * .1f));
         }
         
         //状态应用
         _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock);
-    }
-
-    //检查目标抵抗力
-    private int CheckTargetResistance(CharacterStats _targetStats, int totalMagicalDamage)
-    {
-        //如果目标是冰冻的
-        if (_targetStats.isChilled)
-        {
-            totalMagicalDamage -= Mathf.RoundToInt(_targetStats.armor.GetValue() * .8f);
-        }
-        else
-        {
-            //魔法伤害 - 目标魔法抗性
-            totalMagicalDamage -= (_targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3));
-        }
-        //返回0--伤害中间的一个值
-        totalMagicalDamage = Mathf.Clamp(totalMagicalDamage,0,int.MaxValue);
-        return totalMagicalDamage;
     }
 
     //应用
@@ -359,6 +347,18 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
+    //应用点火伤害
+    private void ApplyIgniteDamage()
+    {
+        if (ignitedDamageTimer < 0)
+        {
+            //点燃伤害结束 
+            TakeDamage(igniteDamage);
+                
+            ignitedDamageTimer = ignitedDamageCooldown;
+        }
+    }
+    
     //设置点燃持续伤害
     public void SetupIgniteDamage(int _damage)
     {
@@ -370,13 +370,19 @@ public class CharacterStats : MonoBehaviour
     {
         shockDamage = _damage;
     }
+    
+    #endregion
 
     //受到伤害
     public virtual void TakeDamage(int _damage)
     {
         //减少生命值
         DecreaseHealthBy(_damage);
-        if (currentHealth <= 0)
+        
+        GetComponent<Enity>().DamageImpact();
+        fx.StartCoroutine("FlashFx");
+        
+        if (currentHealth <= 0 && !isDead)
         {
             Die();
         }
@@ -397,8 +403,10 @@ public class CharacterStats : MonoBehaviour
     //执行死亡
     protected virtual void Die()
     {
-        
+        isDead = true;
     }
+
+    #region 计算区域
     
     //目标可以闪避攻击
     private bool TargetCanAvoidAttack(CharacterStats _targetStats)
@@ -430,6 +438,24 @@ public class CharacterStats : MonoBehaviour
         //把值限制在0以上
         totalDamage = Mathf.Clamp(totalDamage, 0, int.MaxValue);
         return totalDamage;
+    }
+    
+    //检查目标抵抗力
+    private int CheckTargetResistance(CharacterStats _targetStats, int totalMagicalDamage)
+    {
+        //如果目标是冰冻的
+        if (_targetStats.isChilled)
+        {
+            totalMagicalDamage -= Mathf.RoundToInt(_targetStats.armor.GetValue() * .8f);
+        }
+        else
+        {
+            //魔法伤害 - 目标魔法抗性
+            totalMagicalDamage -= (_targetStats.magicResistance.GetValue() + (_targetStats.intelligence.GetValue() * 3));
+        }
+        //返回0--伤害中间的一个值
+        totalMagicalDamage = Mathf.Clamp(totalMagicalDamage,0,int.MaxValue);
+        return totalMagicalDamage;
     }
     
     //暴击几率
@@ -464,4 +490,6 @@ public class CharacterStats : MonoBehaviour
         //当前血量=最大生命值+活力
         return maxHealth.GetValue() + vitality.GetValue() * 5;
     }
+    
+    #endregion
 }
