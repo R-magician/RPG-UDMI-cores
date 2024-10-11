@@ -14,6 +14,7 @@ public class UI_ItemSlot : MonoBehaviour
     //物品信息
     public InventoryItem item;
 
+    //更新插槽数据
     public void UpdataSlot(InventoryItem _item)
     {
         item = _item;

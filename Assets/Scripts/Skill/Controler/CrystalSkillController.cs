@@ -66,6 +66,12 @@ public class CrystalSkillController : MonoBehaviour
         //可以移动
         if (canMove)
         {
+            //没有找到最近的目标，则返回
+            if (closestTarget == null)
+            {
+                return;
+            }
+            
             //水晶向目标移动
             transform.position = Vector2.MoveTowards(transform.position, closestTarget.position, moveSpeed * Time.deltaTime);
             //水晶与敌人之间的距离小于1
