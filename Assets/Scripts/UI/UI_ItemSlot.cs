@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIItemSlot : MonoBehaviour
+public class UI_ItemSlot : MonoBehaviour
 {
     //显示物品图片组件
     [SerializeField]private Image itemImage;

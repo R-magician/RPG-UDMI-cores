@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBarUI : MonoBehaviour
+public class UI_HealthBar : MonoBehaviour
 {
     private Enity enity;
     //数值统计

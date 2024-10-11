@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Transform inventorySlotParent;
 
     //插槽list
-    private UIItemSlot[] itemSlots; 
+    private UI_ItemSlot[] itemSlots; 
     
     private void Awake()
     {
@@ -48,7 +48,7 @@ public class Inventory : MonoBehaviour
         inventoryItems = new List<InventoryItem>();
         inventoryDictiatiory = new Dictionary<ItemData, InventoryItem>();
         //获取插槽列表
-        itemSlots = inventorySlotParent.GetComponentsInChildren<UIItemSlot>();
+        itemSlots = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
     }
 
     //添加库存
