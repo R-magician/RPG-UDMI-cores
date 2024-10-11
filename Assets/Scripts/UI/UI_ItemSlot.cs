@@ -4,8 +4,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class UI_ItemSlot : MonoBehaviour
+public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler
 {
     //显示物品图片组件
     [SerializeField]private Image itemImage;
@@ -36,6 +37,25 @@ public class UI_ItemSlot : MonoBehaviour
                 //只有一个的时候不显示数量
                 itemText.text = "";
             }
+        }
+    }
+
+    //清理插槽
+    public void ClearUpSlot()
+    {
+        item = null;
+        itemImage.sprite = null;
+        itemImage.color = Color.clear;
+        itemText.text = "";
+    }
+
+    //当鼠标点击的时候执行
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (item.data.itemType == ItemType.Equipment)
+        {
+            //装备物品
+            Inventory.instance.EquipItem(item.data);
         }
     }
 }

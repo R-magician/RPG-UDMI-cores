@@ -1,4 +1,4 @@
-//项目数据-装备
+//物品数据-装备
 using UnityEngine;
 
 public enum EquipmentType
