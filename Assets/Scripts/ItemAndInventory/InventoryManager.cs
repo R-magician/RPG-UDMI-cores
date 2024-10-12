@@ -103,6 +103,10 @@ public class Inventory : MonoBehaviour
         
         equipment.Add(newItem);
         equipmentDictionary.Add(newEquipment,newItem);
+        
+        //更新装备带给玩家的数值
+        newEquipment.AddModifiers();
+        
         //移除物品
         RemoveItem(_item);
         
@@ -111,13 +115,15 @@ public class Inventory : MonoBehaviour
     }
 
     //卸载装备
-    private void UnequipItem(ItemDataEquipment itemToDelete)
+    private void UnequipItem(ItemDataEquipment itemToRemove)
     {
-        if (equipmentDictionary.TryGetValue(itemToDelete, out InventoryItem value))
+        if (equipmentDictionary.TryGetValue(itemToRemove, out InventoryItem value))
         {
             //移出
             equipment.Remove(value);
-            equipmentDictionary.Remove(itemToDelete);
+            equipmentDictionary.Remove(itemToRemove);
+            //更新装备带给玩家的数值
+            itemToRemove.RemoveModifiers();
         }
     }
 

@@ -35,8 +35,8 @@ public class Stat
     }
     
     //移除buff数值
-    public void removeModifier(int index)
+    public void RemoveModifier(int _modifier)
     {
-        modifiers.RemoveAt(index);
+        modifiers.Remove(_modifier);
     }
 }
