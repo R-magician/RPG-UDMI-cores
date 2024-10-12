@@ -97,7 +97,7 @@ public class Inventory : MonoBehaviour
         {
             //卸载装备
             UnequipItem(oldEquipment);
-            //重新放回到存储
+            //重新放回到存储栏
             AddItem(oldEquipment);
         }
         
@@ -115,7 +115,7 @@ public class Inventory : MonoBehaviour
     }
 
     //卸载装备
-    private void UnequipItem(ItemDataEquipment itemToRemove)
+    public void UnequipItem(ItemDataEquipment itemToRemove)
     {
         if (equipmentDictionary.TryGetValue(itemToRemove, out InventoryItem value))
         {

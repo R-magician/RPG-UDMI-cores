@@ -50,7 +50,7 @@ public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler
     }
 
     //当鼠标点击的时候执行
-    public void OnPointerDown(PointerEventData eventData)
+    public virtual void OnPointerDown(PointerEventData eventData)
     {
         if (item.data.itemType == ItemType.Equipment)
         {
