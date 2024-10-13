@@ -1,4 +1,6 @@
 //物品数据-装备
+
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum EquipmentType
@@ -50,6 +52,9 @@ public class ItemDataEquipment : ItemData
     public int iceDamage;
     //雷电伤害
     public int lightingDamage;
+    
+    [Header("工艺要求")]
+    public List<InventoryItem> craftingMaterials;
 
     //添加修改器
     public void AddModifiers()

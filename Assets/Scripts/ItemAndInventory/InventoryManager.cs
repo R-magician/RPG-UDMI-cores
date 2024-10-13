@@ -282,4 +282,40 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+    
+    //可以被制作
+    public bool CanCraft(ItemDataEquipment _itemToCraft,List<InventoryItem> _requiredMaterials)
+    {
+        List<InventoryItem> materialsToRemove = new List<InventoryItem>();
+        for (int i = 0; i < _requiredMaterials.Count; i++)
+        {
+            //存储的物品中有
+            if (stashDictiatiory.TryGetValue(_requiredMaterials[i].data, out InventoryItem stashValue))
+            {
+                //添加到使用材质
+                if (stashValue.stackSize<_requiredMaterials[i].stackSize)
+                {
+                    //没有足够的材质
+                    return false;
+                }
+                else
+                {
+                    materialsToRemove.Add(stashValue);
+                }
+            }
+            else
+            {
+                //没有足够的材质
+                return false;
+            }                           
+        }
+
+        for (int i = 0; i < materialsToRemove.Count; i++)
+        {
+            RemoveItem(materialsToRemove[i].data);
+        }
+        //物品制作完成，添加到插槽中
+        AddItem(_itemToCraft);
+        return true;
+    }
 }
