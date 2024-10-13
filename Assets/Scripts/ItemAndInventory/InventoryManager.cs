@@ -283,7 +283,7 @@ public class Inventory : MonoBehaviour
         }
     }
     
-    //可以被制作
+    //物品可以被合成
     public bool CanCraft(ItemDataEquipment _itemToCraft,List<InventoryItem> _requiredMaterials)
     {
         List<InventoryItem> materialsToRemove = new List<InventoryItem>();
