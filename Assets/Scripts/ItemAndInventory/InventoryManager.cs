@@ -2,12 +2,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Inventory : MonoBehaviour
 {
     //单例模式
     public static Inventory instance;
+
+    //起始装备
+    [FormerlySerializedAs("startingEquipment")] public List<ItemData> startingItems;
 
     //装备列表
     public List<InventoryItem> equipment;
@@ -70,6 +75,17 @@ public class Inventory : MonoBehaviour
         stashitemSlots = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>();
         //获取装备插槽列表
         equipmentitemSlots = equipmentSlotParent.GetComponentsInChildren<UI_EquipmentSlot>();
+
+        //添加起始物品
+        AddStartingItems();
+    }
+
+    private void AddStartingItems()
+    {
+        for (int i = 0; i < startingItems.Count; i++)
+        {
+            AddItem(startingItems[i]);
+        }
     }
 
     //装备物品
@@ -318,4 +334,10 @@ public class Inventory : MonoBehaviour
         AddItem(_itemToCraft);
         return true;
     }
+
+    //获取装备列表
+    public List<InventoryItem> GetEquipmentList() => equipment;
+
+    //存储列表
+    public List<InventoryItem> GetStashList() => stash;
 }

@@ -8,6 +8,11 @@ public class ItemObject_Trigger : MonoBehaviour
     {
         if (other.GetComponent<Player>() != null)
         {
+            if (other.GetComponent<CharacterStats>().isDead)
+            {
+                //如果玩家死亡直接退出
+                return;
+            }
             //拾取物品
             myItemObject.PickupItem();
         }

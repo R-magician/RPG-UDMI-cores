@@ -20,5 +20,7 @@ public class PlayerStats : CharacterStats
         base.Die();
         //播放死亡动画
         player.Die();
+        //掉落物品
+        GetComponent<PlayerItemDrop>()?.GenerateDrop();
     }
 }

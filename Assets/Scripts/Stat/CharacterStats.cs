@@ -81,7 +81,7 @@ public class CharacterStats : MonoBehaviour
     //注册事件--血量更新
     public System.Action onHealthChanged;
     //死亡状态
-    protected bool isDead;
+    public bool isDead { get; private set; }
     
     
     //当前血量
