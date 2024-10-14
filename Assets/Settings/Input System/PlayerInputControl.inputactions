@@ -256,6 +256,56 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Item",
+            "id": "5a569730-18ce-4c07-b763-929ae5ec8f0f",
+            "actions": [
+                {
+                    "name": "Remove",
+                    "type": "Button",
+                    "id": "f28fedcd-e052-4d24-a025-4eacf077f2a0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "One Modifier",
+                    "id": "db3eca0a-dc33-451a-88ab-5472793db06b",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Remove",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "6705f60b-280c-4a16-8cdf-3cfa5d843778",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Remove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "ef28671c-b0ea-41cf-9440-89f440143568",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Remove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
         }
     ],
     "controlSchemes": [

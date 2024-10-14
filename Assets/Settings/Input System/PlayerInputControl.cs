@@ -279,6 +279,56 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Item"",
+            ""id"": ""5a569730-18ce-4c07-b763-929ae5ec8f0f"",
+            ""actions"": [
+                {
+                    ""name"": ""Remove"",
+                    ""type"": ""Button"",
+                    ""id"": ""f28fedcd-e052-4d24-a025-4eacf077f2a0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""db3eca0a-dc33-451a-88ab-5472793db06b"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Remove"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""6705f60b-280c-4a16-8cdf-3cfa5d843778"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Remove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""ef28671c-b0ea-41cf-9440-89f440143568"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Remove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -354,11 +404,15 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         m_Player_CounterAttack = m_Player.FindAction("CounterAttack", throwIfNotFound: true);
         m_Player_Blackhole = m_Player.FindAction("Blackhole", throwIfNotFound: true);
         m_Player_Crystal = m_Player.FindAction("Crystal", throwIfNotFound: true);
+        // Item
+        m_Item = asset.FindActionMap("Item", throwIfNotFound: true);
+        m_Item_Remove = m_Item.FindAction("Remove", throwIfNotFound: true);
     }
 
     ~@PlayerInputControl()
     {
         Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInputControl.Player.Disable() has not been called.");
+        Debug.Assert(!m_Item.enabled, "This will cause a leak and performance issues, PlayerInputControl.Item.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -518,6 +572,52 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Item
+    private readonly InputActionMap m_Item;
+    private List<IItemActions> m_ItemActionsCallbackInterfaces = new List<IItemActions>();
+    private readonly InputAction m_Item_Remove;
+    public struct ItemActions
+    {
+        private @PlayerInputControl m_Wrapper;
+        public ItemActions(@PlayerInputControl wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Remove => m_Wrapper.m_Item_Remove;
+        public InputActionMap Get() { return m_Wrapper.m_Item; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ItemActions set) { return set.Get(); }
+        public void AddCallbacks(IItemActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ItemActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ItemActionsCallbackInterfaces.Add(instance);
+            @Remove.started += instance.OnRemove;
+            @Remove.performed += instance.OnRemove;
+            @Remove.canceled += instance.OnRemove;
+        }
+
+        private void UnregisterCallbacks(IItemActions instance)
+        {
+            @Remove.started -= instance.OnRemove;
+            @Remove.performed -= instance.OnRemove;
+            @Remove.canceled -= instance.OnRemove;
+        }
+
+        public void RemoveCallbacks(IItemActions instance)
+        {
+            if (m_Wrapper.m_ItemActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IItemActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ItemActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ItemActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public ItemActions @Item => new ItemActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -573,5 +673,9 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         void OnCounterAttack(InputAction.CallbackContext context);
         void OnBlackhole(InputAction.CallbackContext context);
         void OnCrystal(InputAction.CallbackContext context);
+    }
+    public interface IItemActions
+    {
+        void OnRemove(InputAction.CallbackContext context);
     }
 }

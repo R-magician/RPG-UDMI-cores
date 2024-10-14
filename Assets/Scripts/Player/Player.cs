@@ -139,7 +139,7 @@ public class Player : Enity
         defaultJumpForce = jumpForce;
         defaultDashSpeed = dashSpeed;
     }
-    
+
     protected override void Update()
     {
         base.Update();
