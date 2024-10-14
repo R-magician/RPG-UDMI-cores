@@ -4,6 +4,8 @@ using UnityEngine;
 public class EnemyStats : CharacterStats
 {
     private Enemy enemy;
+    //掉落物品
+    private ItemDrop myDropSystem;
 
     [Header("等级详情")]
     //等级
@@ -19,6 +21,7 @@ public class EnemyStats : CharacterStats
 
         base.Awake();
         enemy = GetComponent<Enemy>();
+        myDropSystem = GetComponent<ItemDrop>();
     }
 
     //应用等级增加的数值
@@ -62,5 +65,6 @@ public class EnemyStats : CharacterStats
     {
         base.Die();
         enemy.Die();
+        myDropSystem.GenerateDrop();
     }
 }

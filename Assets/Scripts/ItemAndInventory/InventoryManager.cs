@@ -289,18 +289,18 @@ public class Inventory : MonoBehaviour
         List<InventoryItem> materialsToRemove = new List<InventoryItem>();
         for (int i = 0; i < _requiredMaterials.Count; i++)
         {
-            //存储的物品中有
-            if (stashDictiatiory.TryGetValue(_requiredMaterials[i].data, out InventoryItem stashValue))
+            //库存的物品中有
+            if (inventoryDictiatiory.TryGetValue(_requiredMaterials[i].data, out InventoryItem inventoryValue))
             {
                 //添加到使用材质
-                if (stashValue.stackSize<_requiredMaterials[i].stackSize)
+                if (inventoryValue.stackSize<_requiredMaterials[i].stackSize)
                 {
                     //没有足够的材质
                     return false;
                 }
                 else
                 {
-                    materialsToRemove.Add(stashValue);
+                    materialsToRemove.Add(inventoryValue);
                 }
             }
             else

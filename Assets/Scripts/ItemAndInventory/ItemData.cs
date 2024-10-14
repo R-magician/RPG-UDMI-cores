@@ -15,5 +15,9 @@ public class ItemData : ScriptableObject
     public string itemName;
     //物品图片
     public Sprite icon;
-    
+
+    [Range(0,100)]
+    //掉落概率
+    public float dropChance;
+
 }
