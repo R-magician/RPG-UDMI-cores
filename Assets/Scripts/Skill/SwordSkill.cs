@@ -72,7 +72,7 @@ public class SwordSkill : Skill
         base.Awake();
         
         //抬起右鼠标键
-        player.inputControl.Player.ViceSkill.canceled += ViceSkill_c;
+        InputManager.instance.inputControl.Player.ViceSkill.canceled += ViceSkill_c;
         
         //生成点
         GenereateDots();
@@ -105,7 +105,7 @@ public class SwordSkill : Skill
         base.Update();
         
         //按键是否是“进行中”的状态
-        if (player.inputControl.Player.ViceSkill.IsPressed())
+        if (InputManager.instance.inputControl.Player.ViceSkill.IsPressed())
         {
             // 按住状态，持续执行拖动或其他操作
             ViceSkill_p();

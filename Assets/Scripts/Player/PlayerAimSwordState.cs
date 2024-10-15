@@ -12,7 +12,7 @@ public class PlayerAimSwordState : PlayerState
     {
         base.Enter();
         //手里剑--按键结束
-        player.inputControl.Player.ViceSkill.canceled += ViceSkill;
+        InputManager.instance.inputControl.Player.ViceSkill.canceled += ViceSkill;
         //瞄准状态开启点
         player.skill.sword.DotsActive(true);
     }
@@ -45,6 +45,8 @@ public class PlayerAimSwordState : PlayerState
 
         //携程--让当前动画执行完毕
         player.StartCoroutine("BusyFor", .2f);
+        //手里剑--按键结束
+        InputManager.instance.inputControl.Player.ViceSkill.canceled -= ViceSkill;
     }
     
     //手里剑

@@ -12,15 +12,15 @@ public class PlayerGroundedState : PlayerState
     {
         base.Enter();
         //跳跃
-        player.inputControl.Player.Jump.started += Jump;
+        InputManager.instance.inputControl.Player.Jump.started += Jump;
         //攻击
-        player.inputControl.Player.Attack.started += Attack;
+        InputManager.instance.inputControl.Player.Attack.started += Attack;
         //反击
-        player.inputControl.Player.CounterAttack.started += CounterAttack;
+        InputManager.instance.inputControl.Player.CounterAttack.started += CounterAttack;
         //手里剑--按键开始
-        player.inputControl.Player.ViceSkill.started  += ViceSkill;
+        InputManager.instance.inputControl.Player.ViceSkill.started  += ViceSkill;
         //黑洞
-        player.inputControl.Player.Blackhole.started += Blackhole;
+        InputManager.instance.inputControl.Player.Blackhole.started += Blackhole;
     }
 
     public override void Update()
@@ -39,15 +39,15 @@ public class PlayerGroundedState : PlayerState
     {
         base.Exit();
         //跳跃
-        player.inputControl.Player.Jump.started -= Jump;
+        InputManager.instance.inputControl.Player.Jump.started -= Jump;
         //攻击
-        player.inputControl.Player.Attack.started -= Attack;
+        InputManager.instance.inputControl.Player.Attack.started -= Attack;
         //反击
-        player.inputControl.Player.CounterAttack.started -= CounterAttack;
+        InputManager.instance.inputControl.Player.CounterAttack.started -= CounterAttack;
         //手里剑--按键开始
-        player.inputControl.Player.ViceSkill.started  -= ViceSkill;
+        InputManager.instance.inputControl.Player.ViceSkill.started  -= ViceSkill;
         //黑洞
-        player.inputControl.Player.Blackhole.started -= Blackhole;
+        InputManager.instance.inputControl.Player.Blackhole.started -= Blackhole;
     }
     
     //玩家跳跃方法

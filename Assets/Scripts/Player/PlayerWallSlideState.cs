@@ -11,7 +11,7 @@ public class PlayerWallSlideState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        player.inputControl.Player.Jump.started += Jump;
+        InputManager.instance.inputControl.Player.Jump.started += Jump;
     }
 
     public override void Update()
@@ -52,6 +52,7 @@ public class PlayerWallSlideState : PlayerState
     public override void Exit()
     {
         base.Exit();
+        InputManager.instance.inputControl.Player.Jump.started -= Jump;
     }
     
     //跳跃

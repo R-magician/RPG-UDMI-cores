@@ -3,7 +3,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player : Enity
 {
@@ -39,9 +38,6 @@ public class Player : Enity
     private float defaultDashSpeed;
     //冲刺方向
     public float dashDir;
-
-    //玩家控制系统
-    public PlayerInputControl inputControl;
     
     //技能管理
     public SkillManager skill { get; private set; }
@@ -85,8 +81,6 @@ public class Player : Enity
     protected override void Awake()
     {
         base.Awake();
-        //创建一个实例
-        inputControl = new PlayerInputControl();
         //新建状态机
         playerStateMachine = new PlayerStateMachine();
         //新建等待状态--对应动画器中的变量
@@ -125,11 +119,6 @@ public class Player : Enity
     {
         base.Start();
         
-        //冲刺监听
-        inputControl.Player.Dash.started += Dash;
-        //水晶
-        inputControl.Player.Crystal.started += Crystal;
-        
         skill = SkillManager.instance;
         
         //初始化状态机--等待
@@ -144,7 +133,7 @@ public class Player : Enity
     {
         base.Update();
         //获取移动时候的值
-        inputDirection = inputControl.Player.Move.ReadValue<Vector2>();
+        inputDirection = InputManager.instance.inputDirection;
         //执行更新状态机里面当前动画的更新
         playerStateMachine.currentState.Update();
     }
@@ -189,24 +178,12 @@ public class Player : Enity
         
         isBusy = false;
     }
-    
-    private void OnEnable()
-    {
-        //启动玩家控制
-        inputControl.Enable();
-    }
-
-    private void OnDisable()
-    {
-        //关闭玩家控制
-        inputControl.Disable();
-    }
 
     //调用玩家触发器--动画触发
     public void AnimationTrigger() => playerStateMachine.currentState.AnimationFinishTrigger();
     
     //玩家冲刺
-    private void Dash(InputAction.CallbackContext obj)
+    public void Dash()
     {
         // 检测到墙，不允许冲刺
         if (IsWallDetected())
@@ -228,7 +205,7 @@ public class Player : Enity
     }
     
     //水晶
-    private void Crystal(InputAction.CallbackContext obj)
+    public void Crystal()
     {
         skill.crystal.CanUseSkill();
     }
