@@ -27,6 +27,8 @@ public class PlayerAnimationTriggers : MonoBehaviour
                 EnemyStats _target = hit.GetComponent<EnemyStats>();
                 //对敌人造成伤害
                 player.stats.DoDamage(_target);
+                
+                //库存获得武器，调用物品效果
             }
         }
     }

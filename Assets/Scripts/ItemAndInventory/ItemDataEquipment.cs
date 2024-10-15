@@ -16,6 +16,9 @@ public class ItemDataEquipment : ItemData
 {
     //装备类型
     public EquipmentType equipmentType;
+
+    //物品特效
+    public ItemEffect[] itemEffects;
     
     [Header("主要数值")]
     //力量
@@ -56,6 +59,16 @@ public class ItemDataEquipment : ItemData
     [Header("工艺要求")]
     public List<InventoryItem> craftingMaterials;
 
+    //物品特效
+    public void ItemEffect()
+    {
+        foreach (var item in itemEffects)
+        {
+            //执行特效
+            item.ExecuteEffect();
+        }
+    }
+    
     //添加修改器
     public void AddModifiers()
     {
