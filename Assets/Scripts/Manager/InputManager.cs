@@ -45,7 +45,10 @@ public class InputManager : MonoBehaviour
         inputControl.Player.Crystal.started += Crystal;
         //移除物品
         inputControl.Item.Remove.performed += Remove;
+        //使用药瓶
+        inputControl.Item.UseCure.started += UseCure;
     }
+
     //玩家冲刺
     private void Dash(InputAction.CallbackContext obj)
     {
@@ -69,6 +72,12 @@ public class InputManager : MonoBehaviour
     //移除物品
     private void Remove(InputAction.CallbackContext obj)
     {
+    }
+    
+    //使用药瓶
+    private void UseCure(InputAction.CallbackContext obj)
+    {
+        Inventory.instance.UseFlask();
     }
     
 }
