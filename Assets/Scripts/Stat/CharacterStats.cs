@@ -343,7 +343,7 @@ public class CharacterStats : MonoBehaviour
             //生成预制体
             GameObject newShockStrike = Instantiate(shockStrikePrefab, transform.position, Quaternion.identity);
             //设置伤害和数据统计
-            newShockStrike.GetComponent<ThunderStrikeController>().Setup(shockDamage,closestEnemy.GetComponent<CharacterStats>());
+            newShockStrike.GetComponent<ShockStrikeController>().Setup(shockDamage,closestEnemy.GetComponent<CharacterStats>());
         }
     }
 

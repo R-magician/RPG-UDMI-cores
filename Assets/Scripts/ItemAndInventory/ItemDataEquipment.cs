@@ -60,12 +60,12 @@ public class ItemDataEquipment : ItemData
     public List<InventoryItem> craftingMaterials;
 
     //物品特效
-    public void ExecuteItemEffect()
+    public void Effect(Transform _enemyPosition)
     {
         foreach (var item in itemEffects)
         {
             //执行特效
-            item.ExecuteEffect();
+            item.ExecuteEffect(_enemyPosition);
         }
     }
     

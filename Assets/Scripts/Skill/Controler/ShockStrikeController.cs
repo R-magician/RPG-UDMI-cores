@@ -4,7 +4,7 @@ using System;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
 
-public class ThunderStrikeController : MonoBehaviour
+public class ShockStrikeController : MonoBehaviour
 {
     //目标数值统计
     [SerializeField] private CharacterStats targetStats;

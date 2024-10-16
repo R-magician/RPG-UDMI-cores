@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemEffect : ScriptableObject
 {
     //实现效果
-    public virtual void ExecuteEffect()
+    public virtual void ExecuteEffect(Transform _enemyPosition)
     {
         Debug.Log("执行特效");
     }

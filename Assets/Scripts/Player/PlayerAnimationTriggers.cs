@@ -29,9 +29,16 @@ public class PlayerAnimationTriggers : MonoBehaviour
                 player.stats.DoDamage(_target);
                 
                 //库存获得武器，调用物品效果
-                Inventory.instance.GetEquipment(EquipmentType.Weapon).ExecuteItemEffect();
+                WeaponEffect(_target);
             }
         }
+    }
+
+    private void WeaponEffect(EnemyStats _target)
+    {
+        ItemDataEquipment weaponData = Inventory.instance.GetEquipment(EquipmentType.Weapon);
+
+        weaponData?.Effect(_target.transform);
     }
 
     //飞剑技能
