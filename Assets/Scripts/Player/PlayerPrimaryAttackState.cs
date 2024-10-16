@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerPrimaryAttackState : PlayerState
 {
     //组合攻击计数
-    private int comboCounter;
+    public int comboCounter { get; private set; }
     
     //最后的攻击时间
     private float lastTimeAttacked;
