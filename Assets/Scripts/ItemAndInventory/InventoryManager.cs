@@ -341,4 +341,22 @@ public class Inventory : MonoBehaviour
 
     //存储列表
     public List<InventoryItem> GetStashList() => stash;
+    
+    //获取装备项目
+    public ItemDataEquipment GetEquipment(EquipmentType _type)
+    {
+        ItemDataEquipment equipedItem = null;
+        
+        //遍历-装备字典的每一项
+        foreach (KeyValuePair <ItemDataEquipment,InventoryItem> item in equipmentDictionary)
+        {
+            if (item.Key.equipmentType == _type)
+            {
+                //获取是否装备了物品
+                equipedItem = item.Key;
+            }
+        }
+
+        return equipedItem;
+    }
 }

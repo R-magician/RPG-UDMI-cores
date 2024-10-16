@@ -60,7 +60,7 @@ public class ItemDataEquipment : ItemData
     public List<InventoryItem> craftingMaterials;
 
     //物品特效
-    public void ItemEffect()
+    public void ExecuteItemEffect()
     {
         foreach (var item in itemEffects)
         {
