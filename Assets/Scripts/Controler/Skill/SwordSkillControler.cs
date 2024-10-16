@@ -275,6 +275,14 @@ public class SwordSkillControler : MonoBehaviour
         player.stats.DoDamage(enemy.GetComponent<CharacterStats>());
         //执行携程
         enemy.StartCoroutine("FreezeTimerFor",freezeTimeDuration);
+        
+        //项链
+        ItemDataEquipment equipedAmulet = Inventory.instance.GetEquipment(EquipmentType.Amulet);
+
+        if (equipedAmulet != null)
+        {
+            equipedAmulet.Effect(enemy.transform);
+        }
     }
 
     private void SetupTargetsForBounce(Collider2D other)
