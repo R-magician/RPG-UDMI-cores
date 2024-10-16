@@ -388,6 +388,22 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
+    //增加血量
+    public virtual void IncreaseHealthBy(int _amount)
+    {
+        currentHealth += _amount;
+        if (currentHealth > GetMaxHealthValue())
+        {
+            currentHealth = GetMaxHealthValue();
+        }
+
+        if (onHealthChanged != null)
+        {
+            //血量更新UI
+            onHealthChanged();
+        }
+    }
+
     //减少生命值
     protected virtual void DecreaseHealthBy(int _damage)
     {

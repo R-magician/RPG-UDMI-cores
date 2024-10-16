@@ -44,6 +44,10 @@ public class Inventory : MonoBehaviour
     private UI_ItemSlot[] stashitemSlots; 
     //装备插槽list
     private UI_EquipmentSlot[] equipmentitemSlots;
+
+    [Header("物品冷却")]
+    //最后一次使用的时间
+    private float lastTimeUseFlask;
     
     private void Awake()
     {
@@ -358,5 +362,33 @@ public class Inventory : MonoBehaviour
         }
 
         return equipedItem;
+    }
+
+    //使用烧瓶
+    public void UseFlask()
+    {
+        //获取烧瓶装备
+        ItemDataEquipment currentFlask = GetEquipment(EquipmentType.Flask);
+
+        if (currentFlask == null)
+        {
+            return;
+        }
+        
+        
+        //当前时间 > 上次使用的时间+冷却时间
+        bool canUseFlask = Time.time > (lastTimeUseFlask + currentFlask.itemCooldown);
+        //能使用药瓶
+        if (canUseFlask)
+        {
+            //无特效
+            currentFlask.Effect(null);
+            //记录冷却时间
+            lastTimeUseFlask = Time.time;
+        }
+        else
+        {
+            //在冷却时间
+        }
     }
 }

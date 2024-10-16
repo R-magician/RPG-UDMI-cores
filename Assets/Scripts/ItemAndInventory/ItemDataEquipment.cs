@@ -17,6 +17,8 @@ public class ItemDataEquipment : ItemData
     //装备类型
     public EquipmentType equipmentType;
 
+    //物品使用冷却
+    public float itemCooldown;
     //物品特效
     public ItemEffect[] itemEffects;
     

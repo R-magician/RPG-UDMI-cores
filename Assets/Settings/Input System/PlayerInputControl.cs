@@ -292,6 +292,15 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseCure"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0851b49-26c7-4fe4-8978-744bd1c0b026"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -327,6 +336,17 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
                     ""action"": ""Remove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d51a7d32-011a-4efb-aafb-01164294c0cf"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""UseCure"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -407,6 +427,7 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         // Item
         m_Item = asset.FindActionMap("Item", throwIfNotFound: true);
         m_Item_Remove = m_Item.FindAction("Remove", throwIfNotFound: true);
+        m_Item_UseCure = m_Item.FindAction("UseCure", throwIfNotFound: true);
     }
 
     ~@PlayerInputControl()
@@ -577,11 +598,13 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Item;
     private List<IItemActions> m_ItemActionsCallbackInterfaces = new List<IItemActions>();
     private readonly InputAction m_Item_Remove;
+    private readonly InputAction m_Item_UseCure;
     public struct ItemActions
     {
         private @PlayerInputControl m_Wrapper;
         public ItemActions(@PlayerInputControl wrapper) { m_Wrapper = wrapper; }
         public InputAction @Remove => m_Wrapper.m_Item_Remove;
+        public InputAction @UseCure => m_Wrapper.m_Item_UseCure;
         public InputActionMap Get() { return m_Wrapper.m_Item; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -594,6 +617,9 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
             @Remove.started += instance.OnRemove;
             @Remove.performed += instance.OnRemove;
             @Remove.canceled += instance.OnRemove;
+            @UseCure.started += instance.OnUseCure;
+            @UseCure.performed += instance.OnUseCure;
+            @UseCure.canceled += instance.OnUseCure;
         }
 
         private void UnregisterCallbacks(IItemActions instance)
@@ -601,6 +627,9 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
             @Remove.started -= instance.OnRemove;
             @Remove.performed -= instance.OnRemove;
             @Remove.canceled -= instance.OnRemove;
+            @UseCure.started -= instance.OnUseCure;
+            @UseCure.performed -= instance.OnUseCure;
+            @UseCure.canceled -= instance.OnUseCure;
         }
 
         public void RemoveCallbacks(IItemActions instance)
@@ -677,5 +706,6 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
     public interface IItemActions
     {
         void OnRemove(InputAction.CallbackContext context);
+        void OnUseCure(InputAction.CallbackContext context);
     }
 }
