@@ -1,4 +1,6 @@
 //人物数值统计计算
+
+using System.Collections;
 using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
@@ -136,6 +138,20 @@ public class CharacterStats : MonoBehaviour
         
     }
 
+    //增加统计值--值，时长，修改的值
+    public virtual void IncreaseStatBy(int _modifier,float _duration,Stat _statToModify)
+    {
+        StartCoroutine(StatModCoroutine(_modifier, _duration, _statToModify));
+    }
+
+    //携程-
+    private IEnumerator StatModCoroutine(int _modifier,float _duration,Stat _statToModify)
+    {
+        _statToModify.AddModifier(_modifier);
+        yield return new WaitForSeconds(_duration);
+        _statToModify.RemoveModifier(_modifier);
+    }
+    
     //造成伤害--目标数据
     public virtual void DoDamage(CharacterStats _targetStats)
     {
@@ -157,9 +173,9 @@ public class CharacterStats : MonoBehaviour
 
         _targetStats.TakeDamage(totalDamage);
         //如果有属性伤害就能造成魔法攻击
-        //DoMagicalDamage(_targetStats);
+        DoMagicalDamage(_targetStats);//删除，如果你不想应用魔法作为主要攻击
     }
-
+    
     #region 魔法伤害
 
     //魔法攻击
