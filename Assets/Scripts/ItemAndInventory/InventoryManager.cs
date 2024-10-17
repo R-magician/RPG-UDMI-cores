@@ -46,8 +46,11 @@ public class Inventory : MonoBehaviour
     private UI_EquipmentSlot[] equipmentitemSlots;
 
     [Header("物品冷却")]
-    //最后一次使用的时间
+    //最后一次使用的时间--药瓶效果冷却
     private float lastTimeUseFlask;
+
+    //盔甲效果冷却
+    private float lastTimeUseArmor;
     
     private void Awake()
     {
@@ -390,5 +393,20 @@ public class Inventory : MonoBehaviour
         {
             //在冷却时间
         }
+    }
+    
+    //可以使用盔甲效果
+    public bool CanUseArmor()
+    {
+        //获取当前穿戴盔甲
+        ItemDataEquipment currentArmor = GetEquipment(EquipmentType.Armor);
+
+        if (Time.time > lastTimeUseArmor + currentArmor.itemCooldown)
+        {
+            lastTimeUseArmor = Time.time;
+            return true;
+        }
+
+        return false;
     }
 }

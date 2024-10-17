@@ -75,7 +75,7 @@ public class Enemy : Enity
         base.ReturnDefaultSpeed();
         moveSpeed = defaultMoveSpeed;
     }
-
+    
     //冻结时间
     public virtual void FreezeTime(bool timeFreeze)
     {
@@ -92,9 +92,15 @@ public class Enemy : Enity
             anim.speed = 1;
         }
     }
+    
+    //冰冻时间
+    public virtual void FreezeTimeFor(float _duration)
+    {
+        StartCoroutine(FreezeTimeCoroutine(_duration));
+    }
 
     //携程，冻结几秒
-    protected virtual IEnumerator FreezeTimerFor(float seconds)
+    protected virtual IEnumerator FreezeTimeCoroutine(float seconds)
     {
         FreezeTime(true);
         yield return new WaitForSeconds(seconds);

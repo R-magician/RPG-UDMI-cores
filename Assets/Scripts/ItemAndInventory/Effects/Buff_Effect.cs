@@ -28,7 +28,7 @@ public class Buff_Effect : ItemEffect
     //数量
     [SerializeField] private int buffAmount;
     //持续时长
-    [SerializeField] private int buffDuration;
+    [SerializeField] private float buffDuration;
 
     //效果
     public override void ExecuteEffect(Transform _respawnPosition)
