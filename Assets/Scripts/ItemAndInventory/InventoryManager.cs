@@ -213,7 +213,7 @@ public class Inventory : MonoBehaviour
     public void AddItem(ItemData _item)
     {
         //装备
-        if (_item.itemType == ItemType.Equipment)
+        if (_item.itemType == ItemType.Equipment && CanAdddItem())
         {
             //添加到存储
             AddStash(_item);
@@ -281,6 +281,17 @@ public class Inventory : MonoBehaviour
         UpdateSlotsUI();
     }
 
+    //限制拾取物品数量
+    public bool CanAdddItem()
+    {
+        if (stash.Count >= stashitemSlots.Length)
+        {
+            return false;
+        }
+
+        return true;
+    }
+    
     //移除存储物品
     private void RemoveStash(ItemData _item)
     {
