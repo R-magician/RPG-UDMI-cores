@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler
+public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler,IPointerEnterHandler,IPointerExitHandler
 {
     //显示物品图片组件
     [SerializeField]private Image itemImage;
@@ -76,5 +76,17 @@ public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler
             //装备物品
             Inventory.instance.EquipItem(item.data);
         }
+    }
+
+    //鼠标进入执行
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        
+    }
+
+    //鼠标退出执行
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        
     }
 }
