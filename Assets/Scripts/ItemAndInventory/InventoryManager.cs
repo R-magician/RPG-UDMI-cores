@@ -35,7 +35,12 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Transform stashSlotParent;
     //装备插槽的父节点
     [SerializeField] private Transform equipmentSlotParent;
+    //数值卡槽父节点
+    [SerializeField] private Transform statSlotParent;
 
+    
+    //UI数值节点
+    private UI_StatSlot[] statSlots;
     //库存插槽list
     private UI_ItemSlot[] inventoryitemSlots; 
     //存放插槽list
@@ -85,6 +90,9 @@ public class Inventory : MonoBehaviour
         stashitemSlots = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>();
         //获取装备插槽列表
         equipmentitemSlots = equipmentSlotParent.GetComponentsInChildren<UI_EquipmentSlot>();
+
+        //获取UI数值结点
+        statSlots = statSlotParent.GetComponentsInChildren<UI_StatSlot>();
 
         //添加起始物品
         AddStartingItems();
@@ -192,6 +200,12 @@ public class Inventory : MonoBehaviour
         {
             //动态的每一个插槽Object更新物品信息
             stashitemSlots[i].UpdataSlot(stash[i]);
+        }
+        
+        //更新UI上的统计数值
+        for (int i = 0; i < statSlots.Length; i++)
+        {
+            statSlots[i].UpdateStatValueUI();
         }
     }
 

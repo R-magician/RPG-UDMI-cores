@@ -1,7 +1,23 @@
 //人物数值统计计算
-
 using System.Collections;
 using UnityEngine;
+
+public enum StatType {
+    strength,//攻击力
+    agility,//敏捷
+    intelligence,//智力
+    vitality,//活力
+    damage,//基础伤害
+    critChance,//基础暴击率
+    critPower,//基础暴击伤害
+    maxHealth,//血量
+    armor,//基础护甲
+    evasion,//基础闪避
+    magicResistance,//魔法抗性
+    fireDamage,//火
+    iceDamage,//冰
+    lightningDamage//雷电伤害
+}
 
 public class CharacterStats : MonoBehaviour
 {
@@ -524,4 +540,56 @@ public class CharacterStats : MonoBehaviour
     }
     
     #endregion
+    
+    //获取buff对应的数值
+    public Stat GetStat(StatType _statType)
+    {
+        if (_statType == StatType.strength)
+        {
+            return strength;
+        }else if (_statType == StatType.agility)
+        {
+            return agility;
+        }else if (_statType == StatType.intelligence)
+        {
+            return intelligence;
+        }else if (_statType == StatType.vitality)
+        {
+            return vitality;
+        }else if (_statType == StatType.damage)
+        {
+            return damage;
+        }else if (_statType == StatType.critChance)
+        {
+            return critChance;
+        }else if (_statType == StatType.critPower)
+        {
+            return critPower;
+        }else if (_statType == StatType.maxHealth)
+        {
+            return maxHealth;
+        }else if (_statType == StatType.armor)
+        {
+            return armor;
+        }else if (_statType == StatType.evasion)
+        {
+            return evasion;
+        }else if (_statType == StatType.magicResistance)
+        {
+            return magicResistance;
+        }else if (_statType == StatType.fireDamage)
+        {
+            return fireDamage;
+        }else if (_statType == StatType.iceDamage)
+        {
+            return iceDamage;
+        }else if (_statType == StatType.lightningDamage)
+        {
+            return lightningDamage;
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

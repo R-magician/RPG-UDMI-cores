@@ -17,6 +17,11 @@ public class UI_EquipmentSlot : UI_ItemSlot
 
     public override void OnPointerDown(PointerEventData eventData)
     {
+        if (item == null  || item.data == null)
+        {
+            return;
+        }
+        
         //卸载装备物品
         Inventory.instance.UnequipItem(item.data as ItemDataEquipment);
         //添加到存储栏

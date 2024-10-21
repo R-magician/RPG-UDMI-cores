@@ -59,6 +59,11 @@ public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler
     //当鼠标点击的时候执行
     public virtual void OnPointerDown(PointerEventData eventData)
     {
+        if (item == null)
+        {
+            return;
+        }
+        
         //移除物品
         if (InputManager.instance.inputControl.Item.Remove.triggered)
         {
