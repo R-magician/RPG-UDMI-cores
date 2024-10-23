@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 74661a95ecbbd114d907b55e47564d6a
+guid: 30f3e56e13911ae4097e94a482f30eb0
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Nerko One
+  - Smiley Sans
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

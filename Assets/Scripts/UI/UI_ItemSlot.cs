@@ -13,13 +13,19 @@ public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler,IPointerEnterHand
     [SerializeField]private Image itemImage;
     //显示物品名字组件
     [SerializeField]private TextMeshProUGUI itemText;
+
+    private UI ui;
     //物品信息
     public InventoryItem item;
     
     //创建一个事件
     public System.Action onRemoveItem;
 
-   
+
+    private void Awake()
+    {
+        ui = GetComponentInParent<UI>();
+    }
 
     //更新插槽数据
     public void UpdataSlot(InventoryItem _item)
@@ -81,12 +87,22 @@ public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler,IPointerEnterHand
     //鼠标进入执行
     public void OnPointerEnter(PointerEventData eventData)
     {
-        
+        if (item == null)
+        {
+            return;
+        }
+        //显示物品提示
+        ui.itemToolTip.ShowToolTip(item.data as ItemDataEquipment);
     }
 
     //鼠标退出执行
     public void OnPointerExit(PointerEventData eventData)
     {
-        
+        if (item == null)
+        {
+            return;
+        }
+        //隐藏提示
+        ui.itemToolTip.HideToolTip();
     }
 }

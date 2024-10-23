@@ -1,8 +1,15 @@
 //UI脚本控制
+
+using System;
 using UnityEngine;
 
 public class UI : MonoBehaviour
 {
+    [SerializeField] private GameObject charcaterUI;
+
+    public UI_ItemToolTip itemToolTip;
+    
+
     //切换面板
     public void SwitchTo(GameObject _menu)
     {
