@@ -1,6 +1,4 @@
 //玩家管理器
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour

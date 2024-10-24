@@ -1,16 +1,30 @@
 //工艺UI插槽
-
-using System;
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UI_CraftSlot : UI_ItemSlot
 {
-    private void OnEnable()
+    protected override void Awake()
     {
-        //更新插槽数据
-        UpdataSlot(item);
+        base.Awake();
     }
+
+    //设置材料卡槽
+    public void SetupCraftSlot(ItemDataEquipment _data)
+    {
+        if (_data == null)
+        {
+            return;
+        }
+        item.data = _data;
+        itemImage.sprite = _data.icon;
+        itemText.text = _data.itemName;
+    }
+    
+    // private void OnEnable()
+    // {
+    //     //更新插槽数据
+    //     UpdataSlot(item);
+    // }
 
     public override void OnPointerDown(PointerEventData eventData)
     {

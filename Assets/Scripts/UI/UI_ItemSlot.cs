@@ -10,11 +10,11 @@ using UnityEngine.InputSystem;
 public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler,IPointerEnterHandler,IPointerExitHandler
 {
     //显示物品图片组件
-    [SerializeField]private Image itemImage;
+    [SerializeField]protected Image itemImage;
     //显示物品名字组件
-    [SerializeField]private TextMeshProUGUI itemText;
+    [SerializeField]protected TextMeshProUGUI itemText;
 
-    private UI ui;
+    protected UI ui;
     //物品信息
     public InventoryItem item;
     
@@ -22,7 +22,7 @@ public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler,IPointerEnterHand
     public System.Action onRemoveItem;
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         ui = GetComponentInParent<UI>();
     }
