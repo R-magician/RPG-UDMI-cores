@@ -8,6 +8,7 @@ public class UI : MonoBehaviour
     [SerializeField] private GameObject charcaterUI;
 
     public UI_ItemToolTip itemToolTip;
+    public UI_StatToolTip statToolTip;
     
 
     //切换面板
