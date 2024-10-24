@@ -1,4 +1,6 @@
 //物品数据
+
+using System.Text;
 using UnityEngine;
 
 public enum ItemType
@@ -19,5 +21,13 @@ public class ItemData : ScriptableObject
     [Range(0,100)]
     //掉落概率
     public float dropChance;
+
+    protected StringBuilder sb = new StringBuilder();
+
+    //获取详情
+    public virtual string GetDescription()
+    {
+        return "";
+    }
 
 }

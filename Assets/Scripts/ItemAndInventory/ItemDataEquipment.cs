@@ -61,6 +61,11 @@ public class ItemDataEquipment : ItemData
     [Header("工艺要求")]
     public List<InventoryItem> craftingMaterials;
 
+    //描述长度
+    private int descriptionLength;
+    
+    
+
     //物品特效
     public void Effect(Transform _enemyPosition)
     {
@@ -121,5 +126,58 @@ public class ItemDataEquipment : ItemData
         playerStats.fireDamage.RemoveModifier(fireDamage);
         playerStats.iceDamage.RemoveModifier(iceDamage);
         playerStats.lightningDamage.RemoveModifier(lightingDamage);
+    }
+
+    public override string GetDescription()
+    {
+        sb.Length = 0;
+        descriptionLength = 0;
+        AddItemDescription(strength,"攻击力");
+        AddItemDescription(agility,"敏捷");
+        AddItemDescription(intelgenace,"智力");
+        AddItemDescription(vitality,"活力");
+        
+        AddItemDescription(damage,"基础伤害");
+        AddItemDescription(critChance,"基础暴击率");
+        AddItemDescription(critPower,"基础暴击伤害");
+        AddItemDescription(health,"最大血量");
+        
+        AddItemDescription(armor,"基础护甲");
+        AddItemDescription(evasion,"基础闪避");
+        AddItemDescription(magicResistance,"魔法抗性");
+        
+        AddItemDescription(fireDamage,"火焰伤害");
+        AddItemDescription(fireDamage,"冰冻伤害");
+        AddItemDescription(fireDamage,"雷电伤害");
+
+        if (descriptionLength < 5)
+        {
+            for (int i = 0; i < 5-descriptionLength; i++)
+            {
+                sb.AppendLine();
+                sb.Append("");
+            }
+        }
+        
+        return sb.ToString();
+    }
+
+    //添加物品描述
+    private void AddItemDescription(int _value,string _name)
+    {
+        if (_value != 0)
+        {
+            if (sb.Length > 0)
+            {
+                sb.AppendLine();
+            }
+
+            if (_value > 0)
+            {
+                sb.Append("+ " + _value+" "+_name);
+            }
+
+            descriptionLength++;
+        }
     }
 }
