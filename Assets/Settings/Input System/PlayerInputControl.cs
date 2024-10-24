@@ -349,6 +349,94 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""27690915-8804-4d6a-b8f0-659432471bac"",
+            ""actions"": [
+                {
+                    ""name"": ""CharactPanel"",
+                    ""type"": ""Button"",
+                    ""id"": ""2c835e3c-d56c-43c8-9539-04a73faf0eba"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CraftPanel"",
+                    ""type"": ""Button"",
+                    ""id"": ""5612d36a-41df-4f74-84ba-736a0e569935"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SkillPanel"",
+                    ""type"": ""Button"",
+                    ""id"": ""e2221976-3bc5-4902-9ba2-3b5af1ed259e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OptionPanel"",
+                    ""type"": ""Button"",
+                    ""id"": ""cf08fb79-3762-4294-82c2-72cd39aa84bb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""67a0ae76-aa77-4fc3-87cb-1059e57defc6"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""CharactPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e10c8eb2-4643-450c-b4d4-4736dc07561d"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""CraftPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""909a4c43-4785-4cb1-80d7-3a08c4ff50de"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""SkillPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e2ba46ae-56c3-45b3-9130-342506073c26"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""OptionPanel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -428,12 +516,19 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         m_Item = asset.FindActionMap("Item", throwIfNotFound: true);
         m_Item_Remove = m_Item.FindAction("Remove", throwIfNotFound: true);
         m_Item_UseCure = m_Item.FindAction("UseCure", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_CharactPanel = m_UI.FindAction("CharactPanel", throwIfNotFound: true);
+        m_UI_CraftPanel = m_UI.FindAction("CraftPanel", throwIfNotFound: true);
+        m_UI_SkillPanel = m_UI.FindAction("SkillPanel", throwIfNotFound: true);
+        m_UI_OptionPanel = m_UI.FindAction("OptionPanel", throwIfNotFound: true);
     }
 
     ~@PlayerInputControl()
     {
         Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInputControl.Player.Disable() has not been called.");
         Debug.Assert(!m_Item.enabled, "This will cause a leak and performance issues, PlayerInputControl.Item.Disable() has not been called.");
+        Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInputControl.UI.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -647,6 +742,76 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         }
     }
     public ItemActions @Item => new ItemActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_CharactPanel;
+    private readonly InputAction m_UI_CraftPanel;
+    private readonly InputAction m_UI_SkillPanel;
+    private readonly InputAction m_UI_OptionPanel;
+    public struct UIActions
+    {
+        private @PlayerInputControl m_Wrapper;
+        public UIActions(@PlayerInputControl wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CharactPanel => m_Wrapper.m_UI_CharactPanel;
+        public InputAction @CraftPanel => m_Wrapper.m_UI_CraftPanel;
+        public InputAction @SkillPanel => m_Wrapper.m_UI_SkillPanel;
+        public InputAction @OptionPanel => m_Wrapper.m_UI_OptionPanel;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @CharactPanel.started += instance.OnCharactPanel;
+            @CharactPanel.performed += instance.OnCharactPanel;
+            @CharactPanel.canceled += instance.OnCharactPanel;
+            @CraftPanel.started += instance.OnCraftPanel;
+            @CraftPanel.performed += instance.OnCraftPanel;
+            @CraftPanel.canceled += instance.OnCraftPanel;
+            @SkillPanel.started += instance.OnSkillPanel;
+            @SkillPanel.performed += instance.OnSkillPanel;
+            @SkillPanel.canceled += instance.OnSkillPanel;
+            @OptionPanel.started += instance.OnOptionPanel;
+            @OptionPanel.performed += instance.OnOptionPanel;
+            @OptionPanel.canceled += instance.OnOptionPanel;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @CharactPanel.started -= instance.OnCharactPanel;
+            @CharactPanel.performed -= instance.OnCharactPanel;
+            @CharactPanel.canceled -= instance.OnCharactPanel;
+            @CraftPanel.started -= instance.OnCraftPanel;
+            @CraftPanel.performed -= instance.OnCraftPanel;
+            @CraftPanel.canceled -= instance.OnCraftPanel;
+            @SkillPanel.started -= instance.OnSkillPanel;
+            @SkillPanel.performed -= instance.OnSkillPanel;
+            @SkillPanel.canceled -= instance.OnSkillPanel;
+            @OptionPanel.started -= instance.OnOptionPanel;
+            @OptionPanel.performed -= instance.OnOptionPanel;
+            @OptionPanel.canceled -= instance.OnOptionPanel;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -707,5 +872,12 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
     {
         void OnRemove(InputAction.CallbackContext context);
         void OnUseCure(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnCharactPanel(InputAction.CallbackContext context);
+        void OnCraftPanel(InputAction.CallbackContext context);
+        void OnSkillPanel(InputAction.CallbackContext context);
+        void OnOptionPanel(InputAction.CallbackContext context);
     }
 }
