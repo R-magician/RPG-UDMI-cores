@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\u795E\u4E4B\u5E87\u4F51"
   m_EditorClassIdentifier: 
   itemType: 1
-  itemName: "\u795E\u4E4B\u5E87\u4F51"
+  itemName: "\u795E\u4E4B\u5E87\u62A4"
   icon: {fileID: 957708663, guid: a9ca9a41598dd2e44b125928045c518f, type: 3}
   dropChance: 0
   equipmentType: 1

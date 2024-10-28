@@ -26,6 +26,8 @@ public class UI_EquipmentSlot : UI_ItemSlot
         Inventory.instance.UnequipItem(item.data as ItemDataEquipment);
         //添加到存储栏
         Inventory.instance.AddItem(item.data as ItemDataEquipment);
+        
+        ui.itemToolTip.HideToolTip();
         //清理插槽
         ClearUpSlot();
     }

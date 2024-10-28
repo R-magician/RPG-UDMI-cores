@@ -82,6 +82,8 @@ public class UI_ItemSlot : MonoBehaviour , IPointerDownHandler,IPointerEnterHand
             //装备物品
             Inventory.instance.EquipItem(item.data);
         }
+        
+        ui.itemToolTip.HideToolTip();
     }
 
     //鼠标进入执行

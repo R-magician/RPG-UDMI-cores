@@ -18,6 +18,15 @@ public class UI_CraftSlot : UI_ItemSlot
         item.data = _data;
         itemImage.sprite = _data.icon;
         itemText.text = _data.itemName;
+
+        if (itemText.text.Length > 12)
+        {
+            itemText.fontSize = itemText.fontSize * .7f;
+        }
+        else
+        {
+            itemText.fontSize = 24;
+        }
     }
     
     // private void OnEnable()
@@ -28,10 +37,12 @@ public class UI_CraftSlot : UI_ItemSlot
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-        //装备物品
-        ItemDataEquipment craftData = item.data as ItemDataEquipment;
-
-        //检查需要的材料有哪些
-        Inventory.instance.CanCraft(craftData, craftData.craftingMaterials);
+        // //装备物品
+        // ItemDataEquipment craftData = item.data as ItemDataEquipment;
+        //
+        // //检查需要的材料有哪些
+        // Inventory.instance.CanCraft(craftData, craftData.craftingMaterials);
+        
+        ui.craftWindow.SetupCraftWindow(item.data as ItemDataEquipment);
     }
 }

@@ -13,33 +13,22 @@ public class UI_CraftList : MonoBehaviour,IPointerDownHandler
 
     //材料装备的预制清单
     [SerializeField] private List<ItemDataEquipment> craftEquipments;
-    //材料插槽
-    [SerializeField] private List<UI_CraftSlot> craftSlots;
 
     private void Awake()
     {
-        //分配材料插槽
-        AssignCraftSlot();
+        //设置材料列表
+        transform.parent.GetChild(0).GetComponent<UI_CraftList>().SetupCraftList();
+        SetupDefaultCraftWindown();
     }
-
-    //分配材料插槽
-    private void AssignCraftSlot()
-    {
-        for (int i = 0; i < craftSlotParent.childCount; i++)
-        {
-            craftSlots.Add(craftSlotParent.GetChild(i).GetComponent<UI_CraftSlot>());   
-        }
-    }
+    
 
     //设置材料列表
     public void SetupCraftList()
     {
-        for (int i = 0; i < craftSlots.Count; i++)
+        for (int i = 0; i < craftSlotParent.childCount; i++)
         {
-            Destroy(craftSlots[i].gameObject);
+            Destroy(craftSlotParent.GetChild(i).gameObject);
         }
-
-        craftSlots = new List<UI_CraftSlot>();
 
         for (int i = 0; i < craftEquipments.Count; i++)
         {
@@ -51,5 +40,14 @@ public class UI_CraftList : MonoBehaviour,IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         SetupCraftList();
+    }
+
+    //设置默认材料面板
+    public void SetupDefaultCraftWindown()
+    {
+        if (craftEquipments[0] != null)
+        {
+            GetComponentInParent<UI>().craftWindow.SetupCraftWindow(craftEquipments[0]);
+        }
     }
 }
