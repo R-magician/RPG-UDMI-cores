@@ -28,7 +28,7 @@ public class ScenesManager : MonoBehaviour
     private void OnValidate()
     {
         //设置当前场景所有Game Object字体样式
-        SetSceneFontAsset();
+        // SetSceneFontAsset();
     }
 
     //设置当前场景所有Game Object字体样式
