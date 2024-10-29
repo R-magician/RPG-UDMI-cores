@@ -2,10 +2,22 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_SkillTreeSlot : MonoBehaviour
+public class UI_SkillTreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
 {
+    private UI ui;
+    [SerializeField] private Image skillImage;
+    //技能名
+    [SerializeField] private string skillName;
+    //技能描述
+    [TextArea]
+    [SerializeField] private string skillDescription;
+
+    //锁定技能颜色
+    [SerializeField] private Color lockeSkillColor;
+    
     //解锁状态
     public bool unlocked;
 
@@ -14,15 +26,20 @@ public class UI_SkillTreeSlot : MonoBehaviour
     //技能被锁定插槽
     [SerializeField] private UI_SkillTreeSlot[] shouldBelocked;
 
-    [SerializeField] private Image skillImage;
-    
+
+    private void OnValidate()
+    {
+        gameObject.name = "Skill_UI - " + skillName;
+    }
+
     private void Awake()
     {
         skillImage = GetComponent<Image>();
-        skillImage.color = Color.red;
+        skillImage.color = lockeSkillColor;
         
         //给button添加事件
         GetComponent<Button>().onClick.AddListener(()=>UnlockSkillSlot());
+        ui = GetComponentInParent<UI>();
     }
 
     //解锁技能
@@ -48,8 +65,41 @@ public class UI_SkillTreeSlot : MonoBehaviour
 
         unlocked = true;
 
-        skillImage.color = Color.green;
+        skillImage.color = Color.white;
     }
-    
-    
+
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        ui.skillToolTip.ShowToolTip(skillDescription,skillName);
+        Vector2 mousePosition = Input.mousePosition;
+
+        float xOffset = 0;
+        float yOffset = 0;
+
+        if (mousePosition.x > 600)
+        {
+            xOffset = -150f;
+        }
+        else
+        {
+            xOffset = 150f;
+        }
+
+        if (mousePosition.y > 320)
+        {
+            yOffset = -150f;
+        }
+        else
+        {
+            yOffset = 150f;
+        }
+
+        ui.skillToolTip.transform.position = new Vector2(mousePosition.x + xOffset, mousePosition.y + yOffset);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        ui.skillToolTip.HideToolTip();
+    }
 }
