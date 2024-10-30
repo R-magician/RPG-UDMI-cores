@@ -1,6 +1,7 @@
 //玩家管理器
 using UnityEngine;
 
+[DefaultExecutionOrder(-100)]
 public class PlayerManager : MonoBehaviour
 {
     //单例模式

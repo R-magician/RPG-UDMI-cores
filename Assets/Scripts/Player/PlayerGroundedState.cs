@@ -69,7 +69,11 @@ public class PlayerGroundedState : PlayerState
     //玩家反击
     private void CounterAttack(InputAction.CallbackContext obj)
     {
-        stateMachine.ChangeState(player.playerCounterAttackState);
+        //判断技能解锁状态
+        if (player.skill.parry.parryUnlocked)
+        {
+            stateMachine.ChangeState(player.playerCounterAttackState);
+        }
     }
     
     //手里剑

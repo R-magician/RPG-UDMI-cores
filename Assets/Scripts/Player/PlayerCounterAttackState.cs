@@ -42,12 +42,15 @@ public class PlayerCounterAttackState : PlayerState
                     stateTimer = 10;//任意值，大于1
                     //开启成功反击动画
                     player.anim.SetBool("SuccessfulCounterAttack",true);
+                    
+                    //在格挡时恢复健康
+                    player.skill.parry.UseSkill();
 
                     if (canCreateClone)
                     {
                         canCreateClone = false;
                         //反击成功创建一个克隆体
-                        player.skill.clone.CreateCloneOnCounterAttack(hit.transform);
+                        player.skill.parry.MakeMirageOnParry(hit.transform);
                     }
                 }
             }

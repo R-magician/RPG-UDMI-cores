@@ -10,8 +10,6 @@ public class CloneSkill : Skill
     [SerializeField] private float cloneDuration;
     //是否可以攻击
     [SerializeField] private bool canAttack;
-    //在反击时创建克隆
-    [SerializeField] private bool createCloneOnCounterAttack;
     
     [Header("可以克隆的概率")]
     //可以复制克隆
@@ -39,16 +37,13 @@ public class CloneSkill : Skill
     }
     
     //在反击时创建克隆
-    public void CreateCloneOnCounterAttack(Transform _enemyTransform)
+    public void CreateCloneWithDelay(Transform _enemyTransform)
     {
-        if (createCloneOnCounterAttack)
-        {
-            StartCoroutine(CreateCloneDelay(_enemyTransform, new Vector3(1 * player.facingDir, -1.1f)));
-        }
+        StartCoroutine(CloneDelayCorotine(_enemyTransform, new Vector3(1 * player.facingDir, -1.1f)));
     }
 
     //携程-创建克隆延迟
-    private IEnumerator CreateCloneDelay(Transform _transform,Vector3 offset)
+    private IEnumerator CloneDelayCorotine(Transform _transform,Vector3 offset)
     {
         yield return new WaitForSeconds(.4f);
         CreateClone(_transform,offset);

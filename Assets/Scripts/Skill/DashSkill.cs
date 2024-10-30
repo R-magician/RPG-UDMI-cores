@@ -7,18 +7,18 @@ public class DashSkill : Skill
 
     [Header("冲刺")] 
     //技能解锁
-    public bool dashUnlocked;
+    public bool dashUnlocked { get;private set; }
     [SerializeField] 
     private UI_SkillTreeSlot dashUnlockButton;
     
 
     [Header("克隆冲刺")] 
-    public bool cloneOnDashUnlocked;
+    public bool cloneOnDashUnlocked { get;private set; }
     [SerializeField] 
     private UI_SkillTreeSlot cloneOnDashUnlockButton;
 
     [Header("克隆到达")] 
-    public bool cloneOnArrivalsUnlocked;
+    public bool cloneOnArrivalsUnlocked { get;private set; }
     [SerializeField] 
     private UI_SkillTreeSlot cloneOnArrivalsUnlockButton;
         

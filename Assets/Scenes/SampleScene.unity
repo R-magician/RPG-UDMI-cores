@@ -11151,7 +11151,7 @@ GameObject:
   - component: {fileID: 471041060}
   - component: {fileID: 471041059}
   m_Layer: 5
-  m_Name: "Skill_UI - \u653B\u51FB"
+  m_Name: "Skill_UI - \u683C\u6321\u751F\u6210\u5E7B\u5F71"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11190,8 +11190,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
   skillPrice: 1
-  skillName: "\u653B\u51FB"
-  skillDescription: "\u683C\u6321\u654C\u4EBA\u7684\u653B\u51FB\u5E76\u9020\u6210\u4F24\u5BB3"
+  skillName: "\u683C\u6321\u751F\u6210\u5E7B\u5F71"
+  skillDescription: "\u683C\u6321\u654C\u4EBA\u7684\u653B\u51FB\u5E76\u751F\u6210\u4E00\u4E2A\u514B\u9686\u4F53"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
   unlocked: 0
   shouldBeUnlocked:
@@ -38023,6 +38023,7 @@ GameObject:
   - component: {fileID: 1365205766}
   - component: {fileID: 1365205767}
   - component: {fileID: 1365205768}
+  - component: {fileID: 1365205769}
   m_Layer: 0
   m_Name: SkillManager
   m_TagString: Untagged
@@ -38092,7 +38093,6 @@ MonoBehaviour:
   clonePrefab: {fileID: 1977109214370170637, guid: 627eb597ac188164eb94e2cc4fb544a8, type: 3}
   cloneDuration: 1.5
   canAttack: 0
-  createCloneOnCounterAttack: 0
   canDuplicateClone: 0
   crystalInseadOfClone: 0
 --- !u!114 &1365205766
@@ -38176,6 +38176,26 @@ MonoBehaviour:
   - {fileID: 4233050289536428514, guid: 4fada09f5eefccd46a8172183000412d, type: 3}
   - {fileID: 4233050289536428514, guid: 4fada09f5eefccd46a8172183000412d, type: 3}
   - {fileID: 4233050289536428514, guid: 4fada09f5eefccd46a8172183000412d, type: 3}
+--- !u!114 &1365205769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365205761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c2b4051d99b874e8b972e7563ff23a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0
+  parryUnlockButton: {fileID: 1715825931}
+  parryUnlocked: 0
+  restoreUnlockButton: {fileID: 1719132012}
+  restoreUnlocked: 0
+  restoreHealth: 0.1
+  parryWithMirageUnlockButton: {fileID: 471041059}
+  parryWithMirageUnlocked: 0
 --- !u!1 &1370241443
 GameObject:
   m_ObjectHideFlags: 0
@@ -42423,7 +42443,7 @@ GameObject:
   - component: {fileID: 1719132013}
   - component: {fileID: 1719132012}
   m_Layer: 5
-  m_Name: "Skill_UI - \u56DE\u590D"
+  m_Name: "Skill_UI - \u683C\u6321\u56DE\u590D"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42462,7 +42482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
   skillPrice: 1
-  skillName: "\u56DE\u590D"
+  skillName: "\u683C\u6321\u56DE\u590D"
   skillDescription: "\u683C\u6321\u654C\u4EBA\u7684\u653B\u51FB\u5E76\u56DE\u590DHP"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
   unlocked: 0
