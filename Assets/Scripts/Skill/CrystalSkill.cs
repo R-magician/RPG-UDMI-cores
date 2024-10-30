@@ -21,8 +21,6 @@ public class CrystalSkill : Skill
     [Header("水晶克隆")] 
     [SerializeField] private UI_SkillTreeSlot unlockCloneInstaedButton;
     [SerializeField] private bool cloneInsteadOfCrystal;
-    //技能是否被激活
-    private bool isActiveCloneCrystal = false;
     
     [Header("爆炸水晶")]
     [SerializeField] private UI_SkillTreeSlot unlockExplosiveButton;
@@ -138,7 +136,6 @@ public class CrystalSkill : Skill
 
             if (cloneInsteadOfCrystal)
             {
-                isActiveCloneCrystal = true;
                 //水晶变为克隆体
                 SkillManager.instance.clone.CreateClone(currentCrystal.transform,new Vector3(0,-1.1f));
                 //删除水晶
@@ -146,7 +143,6 @@ public class CrystalSkill : Skill
             }
             else
             {
-                isActiveCloneCrystal = false;
                 currentCrystal.GetComponent<CrystalSkillController>()?.FinishCrystal();
             }
         }
