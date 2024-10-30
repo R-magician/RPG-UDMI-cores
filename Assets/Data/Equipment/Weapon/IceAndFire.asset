@@ -21,6 +21,7 @@ MonoBehaviour:
   itemEffects:
   - {fileID: 11400000, guid: 9881bca7a60b3dc408601ee23fcc616e, type: 2}
   - {fileID: 11400000, guid: 368c0be6a8400f7489fecdaa40affcb7, type: 2}
+  itemEffectDescription: "\u6211\u6709\u4E00\u53EA\u706B\uFF0C\u6211\u6709\u4E00\u53EA\u51B0"
   strength: 0
   agility: 0
   intelgenace: 0

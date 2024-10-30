@@ -19,6 +19,7 @@ MonoBehaviour:
   equipmentType: 0
   itemCooldown: 0
   itemEffects: []
+  itemEffectDescription: "\u94C1\u7684\u53C8\u7B97\u4EC0\u4E48"
   strength: 0
   agility: 0
   intelgenace: 0

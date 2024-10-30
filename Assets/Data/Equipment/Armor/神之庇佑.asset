@@ -20,6 +20,7 @@ MonoBehaviour:
   itemCooldown: 2
   itemEffects:
   - {fileID: 11400000, guid: d54669f5f503d2a4d8984c6afff57a36, type: 2}
+  itemEffectDescription: "\u4E00\u4EF6\u53D1\u5149\u7684\u5783\u573E"
   strength: 0
   agility: 5
   intelgenace: 0

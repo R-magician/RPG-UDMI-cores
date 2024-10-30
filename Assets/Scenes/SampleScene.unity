@@ -5258,6 +5258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u8EB2\u907F"
   skillDescription: "\u4F60\u670910%\u7684\u9003\u7A0E\u7387\u3002"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -6018,7 +6019,7 @@ GameObject:
   - component: {fileID: 139941898}
   - component: {fileID: 139941897}
   m_Layer: 5
-  m_Name: "Skill_UI - \u95EA\u73B0"
+  m_Name: "Skill_UI - \u53CC\u91CD\u5206\u8EAB"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6056,8 +6057,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
-  skillName: "\u95EA\u73B0"
-  skillDescription: "\u4ECE\u65B0\u56DE\u5230\u514B\u9686\u4F53\u4F4D\u7F6E"
+  skillPrice: 1
+  skillName: "\u53CC\u91CD\u5206\u8EAB"
+  skillDescription: "\u51B2\u523A\u5F00\u59CB\u4E00\u4E2A\u5206\u8EAB\uFF0C\u7ED3\u675F\u4E00\u4E2A\u5206\u8EAB"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
   unlocked: 0
   shouldBeUnlocked:
@@ -6941,6 +6943,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u6C34\u6676\u5E7B\u5F71"
   skillDescription: "\u4F60\u521B\u9020\u4E86\u6C34\u6676\u800C\u975E\u514B\u9686\u3002\u5305\u542B\u6240\u6709\u5B83\u7684\u7279\u6027\u3002\uFF08\u53EA\u80FD\u9009\u62E9\u4E00\u9879\u5347\u7EA7\uFF09"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -7083,6 +7086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u5251\u65CB"
   skillDescription: "\u5C06\u5251\u6295\u63B7\u5230\u654C\u4EBA\u8EAB\u4E0A"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -7223,6 +7227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u8FFD\u8E2A"
   skillDescription: "\u6C34\u6676\u5411\u654C\u4EBA\u79FB\u52A8\u4F60\u4E0D\u80FD\u518D\u4F20\u9001\u5230\u6C34\u6676\u3002\n"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -10339,6 +10344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u591A\u4E2A\u6C34\u6676"
   skillDescription: "\u4F60\u4E00\u6B21\u6700\u591A\u53EF\u4EE5\u521B\u90203\u4E2A\u6C34\u6676\u3002"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -11183,6 +11189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u653B\u51FB"
   skillDescription: "\u683C\u6321\u654C\u4EBA\u7684\u653B\u51FB\u5E76\u9020\u6210\u4F24\u5BB3"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -13904,6 +13911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 544670611}
+  current: 10
 --- !u!4 &581879777
 Transform:
   m_ObjectHideFlags: 0
@@ -14424,6 +14432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u5E7B\u5F71\u6C34\u6676"
   skillDescription: "\u4F60\u7728\u773C\u7684\u65F6\u5019\u79BB\u5F00\u7684\u662F\u514B\u9686\uFF0C\u800C\u4E0D\u662F\u4F60\u81EA\u5DF1\u3002\uFF08\u53EA\u80FD\u9009\u62E9\u4E00\u4E2A\u6C34\u6676\u5347\u7EA7\uFF09"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -17572,6 +17581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u591A\u91CD\u5E7B\u8C61"
   skillDescription: "\u4F60\u7684\u5E7B\u8C61\u62E5\u6709\u4F6030%\u7684\u653B\u51FB\u529B\u3002\u4F60\u7684\u5E7B\u8C61\u53EF\u4EE5\u53EC\u5524\u53E6\u4E00\u4E2A\u5E7B\u8C61\u3002\uFF08\u53EA\u80FD\u9009\u62E9\u4E00\u4E2A\uFF09"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -18097,7 +18107,7 @@ GameObject:
   - component: {fileID: 1028016139}
   - component: {fileID: 1028016138}
   m_Layer: 5
-  m_Name: SkillTree_Background
+  m_Name: SkillTree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18394,6 +18404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u65F6\u95F4\u505C\u6B62"
   skillDescription: "\u5F53\u654C\u4EBA\u88AB\u5251\u51FB\u4E2D\u65F6\uFF0C\u654C\u4EBA\u4F1A\u505C\u6B62\u884C\u52A8"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -18819,6 +18830,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u590D\u5236\u4F53"
   skillDescription: "\u51B2\u523A\u65F6\uFF0C\u53EF\u4EE5\u4EA7\u751F\u590D\u5236\u4F53"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -18960,6 +18972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u7206\u70B8\u6C34\u6676"
   skillDescription: "\u6C34\u6676\u4F1A\u7206\u70B8\u3002\uFF08\u53EA\u80FD\u9009\u62E9\u4E00\u4E2A\u6C34\u6676\u5347\u7EA7\uFF09"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -35546,6 +35559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u514B\u9686\u653B\u51FB"
   skillDescription: "\u4F60\u7684\u514B\u9686\u62E5\u6709\u4F6080%\u7684\u653B\u51FB\u529B\u3002\u4F60\u7684\u5E7B\u8C61\u53EF\u4EE5\u65BD\u52A0\u51FB\u4E2D\u6548\u679C\u3002"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -36716,6 +36730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u6C34\u6676"
   skillDescription: "\u4F60\u521B\u9020\u9B54\u6CD5\u6C34\u6676\u9020\u6210\u9B54\u6CD5\u4F24\u5BB3\u901A\u8FC7\u518D\u6B21\u70B9\u51FB\u6280\u80FD\uFF0C\u4F60\u53EF\u4EE5\u4F20\u9001\u5230\u4F60\u7684\u6C34\u6676"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -38028,6 +38043,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 1
+  dashUnlocked: 0
+  dashUnlockButton: {fileID: 1424004776}
+  cloneOnDashUnlocked: 0
+  cloneOnDashUnlockButton: {fileID: 1076988586}
+  cloneOnArrivalsUnlocked: 0
+  cloneOnArrivalsUnlockButton: {fileID: 139941897}
 --- !u!114 &1365205763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38070,12 +38091,10 @@ MonoBehaviour:
   cooldown: 0
   clonePrefab: {fileID: 1977109214370170637, guid: 627eb597ac188164eb94e2cc4fb544a8, type: 3}
   cloneDuration: 1.5
-  canAttack: 1
-  createCloneOnDashStart: 1
-  createCloneOnDashOver: 1
-  createCloneOnCounterAttack: 1
-  canDuplicateClone: 1
-  crystalInseadOfClone: 1
+  canAttack: 0
+  createCloneOnCounterAttack: 0
+  canDuplicateClone: 0
+  crystalInseadOfClone: 0
 --- !u!114 &1365205766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38144,12 +38163,12 @@ MonoBehaviour:
   cooldown: 0
   crystalDuration: 5
   crystalPrefab: {fileID: 4233050289536428514, guid: 4fada09f5eefccd46a8172183000412d, type: 3}
-  cloneInsteadOfCrystal: 1
-  canExplode: 1
+  cloneInsteadOfCrystal: 0
+  canExplode: 0
   growSpeed: 5
-  canMoveToEnemy: 1
+  canMoveToEnemy: 0
   moveSpeed: 4
-  canUseMultiStacks: 1
+  canUseMultiStacks: 0
   amountOfStacks: 3
   multiStackCooldown: 4
   useTimeWindow: 2.5
@@ -38291,6 +38310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u8DF3\u8DC3"
   skillDescription: "\u5251\u53EF\u4EE5\u5728\u76EE\u6807\u95F4\u6765\u56DE\u8DF3\u3002\uFF08\u53EA\u80FD\u9009\u62E9\u4E00\u7C7B\u5251\u7684\u5347\u7EA7\uFF09"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -38786,6 +38806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u51B2\u523A"
   skillDescription: "\u4F60\u53EF\u4EE5\u731B\u51B2\u4EE5\u8EB2\u907F\u653B\u51FB\u3002\u4F60\u5728\u51B2\u950B\u7684\u65F6\u5019\u662F\u65E0\u654C\u7684\u3002"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -40154,6 +40175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u9ED1\u6D1E"
   skillDescription: "\u4F60\u628A\u654C\u4EBA\u56F0\u5728\u9ED1\u6D1E\u91CC\uFF0C\u8FD9\u6837\u4F60\u5C31\u80FD\u9020\u6210\u5927\u91CF\u4F24\u5BB3\u3002"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -40567,6 +40589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u8EB2\u907F\u5E7B\u8C61"
   skillDescription: "\u4F60\u53EF\u4EE5\u5728\u95EA\u907F\u65F6\u521B\u9020\u5E7B\u5F71\u3002"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -41966,6 +41989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u7A7F\u900F"
   skillDescription: "\u5251\u53EF\u4EE5\u523A\u7A7F\u76EE\u6807\u3002\uFF08\u53EA\u80FD\u9009\u62E9\u4E00\u7C7B\u5251\u7684\u5347\u7EA7\uFF09"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -42296,6 +42320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u683C\u6321"
   skillDescription: "\u683C\u6321\u654C\u4EBA\u7684\u653B\u51FB"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -42436,6 +42461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u56DE\u590D"
   skillDescription: "\u683C\u6321\u654C\u4EBA\u7684\u653B\u51FB\u5E76\u56DE\u590DHP"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -44005,6 +44031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u5E7B\u8C61"
   skillDescription: "\u4F60\u7684\u514B\u9686\u53EF\u4EE5\u653B\u51FB\u76EE\u6807\u3002\u4F60\u7684\u5E7B\u8C61\u62E5\u6709\u4F6030%\u7684\u653B\u51FB\u529B\u3002"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -45163,6 +45190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u6162\u52A8\u4F5C"
   skillDescription: "\u5251\u4F1A\u50CF\u94FE\u952F\u4E00\u6837\u6162\u901F\u65CB\u8F6C\uFF08\u53EA\u80FD\u9009\u62E9\u4E00\u7C7B\u5251\u7684\u5347\u7EA7\uFF09"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
@@ -46020,6 +46048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillImage: {fileID: 0}
+  skillPrice: 1
   skillName: "\u8106\u5F31"
   skillDescription: "\u88AB\u5251\u51FB\u4E2D\u7684\u654C\u4EBA\uFF0C\u53D7\u5230\u7684\u4F24\u5BB3\u589E\u52A010%"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}

@@ -9,6 +9,10 @@ public class UI_SkillTreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
 {
     private UI ui;
     [SerializeField] private Image skillImage;
+    
+    //解锁技能需要的货币
+    [SerializeField] private int skillPrice;
+    
     //技能名
     [SerializeField] private string skillName;
     //技能描述
@@ -45,6 +49,12 @@ public class UI_SkillTreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
     //解锁技能
     public void UnlockSkillSlot()
     {
+        if (PlayerManager.instance.HaveEnoughMoney(skillPrice)==false)
+        {
+            //没有足够的货币，退出
+            return;
+        }
+        
         for (int i = 0; i < shouldBeUnlocked.Length; i++)
         {
             if (shouldBeUnlocked[i].unlocked == false)

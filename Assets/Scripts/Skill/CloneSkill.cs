@@ -10,11 +10,6 @@ public class CloneSkill : Skill
     [SerializeField] private float cloneDuration;
     //是否可以攻击
     [SerializeField] private bool canAttack;
-
-    //在DashStart上创建Clone
-    [SerializeField] private bool createCloneOnDashStart;
-    //在Dash Over创建Clone
-    [SerializeField] private bool createCloneOnDashOver;
     //在反击时创建克隆
     [SerializeField] private bool createCloneOnCounterAttack;
     
@@ -41,24 +36,6 @@ public class CloneSkill : Skill
         GameObject newClone = Instantiate(clonePrefab);
         //在指定位置生成
         newClone.GetComponent<CloneSkillControler>().SetupClone(clonePosition,cloneDuration,canAttack,offset,FindClosestEnemy(newClone.transform),canDuplicateClone,chanceToDuplicate,player);
-    }
-
-    //在Dash开始时创建克隆
-    public void CreateCloneOnDashStart()
-    {
-        if (createCloneOnDashStart)
-        {
-            CreateClone(player.transform,Vector3.zero);
-        }
-    }
-
-    //在Dash结束时创建克隆
-    public void CreateCloneOnDashOver()
-    {
-        if (createCloneOnDashOver)
-        {
-            CreateClone(player.transform,Vector3.zero);
-        }
     }
     
     //在反击时创建克隆

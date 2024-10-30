@@ -9,6 +9,9 @@ public class PlayerManager : MonoBehaviour
     //玩家
     public Player Player;
 
+    //当前货币
+    public int current;
+
     private void Awake()
     {
         //只有一个实例，若有了销毁 
@@ -20,5 +23,17 @@ public class PlayerManager : MonoBehaviour
         {
             instance = this;
         }
+    }
+
+    //是否有足够的货币
+    public bool HaveEnoughMoney(int _price)
+    {
+        if (_price > current)
+        {
+            //没有足够的货币
+            return false;
+        }
+        current -= _price;
+        return true;
     }
 }

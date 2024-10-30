@@ -17,10 +17,14 @@ public class ItemDataEquipment : ItemData
     //装备类型
     public EquipmentType equipmentType;
 
+    [Header("独特的效果")]
     //物品使用冷却
     public float itemCooldown;
     //物品特效
     public ItemEffect[] itemEffects;
+    
+    [TextArea]
+    public string itemEffectDescription;
     
     [Header("主要数值")]
     //力量
@@ -157,6 +161,12 @@ public class ItemDataEquipment : ItemData
                 sb.AppendLine();
                 sb.Append("");
             }
+        }
+
+        if (itemEffectDescription.Length > 0)
+        {
+            sb.AppendLine();
+            sb.Append(itemEffectDescription);
         }
         
         return sb.ToString();

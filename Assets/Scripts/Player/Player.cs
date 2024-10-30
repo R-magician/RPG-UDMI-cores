@@ -190,6 +190,12 @@ public class Player : Enity
         {
             return;
         }
+
+        if (!skill.dash.dashUnlocked)
+        {
+            //未学会技能
+            return;
+        }
         
         //在冷却时间中可以激活
         if (SkillManager.instance.dash.CanUseSkill())

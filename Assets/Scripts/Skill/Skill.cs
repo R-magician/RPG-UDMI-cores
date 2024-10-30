@@ -16,6 +16,11 @@ public class Skill : MonoBehaviour
         player = PlayerManager.instance.Player;
     }
 
+    protected virtual void Start()
+    {
+       
+    }
+
     protected virtual void Update()
     {
         //更新冷却
