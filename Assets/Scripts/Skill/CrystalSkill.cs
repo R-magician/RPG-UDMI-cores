@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CrystalSkill : Skill
 {
@@ -12,23 +13,33 @@ public class CrystalSkill : Skill
     //当前水晶
     private GameObject currentCrystal;
     
+    [Header("基础水晶")]
+    [SerializeField] private UI_SkillTreeSlot unlockCrystalButton;
+    [SerializeField] public bool crystalUnlocked{get; private set;}
+    
     //克隆代替水晶
-    [Header("水晶克隆")]
+    [Header("水晶克隆")] 
+    [SerializeField] private UI_SkillTreeSlot unlockCloneInstaedButton;
     [SerializeField] private bool cloneInsteadOfCrystal;
+    //技能是否被激活
+    private bool isActiveCloneCrystal = false;
     
     [Header("爆炸水晶")]
+    [SerializeField] private UI_SkillTreeSlot unlockExplosiveButton;
     //能爆炸
     [SerializeField] private bool canExplode;
     //增长速度
     [SerializeField] private float growSpeed;
     
     [Header("移动水晶")]
+    [SerializeField] private UI_SkillTreeSlot unlockMovingCrystalButton;
     //能移动
     [SerializeField] private bool canMoveToEnemy;
     //移向敌人速度
     [SerializeField] private float moveSpeed;
 
     [Header("多个晶体")]
+    [SerializeField] private UI_SkillTreeSlot unlockMultiStackButton;
     //能使用多个栈
     [SerializeField] private bool canUseMultiStacks;
     //晶体数量
@@ -39,7 +50,66 @@ public class CrystalSkill : Skill
     [SerializeField] private float useTimeWindow;
     //水晶列表
     [SerializeField] private List<GameObject> crystalLeft = new List<GameObject>();
-    
+
+
+    protected override void Start()
+    {
+        base.Start();
+        unlockCrystalButton.GetComponent<Button>().onClick.AddListener(UnlockCrystal);
+        unlockCloneInstaedButton.GetComponent<Button>().onClick.AddListener(UnlockCrystalMirage);
+        unlockExplosiveButton.GetComponent<Button>().onClick.AddListener(UnlockExplosiveCrystal);
+        unlockMovingCrystalButton.GetComponent<Button>().onClick.AddListener(UnlockMoveingCrystal);
+        unlockMultiStackButton.GetComponent<Button>().onClick.AddListener(UnlockMultiStack);
+    }
+
+    #region 解锁区域
+
+    //解锁基础水晶
+    private void UnlockCrystal()
+    {
+        if (unlockCrystalButton.unlocked)
+        {
+            crystalUnlocked = true;
+        }
+    }
+
+    //解锁克隆代替水晶
+    private void UnlockCrystalMirage()
+    {
+        if (unlockCloneInstaedButton.unlocked)
+        {
+            cloneInsteadOfCrystal = true;
+        }  
+    }
+
+    //爆炸水晶
+    private void UnlockExplosiveCrystal()
+    {
+        if (unlockExplosiveButton.unlocked)
+        {
+            canExplode = true;
+        }
+    }
+
+    //移动水晶
+    private void UnlockMoveingCrystal()
+    {
+        if (unlockMovingCrystalButton.unlocked)
+        {
+            canMoveToEnemy = true;
+        }
+    }
+
+    //多个晶体
+    private void UnlockMultiStack()
+    {
+        if (unlockMultiStackButton.unlocked)
+        {
+            canUseMultiStacks = true;
+        }
+    }
+
+    #endregion
 
     public override void UseSkill()
     {
@@ -68,6 +138,7 @@ public class CrystalSkill : Skill
 
             if (cloneInsteadOfCrystal)
             {
+                isActiveCloneCrystal = true;
                 //水晶变为克隆体
                 SkillManager.instance.clone.CreateClone(currentCrystal.transform,new Vector3(0,-1.1f));
                 //删除水晶
@@ -75,6 +146,7 @@ public class CrystalSkill : Skill
             }
             else
             {
+                isActiveCloneCrystal = false;
                 currentCrystal.GetComponent<CrystalSkillController>()?.FinishCrystal();
             }
         }

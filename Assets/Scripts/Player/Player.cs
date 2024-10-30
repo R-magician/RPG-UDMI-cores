@@ -213,7 +213,11 @@ public class Player : Enity
     //水晶
     public void Crystal()
     {
-        skill.crystal.CanUseSkill();
+        //技能被解说才能使用
+        if (skill.crystal.crystalUnlocked)
+        {
+            skill.crystal.CanUseSkill();
+        }
     }
 
     //玩家死亡
