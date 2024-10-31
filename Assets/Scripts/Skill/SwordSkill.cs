@@ -108,6 +108,16 @@ public class SwordSkill : Skill
         spinUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSpinSword);
     }
 
+    private void OnDisable()
+    {
+        timeStopUnlockButton.GetComponent<Button>().onClick.RemoveListener(UnlockTimeStop);
+        volnurableUnlockButton.GetComponent<Button>().onClick.RemoveListener(UnlockVulnurable);
+        swordUnlockButton.GetComponent<Button>().onClick.RemoveListener(UnlockSword);
+        bounceUnlockButton.GetComponent<Button>().onClick.RemoveListener(UnlockBounceSword);
+        pierceUnlockButton.GetComponent<Button>().onClick.RemoveListener(UnlockPierceSword);
+        spinUnlockButton.GetComponent<Button>().onClick.RemoveListener(UnlockSpinSword);
+    }
+
     //设置重力
     private void SetupGravity()
     {

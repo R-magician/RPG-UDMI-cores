@@ -491,7 +491,7 @@ public class CharacterStats : MonoBehaviour
     }
     
     //目标可以闪避攻击
-    private bool TargetCanAvoidAttack(CharacterStats _targetStats)
+    protected bool TargetCanAvoidAttack(CharacterStats _targetStats)
     {
         //闪避总值
         int totalEvasion = _targetStats.evasion.GetValue() + _targetStats.agility.GetValue();
@@ -513,7 +513,7 @@ public class CharacterStats : MonoBehaviour
     }
     
     //检查目标攻击伤害
-    private int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
+    protected int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
     {
         //总伤害减去护甲伤害
         totalDamage -= _targetStats.armor.GetValue();
@@ -541,7 +541,7 @@ public class CharacterStats : MonoBehaviour
     }
     
     //暴击几率
-    private bool CanCrit()
+    protected bool CanCrit()
     {
         //几率，关键暴击率+敏捷度
         int totalCriticalChance = critChance.GetValue() + agility.GetValue();
@@ -554,7 +554,7 @@ public class CharacterStats : MonoBehaviour
     }
 
     //计算暴击伤害
-    private int CalculateCriticalDamage(int _damage)
+    protected int CalculateCriticalDamage(int _damage)
     {
         //暴击伤害=(基础暴击伤害+攻击力) * 0.01的几率
         float totalCritPower = (critPower.GetValue() + strength.GetValue()) * 0.01f;

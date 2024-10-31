@@ -14,7 +14,9 @@ public class CloneSkillControler : MonoBehaviour
     [SerializeField] private float colorLoosingSpeed;
     //克隆定时器
     private float cloneTimer;
-    
+
+    //攻击系数
+    private float attackMultiplier;
     //攻击检查
     [SerializeField] private Transform attackCheck;
     //攻击范围
@@ -51,7 +53,7 @@ public class CloneSkillControler : MonoBehaviour
     }
 
     //开始克隆
-    public void SetupClone(Transform newTransform,float _cloneDuration,bool _canAttack,Vector3 _offset,Transform _closestEnemy,bool _canDuplicatClone,float _chanceToDuplicate,Player _player)
+    public void SetupClone(Transform newTransform,float _cloneDuration,bool _canAttack,Vector3 _offset,Transform _closestEnemy,bool _canDuplicatClone,float _chanceToDuplicate,Player _player,float _attackMultiplier)
     {
         //是否可以攻击
         if (_canAttack)
@@ -59,6 +61,8 @@ public class CloneSkillControler : MonoBehaviour
             //随机攻击动画
             anim.SetInteger("AttackNumber",Random.Range(1,4));
         }
+
+        attackMultiplier = _attackMultiplier;
         transform.position= newTransform.position + _offset;
         cloneTimer = _cloneDuration;
 
@@ -87,8 +91,11 @@ public class CloneSkillControler : MonoBehaviour
             if (hit.GetComponent<Enemy>() != null)
             {
                 //执行受伤
-                player.stats.DoDamage(hit.GetComponent<CharacterStats>());
+                //player.stats.DoDamage(hit.GetComponent<CharacterStats>());
 
+                PlayerStats playerStats = player.GetComponent<PlayerStats>();
+                EnemyStats enemyStats = hit.GetComponent<EnemyStats>();
+                
                 if (canDuplicatClone)
                 {
                     //概率为35

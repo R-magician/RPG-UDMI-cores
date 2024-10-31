@@ -38087,10 +38087,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 0
+  attackMultipler: 0
   clonePrefab: {fileID: 1977109214370170637, guid: 627eb597ac188164eb94e2cc4fb544a8, type: 3}
   cloneDuration: 1.5
+  cloneAttackButton: {fileID: 1879235943}
+  cloneAttackMultiplier: 0
   canAttack: 0
+  aggresiveAttackUnlockButton: {fileID: 1098356339}
+  aggresiveCloneAttackMultiplier: 0
+  multipleUnlockButton: {fileID: 1001211811}
+  multipleCloneAttackMultiplier: 0
   canDuplicateClone: 0
+  crystalUnlockButton: {fileID: 227146930}
   crystalInseadOfClone: 0
 --- !u!114 &1365205766
 MonoBehaviour:

@@ -43,4 +43,33 @@ public class PlayerStats : CharacterStats
     {
         player.skill.dodge.CreateMirageOnDoage();
     }
+
+    //克隆的伤害
+    public void CloneDoDamage(CharacterStats _targetStats,float _multiplier)
+    {
+        //闪避攻击判断
+        if ( TargetCanAvoidAttack(_targetStats)) return;
+        
+        //总伤害=基础伤害+攻击力
+        int totalDamage = strength.GetValue() + damage.GetValue();
+        
+        if (_multiplier > 0)
+        {
+            totalDamage = Mathf.RoundToInt(totalDamage * _multiplier);
+        }
+
+        //暴击几率
+        if (CanCrit())
+        {
+            //能暴击--计算暴击伤害
+            totalDamage = CalculateCriticalDamage(totalDamage);
+        }
+        
+        //检查攻击伤害
+        totalDamage = CheckTargetArmor(_targetStats, totalDamage);
+
+        _targetStats.TakeDamage(totalDamage);
+        //如果有属性伤害就能造成魔法攻击
+        DoMagicalDamage(_targetStats);//删除，如果你不想应用魔法作为主要攻击
+    }
 }
