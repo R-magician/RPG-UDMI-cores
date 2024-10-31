@@ -90,7 +90,7 @@ public class PlayerGroundedState : PlayerState
     private void Blackhole(InputAction.CallbackContext obj)
     {
         //如果没有blackhole才切为黑洞状态
-        if (!SkillManager.instance?.blackhole?.blackhole)
+        if (!SkillManager.instance?.blackhole?.blackhole && player.skill.blackhole.blackholeUnlocked)
         {
             stateMachine.ChangeState(player.playerBlackHallState);
         }

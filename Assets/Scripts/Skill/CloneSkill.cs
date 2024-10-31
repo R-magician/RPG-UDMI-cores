@@ -34,7 +34,7 @@ public class CloneSkill : Skill
     //可以复制克隆
     [SerializeField] private bool canDuplicateClone;
     //克隆概率
-    private float chanceToDuplicate;
+    [SerializeField]private float chanceToDuplicate;
     
     [Header("水晶克隆")]
     [SerializeField] private UI_SkillTreeSlot crystalUnlockButton;
@@ -47,14 +47,6 @@ public class CloneSkill : Skill
         aggresiveAttackUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockAggresiveClone);
         multipleUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockMultiClone);
         crystalUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockCrystal);
-    }
-
-    private void OnDisable()
-    {
-        cloneAttackButton.GetComponent<Button>().onClick.RemoveListener(UnlockCloneAttack);
-        aggresiveAttackUnlockButton.GetComponent<Button>().onClick.RemoveListener(UnlockAggresiveClone);
-        multipleUnlockButton.GetComponent<Button>().onClick.RemoveListener(UnlockMultiClone);
-        crystalUnlockButton.GetComponent<Button>().onClick.RemoveListener(UnlockCrystal);
     }
 
     #region 解锁区域

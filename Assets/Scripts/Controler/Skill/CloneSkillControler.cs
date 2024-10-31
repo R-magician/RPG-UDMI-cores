@@ -96,10 +96,22 @@ public class CloneSkillControler : MonoBehaviour
                 PlayerStats playerStats = player.GetComponent<PlayerStats>();
                 EnemyStats enemyStats = hit.GetComponent<EnemyStats>();
                 
+                //克隆伤害
+                playerStats.CloneDoDamage(enemyStats,attackMultiplier);
+
+                //可以使用侵略性克隆
+                if (player.skill.clone.canApplyOnHitEffect)
+                {
+                    ItemDataEquipment weaponData = Inventory.instance.GetEquipment(EquipmentType.Weapon);
+
+                    weaponData?.Effect(hit.transform);
+                }
+                
+                
                 if (canDuplicatClone)
                 {
                     //概率为35
-                    if (Random.Range(0, 100) < 35)
+                    if (Random.Range(0, 100) < 45)
                     {
                         SkillManager.instance.clone.CreateClone(hit.transform,new Vector3(1f *facingDir,-1.1f));
                     }
