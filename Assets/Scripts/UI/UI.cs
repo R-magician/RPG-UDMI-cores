@@ -23,7 +23,8 @@ public class UI : MonoBehaviour
 
     private void Awake()
     {
-        SwitchTo(null);
+        //需要用这个来分配事件
+        SwitchTo(skillTreeUI);
         
         itemToolTip.gameObject.SetActive(false);
         statToolTip.gameObject.SetActive(false);
@@ -32,6 +33,11 @@ public class UI : MonoBehaviour
         InputManager.instance.inputControl.UI.CraftPanel.started += CraftPanel;
         InputManager.instance.inputControl.UI.SkillPanel.started += SkillPanel;
         InputManager.instance.inputControl.UI.OptionPanel.started += OptionPanel;
+    }
+
+    private void Start()
+    {
+        SwitchTo(null);
     }
 
     private void OnDisable()
