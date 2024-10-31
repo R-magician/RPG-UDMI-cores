@@ -272,9 +272,23 @@ public class SwordSkillControler : MonoBehaviour
     //敌人受到飞剑伤害
     private void SwordSkillDamage(Enemy enemy)
     {
-        player.stats.DoDamage(enemy.GetComponent<CharacterStats>());
-        //执行携程
-        enemy.FreezeTimeFor(freezeTimeDuration);
+        EnemyStats enemyStats = enemy.GetComponent<EnemyStats>();
+        
+        player.stats.DoDamage(enemyStats);
+        
+        //冻结敌人几秒钟
+        if (player.skill.sword.timeStopUnlocked)
+        {
+            //执行携程
+            enemy.FreezeTimeFor(freezeTimeDuration);
+        }
+        
+        //让敌人变脆弱几秒
+        if (player.skill.sword.volnurableUnlocked)
+        {
+            //执行携程
+            enemyStats.MakeVulnerableFor(freezeTimeDuration);
+        }
         
         //项链
         ItemDataEquipment equipedAmulet = Inventory.instance.GetEquipment(EquipmentType.Amulet);

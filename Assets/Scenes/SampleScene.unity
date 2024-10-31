@@ -12651,7 +12651,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   iceDamage:
-    baseValue: 1
+    baseValue: 0
     modifiers: 
   lightningDamage:
     baseValue: 0
@@ -15451,7 +15451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &757687229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36311,7 +36311,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   maxHealth:
-    baseValue: 150
+    baseValue: 110
     modifiers: 
   armor:
     baseValue: 0
@@ -38106,20 +38106,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   swordType: 1
+  bounceUnlockButton: {fileID: 1370241448}
   bounceAmount: 4
   bounceGravity: 1
   bounceSpeed: 20
+  pierceUnlockButton: {fileID: 1696245799}
   pierceAmount: 2
   pierceGravity: 1
+  spinUnlockButton: {fileID: 1935107812}
   hitCooldown: 0.1
   maxTravelDistance: 7
   spinDuration: 2
   spinGravity: 1
+  swordUnlockButton: {fileID: 228002106}
   swordPrefab: {fileID: 5355335034557003053, guid: 0a62a1910310dcc4ebce356c275bd2c8, type: 3}
   launchForce: {x: 35, y: 25}
   swordGravity: 0.5
   freezeTimeDuration: 1.5
   returnSpeed: 15
+  timeStopUnlockButton: {fileID: 1031601426}
+  volnurableUnlockButton: {fileID: 1976896763}
   numberOfDots: 20
   spaceBeetwenDots: 0.07
   dotPrefab: {fileID: 7534196876272359055, guid: db711c14d416c47419e4894ce11326e3, type: 3}
@@ -46780,7 +46786,7 @@ RectTransform:
   m_Father: {fileID: 1023400357}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

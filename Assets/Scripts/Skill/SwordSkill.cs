@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 //飞剑类型
 public enum SwordType
@@ -17,6 +18,8 @@ public class SwordSkill : Skill
     public SwordType swordType = SwordType.Regular;
     
     [Header("弹跳相关")] 
+    [SerializeField] private UI_SkillTreeSlot bounceUnlockButton;
+    public bool bounceUnlocked { get; private set; }
     //反弹次数
     [SerializeField] private int bounceAmount;
     //反弹重力
@@ -25,12 +28,16 @@ public class SwordSkill : Skill
     [SerializeField] private float bounceSpeed;
     
     [Header("穿透信息")]
+    [SerializeField] private UI_SkillTreeSlot pierceUnlockButton;
+    public bool pierceUnlocked { get; private set; }
     //穿透数量
     [SerializeField] private int pierceAmount;
     //穿透重力
     [SerializeField] private float pierceGravity;
 
     [Header("旋转信息")]
+    [SerializeField] private UI_SkillTreeSlot spinUnlockButton;
+    public bool spinUnlocked { get; private set; }
     //伤害冷却
     [SerializeField] private float hitCooldown=0.35f;
     //最大移动距离
@@ -39,8 +46,10 @@ public class SwordSkill : Skill
     [SerializeField] private float spinDuration =2;
     //旋转重力
     [SerializeField] private float spinGravity=1;
-    
+
     [Header("技能信息")] 
+    [SerializeField] private UI_SkillTreeSlot swordUnlockButton;
+    public bool swordUnlocked { get; private set; }
     //剑预制体
     [SerializeField] private GameObject swordPrefab;
     //发射方向的力
@@ -51,6 +60,14 @@ public class SwordSkill : Skill
     [SerializeField] private float freezeTimeDuration;
     //飞剑返回速度
     [SerializeField] private float returnSpeed;
+
+    [Header("被动技能")]
+    //时间暂停
+    [SerializeField] private UI_SkillTreeSlot timeStopUnlockButton;
+    public bool timeStopUnlocked { get; private set; }
+    //脆弱
+    [SerializeField] private UI_SkillTreeSlot volnurableUnlockButton;
+    public bool volnurableUnlocked { get; private set; }
 
     [Header("弧线点")]
     //点的数量
@@ -79,6 +96,16 @@ public class SwordSkill : Skill
         
         //设置重力
         SetupGravity();
+    }
+
+    private void OnEnable()
+    {
+        timeStopUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockTimeStop);
+        volnurableUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockVulnurable);
+        swordUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSword);
+        bounceUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockBounceSword);
+        pierceUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockPierceSword);
+        spinUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSpinSword);
     }
 
     //设置重力
@@ -130,6 +157,64 @@ public class SwordSkill : Skill
     }
 
 
+    #region 解锁区域
+
+    //时间暂停
+    private void UnlockTimeStop()
+    {
+        if (timeStopUnlockButton.unlocked)
+        {
+            timeStopUnlocked = true;
+        }
+    }
+    
+    //脆弱
+    private void UnlockVulnurable()
+    {
+        if (volnurableUnlockButton.unlocked)
+        {
+            volnurableUnlocked = true;
+        }
+    }
+    
+    //剑解锁
+    private void UnlockSword()
+    {
+        if (swordUnlockButton.unlocked)
+        {
+            swordType = SwordType.Regular;
+            swordUnlocked = true;
+        }
+    }
+
+    //弹跳
+    private void UnlockBounceSword()
+    {
+        if (bounceUnlockButton.unlocked)
+        {
+            swordType = SwordType.Bounce;
+        }
+    }
+    
+    //穿透
+    private void UnlockPierceSword()
+    {
+        if (pierceUnlockButton.unlocked)
+        {
+            swordType = SwordType.Pierce;
+        }
+    }
+    
+    //旋转
+    private void UnlockSpinSword()
+    {
+        if (spinUnlockButton.unlocked)
+        {
+            swordType = SwordType.Spin;
+        }
+    }
+
+    #endregion
 
     //创建技能
     public void CreateSword()

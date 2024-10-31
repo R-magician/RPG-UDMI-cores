@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[DefaultExecutionOrder(-100)]
+[DefaultExecutionOrder(-150)]
 public class InputManager : MonoBehaviour
 {
     //单例模式

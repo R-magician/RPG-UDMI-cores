@@ -10,14 +10,14 @@ public class ParrySkill : Skill
     
     [Header("格挡反击回血")]
     [SerializeField] private UI_SkillTreeSlot restoreUnlockButton;
-    [SerializeField] public bool restoreUnlocked { get;private set; }
+    public bool restoreUnlocked { get;private set; }
     //回血量
     [Range(0f,1f)]
     [SerializeField] private float restoreHealth;
     
     [Header("格挡克隆反击")]
     [SerializeField] private UI_SkillTreeSlot parryWithMirageUnlockButton;
-    [SerializeField] public bool parryWithMirageUnlocked { get;private set; }
+    public bool parryWithMirageUnlocked { get;private set; }
     
     public override void UseSkill()
     {

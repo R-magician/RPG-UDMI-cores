@@ -80,7 +80,7 @@ public class PlayerGroundedState : PlayerState
     private void ViceSkill(InputAction.CallbackContext obj)
     {
         //只有飞剑为空的时候允许
-        if (HasNoSword())
+        if (HasNoSword() && player.skill.sword.swordUnlocked) 
         {
             stateMachine.ChangeState(player.playerAimSwordState);
         }

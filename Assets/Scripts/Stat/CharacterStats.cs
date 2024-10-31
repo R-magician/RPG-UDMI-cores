@@ -100,7 +100,8 @@ public class CharacterStats : MonoBehaviour
     public System.Action onHealthChanged;
     //死亡状态
     public bool isDead { get; private set; }
-    
+    //易损状态
+    private bool isVulnerable;
     
     //当前血量
     public int currentHealth;
@@ -153,6 +154,21 @@ public class CharacterStats : MonoBehaviour
         }
         
     }
+
+    //开始易损
+    public void MakeVulnerableFor(float _duartion)
+    {
+        StartCoroutine(VulnerableCorutime(_duartion));
+    }
+    
+    //易损状态时间
+    private IEnumerator VulnerableCorutime(float _duartion)
+    {
+        isVulnerable = true;
+        yield return new WaitForSeconds(_duartion);
+        isVulnerable = false;
+    }
+    
 
     //增加统计值--值，时长，修改的值
     public virtual void IncreaseStatBy(int _modifier,float _duration,Stat _statToModify)
@@ -439,6 +455,17 @@ public class CharacterStats : MonoBehaviour
     //减少生命值
     protected virtual void DecreaseHealthBy(int _damage)
     {
+        if (_damage == 0)
+        {
+            return;
+        }
+        //易损状态
+        if (isVulnerable)
+        {
+            _damage = Mathf.RoundToInt(_damage * 1.1f);
+        }
+        
+        
         currentHealth -= _damage;
         
         if (onHealthChanged!=null)
