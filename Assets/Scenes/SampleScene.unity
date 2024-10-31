@@ -5263,8 +5263,7 @@ MonoBehaviour:
   skillDescription: "\u4F60\u670910%\u7684\u9003\u7A0E\u7387\u3002"
   lockeSkillColor: {r: 0.33962262, g: 0.32840866, b: 0.32840866, a: 1}
   unlocked: 0
-  shouldBeUnlocked:
-  - {fileID: 634550298}
+  shouldBeUnlocked: []
   shouldBelocked: []
 --- !u!114 &83522356
 MonoBehaviour:
@@ -38024,6 +38023,7 @@ GameObject:
   - component: {fileID: 1365205767}
   - component: {fileID: 1365205768}
   - component: {fileID: 1365205769}
+  - component: {fileID: 1365205770}
   m_Layer: 0
   m_Name: SkillManager
   m_TagString: Untagged
@@ -38157,7 +38157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d2b9c6ca5ec924c9a75f620ed20076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0
+  cooldown: 1
   crystalDuration: 5
   crystalPrefab: {fileID: 4233050289536428514, guid: 4fada09f5eefccd46a8172183000412d, type: 3}
   unlockCrystalButton: {fileID: 1230405317}
@@ -38195,6 +38195,24 @@ MonoBehaviour:
   restoreUnlockButton: {fileID: 1719132012}
   restoreHealth: 0.1
   parryWithMirageUnlockButton: {fileID: 471041059}
+--- !u!114 &1365205770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1365205761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a789490ed436f40a87b2f0a05d5f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0
+  unlockDodgeButton: {fileID: 83522355}
+  evasionAmount: 20
+  dogeUnlocked: 0
+  unlockMirageDodgeButton: {fileID: 1576648742}
+  dogeMirageUnlocked: 0
 --- !u!1 &1370241443
 GameObject:
   m_ObjectHideFlags: 0

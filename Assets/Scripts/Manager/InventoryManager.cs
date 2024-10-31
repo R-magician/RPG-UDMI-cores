@@ -205,6 +205,11 @@ public class Inventory : MonoBehaviour
             stashitemSlots[i].UpdataSlot(stash[i]);
         }
         
+        UpdateStatsUI();
+    }
+
+    public void UpdateStatsUI()
+    {
         //更新UI上的统计数值
         for (int i = 0; i < statSlots.Length; i++)
         {

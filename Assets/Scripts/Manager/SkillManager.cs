@@ -18,6 +18,8 @@ public class SkillManager : MonoBehaviour
     public CrystalSkill crystal { get; private set; }
     //格挡技能
     public ParrySkill parry { get; private set; }
+    //闪避
+    public DodgeSkill dodge { get; private set; }
 
     private void Awake()
     {
@@ -37,6 +39,7 @@ public class SkillManager : MonoBehaviour
         blackhole = GetComponent<BlackholeSkill>();
         crystal = GetComponent<CrystalSkill>();
         parry = GetComponent<ParrySkill>();
+        dodge = GetComponent<DodgeSkill>();
     }
     
 }

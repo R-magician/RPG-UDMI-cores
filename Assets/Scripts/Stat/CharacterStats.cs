@@ -455,6 +455,13 @@ public class CharacterStats : MonoBehaviour
     }
 
     #region 计算区域
+
+
+    //在闪避时做的事
+    public virtual void OnEvasion()
+    {
+        
+    }
     
     //目标可以闪避攻击
     private bool TargetCanAvoidAttack(CharacterStats _targetStats)
@@ -471,7 +478,7 @@ public class CharacterStats : MonoBehaviour
         
         if (Random.Range(0, 100) < totalEvasion)
         {
-            Debug.Log("闪避");
+            _targetStats.OnEvasion();
             return true;
         }
 
