@@ -14,6 +14,8 @@ public class UI : MonoBehaviour
     [SerializeField] private GameObject craftUI;
     //选项
     [SerializeField] private GameObject optionsUI;
+    //玩家界面
+    [SerializeField] private GameObject inGameUI;
 
     public UI_SkillToolTip skillToolTip;
     public UI_ItemToolTip itemToolTip;
@@ -37,7 +39,7 @@ public class UI : MonoBehaviour
 
     private void Start()
     {
-        SwitchTo(null);
+        SwitchTo(inGameUI);
     }
 
     private void OnDisable()
@@ -72,10 +74,25 @@ public class UI : MonoBehaviour
         if (_menu != null && _menu.activeSelf)
         {
             _menu.SetActive(false);
+            CheckForInGameUI();
             return;
         }
         
         SwitchTo(_menu);
+    }
+
+    //检查玩家UI
+    private void CheckForInGameUI()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).gameObject.activeSelf)
+            {
+                return;
+            }
+        }
+
+        SwitchTo(inGameUI);
     }
     
     //创建选项面板

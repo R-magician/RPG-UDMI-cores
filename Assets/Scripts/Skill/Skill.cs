@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class Skill : MonoBehaviour
 {
     //冷却时间
-    [SerializeReference] protected float cooldown;
+    public float cooldown;
     //更新冷却时间
     protected float cooldownTimer;
 
