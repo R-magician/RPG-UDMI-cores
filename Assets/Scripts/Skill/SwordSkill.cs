@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 //飞剑类型
 public enum SwordType
@@ -49,9 +51,10 @@ public class SwordSkill : Skill
 
     [Header("技能信息")] 
     [SerializeField] private UI_SkillTreeSlot swordUnlockButton;
-    public bool swordUnlocked { get; private set; }
     //剑预制体
     [SerializeField] private GameObject swordPrefab;
+
+    public bool swordUnlocked;
     //发射方向的力
     [SerializeField] private Vector2 launchForce;
     //飞行重力
@@ -98,8 +101,9 @@ public class SwordSkill : Skill
         SetupGravity();
     }
 
-    private void OnEnable()
+    protected override void Start()
     {
+        base.Start();
         timeStopUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockTimeStop);
         volnurableUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockVulnurable);
         swordUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSword);

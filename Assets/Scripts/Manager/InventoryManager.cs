@@ -55,7 +55,7 @@ public class Inventory : MonoBehaviour
     private float lastTimeUseArmor;
 
     //药瓶冷却时间
-    private float flaskCooldown;
+    public float flaskCooldown { get; private set; }
     //盔甲冷却时间
     private float armorCooldown;
     

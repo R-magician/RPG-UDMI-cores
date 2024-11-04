@@ -1,5 +1,6 @@
 //玩家管理器
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [DefaultExecutionOrder(-100)]
 public class PlayerManager : MonoBehaviour
@@ -11,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     public Player Player;
 
     //当前货币
-    public int current;
+    [FormerlySerializedAs("current")] public int currency;
 
     private void Awake()
     {
@@ -29,12 +30,18 @@ public class PlayerManager : MonoBehaviour
     //是否有足够的货币
     public bool HaveEnoughMoney(int _price)
     {
-        if (_price > current)
+        if (_price > currency)
         {
             //没有足够的货币
             return false;
         }
-        current -= _price;
+        currency -= _price;
         return true;
+    }
+
+    //返回数量
+    public int GetCurrency()
+    {
+        return currency;
     }
 }
