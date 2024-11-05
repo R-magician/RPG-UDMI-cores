@@ -23,7 +23,7 @@ public class DodgeSkill : Skill
 
     private void UnlocDodge()
     {
-        if (unlockDodgeButton.unlocked)
+        if (unlockDodgeButton.unlocked && !dogeUnlocked)
         {
             player.stats.evasion.AddModifier(evasionAmount);
             //更新UI上的统计数值

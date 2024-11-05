@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f42954a99dec1ab4097eb7cb0ed67185, type: 3}
   m_Name: "\u95EA\u907F"
   m_EditorClassIdentifier: 
+  effectDescription: "\u53CC\u811A\u6709\u9B54\u6CD5"
   buffType: 9
   buffAmount: 50000
   buffDuration: 1.5

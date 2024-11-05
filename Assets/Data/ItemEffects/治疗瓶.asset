@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8f0746a73bf924eb0f92a8d187c774, type: 3}
   m_Name: "\u6CBB\u7597\u74F6"
   m_EditorClassIdentifier: 
+  effectDescription: "\u560E\u560E\u957F\u8EAB\u4F53"
   healPercent: 0.3

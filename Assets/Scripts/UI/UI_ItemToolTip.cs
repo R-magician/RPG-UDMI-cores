@@ -4,7 +4,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class UI_ItemToolTip : MonoBehaviour
+public class UI_ItemToolTip : UI_ToolTip
 {
     //物品名字
     [SerializeField] private TextMeshProUGUI itemNameText;
@@ -15,11 +15,6 @@ public class UI_ItemToolTip : MonoBehaviour
 
     //默认物品名字体大小
     [SerializeField] private int defaultFontSize = 32;
-    
-    private void Awake()
-    {
-        
-    }
 
     //显示提示
     public void ShowToolTip(ItemDataEquipment item)
@@ -33,15 +28,9 @@ public class UI_ItemToolTip : MonoBehaviour
         itemTypeText.text = item.equipmentType.ToString();
         itemDescription.text = item.GetDescription();
 
-        //名字长度最大为12
-        if (itemNameText.text.Length > 12)
-        {
-            itemNameText.fontSize = itemNameText.fontSize * .7f;
-        }
-        else
-        {
-            itemNameText.fontSize = defaultFontSize;
-        }
+        AdjustPosition();
+        AdjustFontSize(itemNameText);
+        
         gameObject.SetActive(true);
     }
 

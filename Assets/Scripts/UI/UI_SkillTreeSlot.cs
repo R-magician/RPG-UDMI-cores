@@ -82,31 +82,7 @@ public class UI_SkillTreeSlot : MonoBehaviour,IPointerEnterHandler,IPointerExitH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        ui.skillToolTip.ShowToolTip(skillDescription,skillName);
-        Vector2 mousePosition = Input.mousePosition;
-
-        float xOffset = 0;
-        float yOffset = 0;
-
-        if (mousePosition.x > 600)
-        {
-            xOffset = -150f;
-        }
-        else
-        {
-            xOffset = 150f;
-        }
-
-        if (mousePosition.y > 320)
-        {
-            yOffset = -150f;
-        }
-        else
-        {
-            yOffset = 150f;
-        }
-
-        ui.skillToolTip.transform.position = new Vector2(mousePosition.x + xOffset, mousePosition.y + yOffset);
+        ui.skillToolTip.ShowToolTip(skillDescription,skillName,skillPrice);
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18655fa596391184bbb22a2c12f578eb, type: 3}
   m_Name: "\u51BB\u7ED3\u654C\u4EBA"
   m_EditorClassIdentifier: 
+  effectDescription: "\u4F60\u7ED9\u6211\u7AD9\u4F4F"
   duration: 3

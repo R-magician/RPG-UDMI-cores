@@ -154,6 +154,16 @@ public class ItemDataEquipment : ItemData
         AddItemDescription(fireDamage,"冰冻伤害");
         AddItemDescription(fireDamage,"雷电伤害");
 
+        for (int i = 0; i < itemEffects.Length; i++)
+        {
+            if (itemEffects[i].effectDescription.Length > 0)
+            {
+                sb.AppendLine();
+                sb.Append("效果描述： "+itemEffects[i].effectDescription);
+                descriptionLength++;
+            }
+        }
+
         if (descriptionLength < 5)
         {
             for (int i = 0; i < 5-descriptionLength; i++)
@@ -161,12 +171,6 @@ public class ItemDataEquipment : ItemData
                 sb.AppendLine();
                 sb.Append("");
             }
-        }
-
-        if (itemEffectDescription.Length > 0)
-        {
-            sb.AppendLine();
-            sb.Append(itemEffectDescription);
         }
         
         return sb.ToString();
