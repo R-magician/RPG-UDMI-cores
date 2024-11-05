@@ -8159,8 +8159,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xLimit: 960
   yLimit: 540
-  xOffset: 250
-  yOffset: 100
+  xOffset: 150
+  yOffset: 150
   description: {fileID: 128080432}
 --- !u!225 &257731874
 CanvasGroup:
@@ -14984,7 +14984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 544670611}
-  currency: 10
+  currency: 0
 --- !u!4 &581879777
 Transform:
   m_ObjectHideFlags: 0
@@ -42793,12 +42793,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xLimit: 960
   yLimit: 540
-  xOffset: 300
-  yOffset: 80
+  xOffset: 150
+  yOffset: 150
   skillText: {fileID: 1492583877}
   skillName: {fileID: 388568635}
-  skillCost: {fileID: 122219924}
-  defaultNameFontSize: 34
+  skillCost: {fileID: 0}
+  defaultNameFontSize: 0
 --- !u!225 &1461235411
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -49090,7 +49090,7 @@ MonoBehaviour:
   skillTreeUI: {fileID: 596578791}
   craftUI: {fileID: 447098009}
   optionsUI: {fileID: 336093846}
-  inGameUI: {fileID: 1798468069}
+  inGameUI: {fileID: 0}
   skillToolTip: {fileID: 1461235410}
   itemToolTip: {fileID: 17289305}
   statToolTip: {fileID: 257731873}
