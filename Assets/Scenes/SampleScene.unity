@@ -39906,6 +39906,7 @@ MonoBehaviour:
   stashSlotParent: {fileID: 1916232479}
   equipmentSlotParent: {fileID: 282490186}
   statSlotParent: {fileID: 1579576995}
+  loadedItems: []
 --- !u!4 &1269107916
 Transform:
   m_ObjectHideFlags: 0
@@ -42797,7 +42798,7 @@ MonoBehaviour:
   yOffset: 150
   skillText: {fileID: 1492583877}
   skillName: {fileID: 388568635}
-  skillCost: {fileID: 0}
+  skillCost: {fileID: 122219924}
   defaultNameFontSize: 0
 --- !u!225 &1461235411
 CanvasGroup:

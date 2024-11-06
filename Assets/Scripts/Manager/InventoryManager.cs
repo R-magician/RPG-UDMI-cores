@@ -2,10 +2,12 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Inventory : MonoBehaviour
+[DefaultExecutionOrder(1000)]
+public class Inventory : MonoBehaviour,ISaveManager
 {
     //单例模式
     public static Inventory instance;
@@ -58,6 +60,11 @@ public class Inventory : MonoBehaviour
     public float flaskCooldown { get; private set; }
     //盔甲冷却时间
     private float armorCooldown;
+
+    [Header("基础数据")]
+    //加载物品
+    public List<InventoryItem> loadedItems;
+    
     
     private void Awake()
     {
@@ -98,8 +105,21 @@ public class Inventory : MonoBehaviour
         AddStartingItems();
     }
 
+    //添加起始物品
     private void AddStartingItems()
     {
+        if (loadedItems.Count > 0)
+        {
+            foreach (InventoryItem item in loadedItems)
+            {
+                for (int i = 0; i < item.stackSize; i++)
+                {
+                    AddItem(item.data);
+                }
+            }
+            return;
+        }
+        
         for (int i = 0; i < startingItems.Count; i++)
         {
             if (startingItems[i] != null)
@@ -447,8 +467,57 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    private void Update()
+    public void LoadData(GameData _data)
     {
+        // GetItemDataBase();
+        foreach (KeyValuePair<string,int> pair in _data.inventory)
+        {
+            foreach (var item in GetItemDataBase())
+            {
+                if (item != null && item.itemId == pair.Key)
+                {
+                    InventoryItem itemToLoad = new InventoryItem(item);
+                    itemToLoad.stackSize = pair.Value;
+                    loadedItems.Add(itemToLoad);
+                }
+            }
+        }
+    }
+
+    public void SaveData(ref GameData _data)
+    {
+        //清除字典--库存列表
+        _data.inventory.Clear();
+
+        foreach (KeyValuePair<ItemData,InventoryItem> pair in inventoryDictiatiory)
+        {
+            //保存库存数量
+            _data.inventory.Add(pair.Key.itemId,pair.Value.stackSize);
+        }
+    }
+
+    //获取物品的基础数据
+    private List<ItemData> GetItemDataBase()
+    {
+        //数据被清空并重新创建，以保证没有旧数据残留
+        List<ItemData> itemDataBase = new List<ItemData>();
+        //查找资源 GUID--返回 Assets/Data/Material 文件夹下所有资源的 GUID
+        //AssetDatabase：仅在编辑器中可用，在运行时无法使用。
+        //会将文件夹也加入
+        string[] assetNames = AssetDatabase.FindAssets("", new[] { "Assets/Data/Material" });
         
+        foreach (string SOName in assetNames)
+        {
+            //将每个资源的 GUID 转换为文件路径
+            var SOpath = AssetDatabase.GUIDToAssetPath(SOName);
+            //根据路径加载资源，并将它转换为 ItemData 类型的对象
+            var itemData = AssetDatabase.LoadAssetAtPath<ItemData>(SOpath);
+            
+            if (itemData != null)
+            {
+                itemDataBase.Add(itemData);
+            }
+        }
+        return itemDataBase;
     }
 }
