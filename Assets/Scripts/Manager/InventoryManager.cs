@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -64,6 +65,8 @@ public class Inventory : MonoBehaviour,ISaveManager
     [Header("基础数据")]
     //加载物品
     public List<InventoryItem> loadedItems;
+    //装备物品
+    public List<ItemDataEquipment> LoadedEquipments;
     
     
     private void Awake()
@@ -108,6 +111,11 @@ public class Inventory : MonoBehaviour,ISaveManager
     //添加起始物品
     private void AddStartingItems()
     {
+        foreach (ItemDataEquipment item in LoadedEquipments)
+        {
+            EquipItem(item);
+        }
+        
         if (loadedItems.Count > 0)
         {
             foreach (InventoryItem item in loadedItems)
@@ -482,17 +490,41 @@ public class Inventory : MonoBehaviour,ISaveManager
                 }
             }
         }
+
+        foreach (string loadedItemId in _data.equipmentId)
+        {
+            foreach (var item in GetItemDataBase())
+            {
+                if (item != null && loadedItemId == item.itemId)
+                {
+                    LoadedEquipments.Add(item as ItemDataEquipment);
+                }
+            }
+        }
     }
 
     public void SaveData(ref GameData _data)
     {
         //清除字典--库存列表
         _data.inventory.Clear();
+        //清除列表-存储列表
+        _data.equipmentId.Clear();
 
         foreach (KeyValuePair<ItemData,InventoryItem> pair in inventoryDictiatiory)
         {
             //保存库存数量
             _data.inventory.Add(pair.Key.itemId,pair.Value.stackSize);
+        }
+
+        foreach (KeyValuePair<ItemData,InventoryItem> pair in stashDictiatiory)
+        {
+            //保存存储数量
+            _data.inventory.Add(pair.Key.itemId,pair.Value.stackSize);
+        }
+
+        foreach (KeyValuePair<ItemDataEquipment,InventoryItem> pair in equipmentDictionary)
+        {
+            _data.equipmentId.Add(pair.Key.itemId);
         }
     }
 
@@ -504,7 +536,9 @@ public class Inventory : MonoBehaviour,ISaveManager
         //查找资源 GUID--返回 Assets/Data/Material 文件夹下所有资源的 GUID
         //AssetDatabase：仅在编辑器中可用，在运行时无法使用。
         //会将文件夹也加入
-        string[] assetNames = AssetDatabase.FindAssets("", new[] { "Assets/Data/Material" });
+        string[] assetNames1 = AssetDatabase.FindAssets("", new[] { "Assets/Data/Material" });
+        string[] assetNames2 = AssetDatabase.FindAssets("", new[] { "Assets/Data/Equipment" });
+        string[] assetNames = assetNames1.Concat(assetNames2).ToArray();
         
         foreach (string SOName in assetNames)
         {

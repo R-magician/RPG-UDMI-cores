@@ -10,10 +10,13 @@ public class GameData
 
     //库存列表(材质)
     public SerializableDictionary<string, int> inventory;
+    //存储列表
+    public List<string> equipmentId;
 
     public GameData()
     {
         this.currency = 0;
         inventory = new SerializableDictionary<string, int>();
+        equipmentId = new List<string>();
     }
 }
