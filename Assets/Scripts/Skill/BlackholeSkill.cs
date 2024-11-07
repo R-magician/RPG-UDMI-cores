@@ -87,4 +87,9 @@ public class BlackholeSkill : Skill
     {
         return maxSize / 2;
     }
+
+    protected override void CheckUnlock()
+    {
+        UnlockBlackhole();
+    }
 }

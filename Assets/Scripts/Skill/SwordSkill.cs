@@ -112,6 +112,16 @@ public class SwordSkill : Skill
         spinUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockSpinSword);
     }
 
+    protected override void CheckUnlock()
+    {
+        UnlockSword();
+        UnlockVulnurable();
+        UnlockBounceSword();
+        UnlockPierceSword();
+        UnlockSpinSword();
+        UnlockTimeStop();
+    }
+
     //设置重力
     private void SetupGravity()
     {

@@ -51,6 +51,14 @@ public class CloneSkill : Skill
 
     #region 解锁区域
 
+    protected override void CheckUnlock()
+    {
+        UnlockCloneAttack();
+        UnlockAggresiveClone();
+        UnlockMultiClone();
+        UnlockCrystal();
+    }
+
     //解锁克隆
     private void UnlockCloneAttack()
     {

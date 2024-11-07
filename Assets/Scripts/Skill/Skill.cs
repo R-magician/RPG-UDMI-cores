@@ -18,13 +18,19 @@ public class Skill : MonoBehaviour
 
     protected virtual void Start()
     {
-       
+       CheckUnlock();
     }
 
     protected virtual void Update()
     {
         //更新冷却
         cooldownTimer -= Time.deltaTime;
+    }
+
+    //检查是否解锁
+    protected virtual void CheckUnlock()
+    {
+        
     }
 
     //是否能使用技能
