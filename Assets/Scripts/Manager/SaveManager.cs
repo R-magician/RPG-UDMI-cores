@@ -10,8 +10,10 @@ using System.Linq;
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
-    [SerializeField] private string fileName;
     
+    [SerializeField] private string fileName;
+    //文件是否需要加密
+    [SerializeField] private bool encryptData;
     
     private GameData gameData;
     private List<ISaveManager> saveManagers;
@@ -21,7 +23,7 @@ public class SaveManager : MonoBehaviour
     //删除保存的文件
     private void DeleteSaveData()
     {
-        dataHandler = new FileDataHandler(Application.persistentDataPath,fileName);
+        dataHandler = new FileDataHandler(Application.persistentDataPath,fileName,encryptData);
         dataHandler.Delete();
     }
     
@@ -40,7 +42,7 @@ public class SaveManager : MonoBehaviour
 
     private void Start()
     {
-        dataHandler = new FileDataHandler(Application.persistentDataPath,fileName);
+        dataHandler = new FileDataHandler(Application.persistentDataPath,fileName,encryptData);
         saveManagers = FindAllSaveManagers();
         //加载游戏
         LoadGame();

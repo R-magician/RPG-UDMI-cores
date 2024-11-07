@@ -9,11 +9,16 @@ public class FileDataHandler
     private string dataDirPath = "";
     //数据名
     private string dataFileName = "";
+    //是否加密
+    private bool encryptData = false;
+    //加密码
+    private string codeWord = "alexdev";
 
-    public FileDataHandler(string _dataDirPath, string _dataFileName)
+    public FileDataHandler(string _dataDirPath, string _dataFileName,bool _encryptData)
     {
         dataDirPath = _dataDirPath;
         dataFileName = _dataFileName;
+        encryptData = _encryptData;
     }
 
     //保存文件
@@ -28,6 +33,12 @@ public class FileDataHandler
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
             //文件流
             string dataToStore = JsonUtility.ToJson(_data, true);
+
+            //数据加密
+            if (encryptData)
+            {
+                dataToStore = EncryptDecrypt(dataToStore);
+            }
 
             //创建一个文件
             using (FileStream stream = new FileStream(fullPath,FileMode.Create))
@@ -70,6 +81,11 @@ public class FileDataHandler
                     }
                 }
 
+                //解密
+                if (encryptData)
+                {
+                    dataToLoad = EncryptDecrypt(dataToLoad);
+                }
                 loadData = JsonUtility.FromJson<GameData>(dataToLoad);
             }
             catch (Exception e)
@@ -91,5 +107,18 @@ public class FileDataHandler
         {
             File.Delete(fullPath);
         }
+    }
+
+    //加密字符串
+    private string EncryptDecrypt(string _data)
+    {
+        string modifiedData = "";
+
+        for (int i = 0; i < _data.Length; i++)
+        {
+            modifiedData += (char)(_data[i] ^ codeWord[i % codeWord.Length]);
+        }
+
+        return modifiedData;
     }
 }
