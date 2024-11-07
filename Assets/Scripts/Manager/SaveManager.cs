@@ -17,7 +17,14 @@ public class SaveManager : MonoBehaviour
     private List<ISaveManager> saveManagers;
     private FileDataHandler dataHandler;
     
-
+    [ContextMenu("删除保存的存储文件")]
+    //删除保存的文件
+    private void DeleteSaveData()
+    {
+        dataHandler = new FileDataHandler(Application.persistentDataPath,fileName);
+        dataHandler.Delete();
+    }
+    
     private void Awake()
     {
         //只有一个实例，若有了销毁 
