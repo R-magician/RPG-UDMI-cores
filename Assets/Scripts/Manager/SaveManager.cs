@@ -21,7 +21,7 @@ public class SaveManager : MonoBehaviour
     
     [ContextMenu("删除保存的存储文件")]
     //删除保存的文件
-    private void DeleteSaveData()
+    public void DeleteSaveData()
     {
         dataHandler = new FileDataHandler(Application.persistentDataPath,fileName,encryptData);
         dataHandler.Delete();
@@ -94,5 +94,17 @@ public class SaveManager : MonoBehaviour
         IEnumerable<ISaveManager> saveManagers = FindObjectsOfType<MonoBehaviour>().OfType<ISaveManager>();
 
         return new List<ISaveManager>(saveManagers);
+    }
+
+    //是否有文件保存
+    public bool HasSavedData()
+    {
+        if (dataHandler.Load() != null)
+        {
+            //有保存
+            return true;
+        }
+
+        return false;
     }
 }
