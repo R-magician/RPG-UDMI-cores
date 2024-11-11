@@ -14,6 +14,8 @@ public class UI : MonoBehaviour
     [SerializeField] private UI_FadeScreen fadeScreen;
     //结束文字
     [SerializeField] private GameObject endText;
+
+    [SerializeField] private GameObject restartButton;
     [Space]
     
     //角色信息
@@ -146,7 +148,15 @@ public class UI : MonoBehaviour
 
     IEnumerator EndScreenCorutione()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
         endText.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        restartButton.SetActive(true);
+    }
+
+    //重新开始按钮
+    public void RestartGameButton()
+    {
+        GameManager.instance.RestartScene();
     }
 }
