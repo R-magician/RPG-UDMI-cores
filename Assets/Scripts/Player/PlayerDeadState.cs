@@ -14,6 +14,8 @@ public class PlayerDeadState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        //过渡到黑屏
+        GameObject.Find("Canvas").GetComponent<UI>().SwitchOnEndScreen();
     }
 
     public override void Update()

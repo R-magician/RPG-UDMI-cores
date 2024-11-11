@@ -1,11 +1,21 @@
 //UI脚本控制
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class UI : MonoBehaviour
 {
+    [Header("结束画面")]
+    //屏幕加载效果
+    [SerializeField] private UI_FadeScreen fadeScreen;
+    //结束文字
+    [SerializeField] private GameObject endText;
+    [Space]
+    
     //角色信息
     [SerializeField] private GameObject charcaterUI;
     //技能树
@@ -56,8 +66,15 @@ public class UI : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            //先关闭显示所有面板显示
-            transform.GetChild(i).gameObject.SetActive(false);
+            //场景过渡是否使用淡入淡出
+            bool isFadeScreen = transform.GetChild(i).GetComponent<UI_FadeScreen>() != null;
+            
+            if (isFadeScreen==false)
+            {
+                //先关闭显示所有面板显示
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
+            
         }
 
         if (_menu != null)
@@ -117,5 +134,19 @@ public class UI : MonoBehaviour
     private void CharactPanel(InputAction.CallbackContext obj)
     {
         SwitchWithKeyTo(charcaterUI);
+    }
+
+    //打开结束屏幕
+    public void SwitchOnEndScreen()
+    {
+        // SwitchTo(null);
+        fadeScreen.FadeOut();
+        StartCoroutine(EndScreenCorutione());
+    }
+
+    IEnumerator EndScreenCorutione()
+    {
+        yield return new WaitForSeconds(1);
+        endText.SetActive(true);
     }
 }
