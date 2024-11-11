@@ -1,4 +1,6 @@
 //游戏管理器
+
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     //单例模式
     public static GameManager instance;
+    //检查点列表
+    [SerializeField] private Checkpoint[] checkpoints;
     
     private void Awake()
     {
@@ -19,7 +23,13 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
     }
-    
+
+    private void Start()
+    {
+        //返回有Checkpoint组件的所有对象
+        checkpoints = FindObjectsOfType<Checkpoint>();
+    }
+
     //重新开始游戏
     public void RestartScene()
     {
