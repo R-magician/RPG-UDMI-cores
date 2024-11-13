@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour,ISaveManager
 {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour,ISaveManager
     public static GameManager instance;
     //检查点列表
     [SerializeField] private Checkpoint[] checkpoints;
+    //加载检查点
+    [FormerlySerializedAs("loadedCheckpointId")] [FormerlySerializedAs("closestCheckpointLoaded")] [SerializeField] private string closestCheckpointId;
     
     private void Awake()
     {
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour,ISaveManager
     //重新开始游戏
     public void RestartScene()
     {
+        SaveManager.instance.SaveGame();
         //获取当前激活的场景
         Scene scene = SceneManager.GetActiveScene();
         //加载当前场景
@@ -52,10 +56,23 @@ public class GameManager : MonoBehaviour,ISaveManager
                 }
             }
         }
+        
+        closestCheckpointId = _data.closestCheckpointId;
+        //将玩家放置在最接近的位置
+        
+        Invoke("PlacePlayerAtClosestpoint", 0.1f);
+        PlacePlayerAtClosestpoint();
+    }
 
+    //将玩家放置在最接近的位置  
+    private void PlacePlayerAtClosestpoint()
+    {
         foreach (Checkpoint checkpoint in checkpoints)
         {
-            
+            if (closestCheckpointId == checkpoint.id)
+            {
+                PlayerManager.instance.Player.transform.position=checkpoint.transform.position;
+            }
         }
     }
 

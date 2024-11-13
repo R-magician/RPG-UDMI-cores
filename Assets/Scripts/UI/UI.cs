@@ -39,6 +39,7 @@ public class UI : MonoBehaviour
     {
         //需要用这个来分配事件
         SwitchTo(skillTreeUI);
+        fadeScreen.gameObject.SetActive(true); 
         
         itemToolTip.gameObject.SetActive(false);
         statToolTip.gameObject.SetActive(false);
@@ -141,7 +142,6 @@ public class UI : MonoBehaviour
     //打开结束屏幕
     public void SwitchOnEndScreen()
     {
-        // SwitchTo(null);
         fadeScreen.FadeOut();
         StartCoroutine(EndScreenCorutione());
     }
