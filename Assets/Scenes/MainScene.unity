@@ -5919,6 +5919,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83522353}
   m_CullTransparentMesh: 1
+--- !u!1001 &91406155
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7066114644494972235, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: id
+      value: 9c513288-71cc-431f-b6f0-b0133098fbd7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7066114644494972235, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: checkpointId
+      value: 9c513288-71cc-431f-b6f0-b0133098fbd7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7463591743700535690, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: m_Name
+      value: Checkpoint (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605030033698956330, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.34
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605030033698956330, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605030033698956330, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605030033698956330, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605030033698956330, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605030033698956330, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605030033698956330, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605030033698956330, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605030033698956330, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605030033698956330, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
 --- !u!1 &92032109
 GameObject:
   m_ObjectHideFlags: 0
@@ -52010,6 +52075,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7066114644494972235, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: id
+      value: 0cf3b725-0fbc-4c08-9b9a-4211cf3da2e0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7066114644494972235, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
+      propertyPath: checkpointId
+      value: 9c513288-71cc-431f-b6f0-b0133098fbd7
+      objectReference: {fileID: 0}
     - target: {fileID: 7463591743700535690, guid: e83b3110c8de0a047a5b434866a3d2cc, type: 3}
       propertyPath: m_Name
       value: Checkpoint
@@ -52252,6 +52325,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4073586073409885330, guid: b50b257738b91d84fb23e68a616f8772, type: 3}
+      propertyPath: encryptData
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5622495828461414019, guid: b50b257738b91d84fb23e68a616f8772, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -52510,3 +52587,4 @@ SceneRoots:
   - {fileID: 1149477165}
   - {fileID: 757687235}
   - {fileID: 3661312826748113207}
+  - {fileID: 91406155}

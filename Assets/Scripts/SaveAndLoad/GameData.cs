@@ -15,11 +15,20 @@ public class GameData
     //存储列表
     public List<string> equipmentId;
 
+    //检查点的存储
+    public SerializableDictionary<string, bool> checkpoints;
+
+    //最近的检查点
+    public string closestCheckpointId;
+
     public GameData()
     {
         this.currency = 0;
         inventory = new SerializableDictionary<string, int>();
         equipmentId = new List<string>();
         skillTree = new SerializableDictionary<string, bool>();
+
+        closestCheckpointId = string.Empty;
+        checkpoints = new SerializableDictionary<string, bool>();
     }
 }

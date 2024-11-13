@@ -3,13 +3,14 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Checkpoint : MonoBehaviour
 {
     private Animator anim;
-    public string checkpointId;
+    [FormerlySerializedAs("checkpointId")] public string id;
     //是否被激活
-    public bool activated;
+    [FormerlySerializedAs("activated")] public bool activationStatus;
 
     private void Start()
     {
@@ -20,7 +21,7 @@ public class Checkpoint : MonoBehaviour
     //生成id
     private void GenereateId()
     {
-        checkpointId = System.Guid.NewGuid().ToString();
+        id = System.Guid.NewGuid().ToString();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -34,6 +35,7 @@ public class Checkpoint : MonoBehaviour
     //检查点激活
     public void ActiveteCheckpoint()
     {
+        activationStatus = true;
         anim.SetBool("active",true);
     }
 }

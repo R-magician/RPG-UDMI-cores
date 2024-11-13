@@ -6,7 +6,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Linq;
 
-[DefaultExecutionOrder(-100)]
+[DefaultExecutionOrder(100)]
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
