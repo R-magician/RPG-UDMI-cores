@@ -20,6 +20,9 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        
+        //AudioManager.instance.PlaySFX(0);
+        
         // 当组合攻击大于2或者当前时间>=最后攻击时间+间隔攻击时间
         if (comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)
         {

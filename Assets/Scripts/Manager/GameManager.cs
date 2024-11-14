@@ -151,10 +151,8 @@ public class GameManager : MonoBehaviour,ISaveManager
         lostCurrencyAmount = _data.lostCurrencyAmount;
         lostCurrencyX = _data.lostCurrencyX;
         lostCurrencyY = _data.lostCurrencyY;
-        Debug.Log(lostCurrencyAmount);
         if (lostCurrencyAmount > 0)
         {
-            Debug.Log(lostCurrencyAmount);
             GameObject newLostCurrency = Instantiate(lostCurrencyPrefab, new Vector3(lostCurrencyX, lostCurrencyY),Quaternion.identity);
             newLostCurrency.GetComponent<lostCurrencyController>().currency = lostCurrencyAmount;
         }

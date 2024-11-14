@@ -15,6 +15,7 @@ public class PlayerAnimationTriggers : MonoBehaviour
     //攻击触发器
     private void AttackTrigger()
     {
+        AudioManager.instance.PlaySFX(2);
         //创建一个圆形检测，获取所在范围的碰撞-这将只存在一帧
         Collider2D[] colliders = Physics2D.OverlapCircleAll(player.attackCheck.position, player.attackCheckRadius);
 
