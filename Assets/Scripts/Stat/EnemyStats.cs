@@ -6,6 +6,8 @@ public class EnemyStats : CharacterStats
     private Enemy enemy;
     //掉落物品
     private ItemDrop myDropSystem;
+    //灵魂的掉落数
+    public Stat soulsDropAmount;
 
     [Header("等级详情")]
     //等级
@@ -16,6 +18,7 @@ public class EnemyStats : CharacterStats
     
     protected override void Awake()
     {
+        soulsDropAmount.SetDefaultValue(100);
         //应用等级增加的数值
         ApplyLevelModifiers();
 
@@ -44,6 +47,8 @@ public class EnemyStats : CharacterStats
         Modif(fireDamage);
         Modif(iceDamage);
         Modif(lightningDamage);
+        
+        Modif(soulsDropAmount);
     }
 
     //修改器
@@ -65,6 +70,8 @@ public class EnemyStats : CharacterStats
     {
         base.Die();
         enemy.Die();
+        //玩家自身增加灵魂
+        PlayerManager.instance.currency += soulsDropAmount.GetValue();
         myDropSystem.GenerateDrop();
     }
 }

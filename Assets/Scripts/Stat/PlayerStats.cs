@@ -20,6 +20,9 @@ public class PlayerStats : CharacterStats
         base.Die();
         //播放死亡动画
         player.Die();
+
+        GameManager.instance.lostCurrencyAmount = PlayerManager.instance.currency;
+        PlayerManager.instance.currency = 0;
         //掉落物品
         GetComponent<PlayerItemDrop>()?.GenerateDrop();
     }

@@ -23,10 +23,16 @@ public class UI_InGame : MonoBehaviour
     [SerializeField] private Image blackholeImage;
     //药瓶
     [SerializeField] private Image flaskImage;
+    
+    private SkillManager skills;
+    
+    [Header("灵魂")]
     //当前灵魂
     [SerializeField] private TextMeshProUGUI currentSouls;
-
-    private SkillManager skills;
+    //灵魂数量
+    [SerializeField] private float soulsAmount;
+    //灵魂增长的速率
+    [SerializeField] private float increaseRate = 100;
     
     private void Start()
     {
@@ -53,8 +59,9 @@ public class UI_InGame : MonoBehaviour
 
     private void Update()
     {
-        currentSouls.text = PlayerManager.instance.GetCurrency().ToString("#,#");
-        
+        //更新灵魂数量
+        UpdateSoulsUI();
+
         //检查冲刺冷却
         CheckCooldownOf(dashImage, skills.dash.cooldown);
         //检查反击冷却
@@ -67,6 +74,19 @@ public class UI_InGame : MonoBehaviour
         CheckCooldownOf(blackholeImage, skills.blackhole.cooldown);
         //检查药瓶冷却
         CheckCooldownOf(flaskImage,Inventory.instance.flaskCooldown);
+    }
+
+    private void UpdateSoulsUI()
+    {
+        if (soulsAmount < PlayerManager.instance.GetCurrency())
+        {
+            soulsAmount += Time.deltaTime * increaseRate;
+        }
+        else
+        {
+            soulsAmount = PlayerManager.instance.GetCurrency();
+        }
+        currentSouls.text = ((int)soulsAmount).ToString();
     }
 
     //更新血量UI

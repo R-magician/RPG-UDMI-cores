@@ -21,6 +21,12 @@ public class GameData
     //最近的检查点
     public string closestCheckpointId;
 
+    //死亡丢失位置
+    public float lostCurrencyX;
+    public float lostCurrencyY;
+    //丢失数量
+    public int lostCurrencyAmount;
+
     public GameData()
     {
         this.currency = 0;
@@ -30,5 +36,9 @@ public class GameData
 
         closestCheckpointId = string.Empty;
         checkpoints = new SerializableDictionary<string, bool>();
+
+        this.lostCurrencyX = 0;
+        this.lostCurrencyY = 0;
+        this.lostCurrencyAmount = 0;
     }
 }
