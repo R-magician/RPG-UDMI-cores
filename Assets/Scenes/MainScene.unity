@@ -46465,6 +46465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3985150da4f92498e0c1ab0bd812f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxMinimumDistance: 10
   sfx:
   - {fileID: 519972527}
   - {fileID: 1865917354}
@@ -46484,7 +46485,7 @@ MonoBehaviour:
   - {fileID: 983450098}
   - {fileID: 999860101}
   - {fileID: 501558913}
-  playBgm: 1
+  playBgm: 0
   bgmIndex: 0
 --- !u!1 &1575267090
 GameObject:
