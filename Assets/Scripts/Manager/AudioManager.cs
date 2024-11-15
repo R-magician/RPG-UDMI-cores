@@ -50,12 +50,14 @@ public class AudioManager : MonoBehaviour
     //开始特效声音
     public void PlaySFX(int _sfxIndex,Transform _source) 
     {
-        if (sfx[_sfxIndex].isPlaying)
-        {
-            return;
-        }
+        
+        // if (sfx[_sfxIndex].isPlaying)
+        // {
+        //     return;
+        // }
 
-        if (_source != null  && Vector2.Distance(PlayerManager.instance.Player.transform.position,_source.position) > sfxMinimumDistance)
+        if (_source != null  && (Vector2.Distance(PlayerManager.instance.Player.transform.position, _source.position) >
+                                 sfxMinimumDistance))
         {
             return;
         }

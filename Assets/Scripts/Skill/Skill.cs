@@ -7,7 +7,7 @@ public class Skill : MonoBehaviour
     //冷却时间
     public float cooldown;
     //更新冷却时间
-    protected float cooldownTimer;
+    public float cooldownTimer;
 
     protected Player player;
 

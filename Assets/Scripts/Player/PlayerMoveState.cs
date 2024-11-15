@@ -14,6 +14,7 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
+        AudioManager.instance.PlaySFX(1,null);
     }
 
     //更新
@@ -42,5 +43,6 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Exit()
     {
         base.Exit();
+        // AudioManager.instance.StopSFX(1);
     }
 }

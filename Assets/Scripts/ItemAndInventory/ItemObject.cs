@@ -41,6 +41,7 @@ public class ItemObject : MonoBehaviour
          rb.linearVelocity = new Vector2(0, 7);
          return;
       }
+      AudioManager.instance.PlaySFX(7,transform);
       //如果玩家碰上--拾取到物品--添加到库存
       Inventory.instance.AddItem(itemData);
       Destroy(gameObject);
