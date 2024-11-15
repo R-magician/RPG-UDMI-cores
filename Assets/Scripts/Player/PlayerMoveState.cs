@@ -14,14 +14,13 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
-        AudioManager.instance.PlaySFX(1,null);
     }
 
     //更新
     public override void Update()
     {
         base.Update();
-        
+        AudioManager.instance.PlaySFX(1,null);
         //获取冲刺方向
         if (inputDirection.x!=0)
         {
@@ -43,6 +42,6 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Exit()
     {
         base.Exit();
-        // AudioManager.instance.StopSFX(1);
+        AudioManager.instance.StopSFX(1);
     }
 }
