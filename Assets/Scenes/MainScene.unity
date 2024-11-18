@@ -13453,7 +13453,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.0014696, y: 3.24, z: -10}
+  m_LocalPosition: {x: 4.4300003, y: 4.87, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14311,8 +14311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4027a7850afd844f9349244e63904fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackDirection: {x: 0, y: 0}
-  knockbackDuration: 0
+  knockbackPower: {x: 0, y: 0}
+  knockbackDuration: 0.3
   attackCheck: {fileID: 524617694}
   attackCheckRadius: 0.8
   groundCheck: {fileID: 56988953}
@@ -14343,7 +14343,7 @@ Transform:
   m_GameObject: {fileID: 544670610}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.43, y: -1.43, z: 0}
+  m_LocalPosition: {x: 2.99, y: -1.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17969,7 +17969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2950351e9040c439c172a33de21e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackDirection: {x: 4, y: 5}
+  knockbackPower: {x: 4, y: 5}
   knockbackDuration: 0.07
   attackCheck: {fileID: 1178484800}
   attackCheckRadius: 0.8
@@ -40400,7 +40400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2950351e9040c439c172a33de21e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackDirection: {x: 4, y: 5}
+  knockbackPower: {x: 4, y: 5}
   knockbackDuration: 0.07
   attackCheck: {fileID: 1486863487}
   attackCheckRadius: 0.8
@@ -54402,7 +54402,7 @@ Transform:
   m_GameObject: {fileID: 2122716261}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.0014696, y: 3.24, z: -10}
+  m_LocalPosition: {x: 4.4300003, y: 4.87, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

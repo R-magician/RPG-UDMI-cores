@@ -31,6 +31,13 @@ public class PlayerStats : CharacterStats
     protected override void DecreaseHealthBy(int _damage)
     {
         base.DecreaseHealthBy(_damage);
+
+        if (_damage > GetMaxHealthValue() * .3f)
+        {
+            player.SetupKnockbackPower(new Vector2(7f,10f));
+            AudioManager.instance.PlaySFX(6,null);
+        }
+        
         //获取当前的穿戴的盔甲
         ItemDataEquipment currentArmor = Inventory.instance.GetEquipment(EquipmentType.Armor);
 

@@ -17,6 +17,11 @@ public class PlayerWallSlideState : PlayerState
     public override void Update()
     {
         base.Update();
+
+        if (player.IsWallDetected() == false)
+        {
+            stateMachine.ChangeState(player.playerAirState);
+        }
         
         //如果有输入
         if (inputDirection.x != 0)

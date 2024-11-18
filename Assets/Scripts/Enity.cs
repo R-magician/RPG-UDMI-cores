@@ -1,6 +1,7 @@
 //实体类
 
 using System.Collections;
+using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -105,7 +106,12 @@ public class Enity : MonoBehaviour
          knokcbackDir = 1;
       }
    }
-
+   
+   public void SetupKnockbackPower(Vector2 _knockbackpower)
+   {
+      knockbackPower = _knockbackpower;
+   }
+   
    //击退携程
    protected virtual IEnumerator HitKnockback()
    {
@@ -113,6 +119,12 @@ public class Enity : MonoBehaviour
       rb.linearVelocity = new Vector2(knockbackPower.x * knokcbackDir, knockbackPower.y);
       yield return new WaitForSeconds(knockbackDuration);
       isKnockback = false;
+      SetupZeroKnockbackPower();
+   }
+
+   protected virtual void SetupZeroKnockbackPower()
+   {
+      
    }
    
    #region 玩家速度

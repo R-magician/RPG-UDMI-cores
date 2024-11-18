@@ -226,4 +226,10 @@ public class Player : Enity
         base.Die();
         playerStateMachine.ChangeState(playerDeadState);
     }
+
+    protected override void SetupZeroKnockbackPower()
+    {
+        base.SetupZeroKnockbackPower();
+        knockbackPower = new Vector2(0, 0);
+    }
 }
