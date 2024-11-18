@@ -19,6 +19,9 @@ public class AudioManager : MonoBehaviour
     //播放第几段bgm
     public int bgmIndex;
 
+    //能否播放音效
+    private bool canPlaySFX;
+
     private void Update()
     {
         if (!playBgm)
@@ -45,6 +48,7 @@ public class AudioManager : MonoBehaviour
         {
             instance = this;
         }
+        Invoke("AllowSFX",1f);
     }
 
     //开始特效声音
@@ -55,6 +59,11 @@ public class AudioManager : MonoBehaviour
         // {
         //     return;
         // }
+
+        if (canPlaySFX == false)
+        {
+            return;
+        }
 
         if (_source != null  && (Vector2.Distance(PlayerManager.instance.Player.transform.position, _source.position) >
                                  sfxMinimumDistance))
@@ -99,5 +108,10 @@ public class AudioManager : MonoBehaviour
             bgm[i].Stop();
         }
     }
-    
+
+    //允许播放
+    private void AllowSFX()
+    {
+        canPlaySFX = true;
+    }
 }
