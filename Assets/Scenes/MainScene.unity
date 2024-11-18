@@ -51927,6 +51927,9 @@ MonoBehaviour:
   itemToolTip: {fileID: 17289305}
   statToolTip: {fileID: 257731873}
   craftWindow: {fileID: 1417382146}
+  volumeSettings:
+  - {fileID: 75194411}
+  - {fileID: 1941661104}
 --- !u!1 &1928676746
 GameObject:
   m_ObjectHideFlags: 0

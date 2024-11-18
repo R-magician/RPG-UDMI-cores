@@ -26,6 +26,9 @@ public class GameData
     public float lostCurrencyY;
     //丢失数量
     public int lostCurrencyAmount;
+    
+    //音效设置
+    public SerializableDictionary<string, float> volumeSettings;
 
     public GameData()
     {
@@ -40,5 +43,6 @@ public class GameData
         this.lostCurrencyX = 0;
         this.lostCurrencyY = 0;
         this.lostCurrencyAmount = 0;
+        volumeSettings = new SerializableDictionary<string, float>();
     }
 }
