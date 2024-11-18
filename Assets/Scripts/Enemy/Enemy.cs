@@ -32,8 +32,11 @@ public class Enemy : Enity
     [Header("攻击信息")]
     //攻击距离
     public float attackDistance;
+    
     //攻击冷却
     public float attackCooldown;
+    public float minAttackCooldown;
+    public float maxAttackCooldown;
     //攻击最后时间
     [HideInInspector]public float lastTimeAttacked;
 
