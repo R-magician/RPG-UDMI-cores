@@ -159,4 +159,17 @@ public class GameManager : MonoBehaviour,ISaveManager
 
         lostCurrencyAmount = 0;
     }
+
+    //暂停游戏
+    public void PauseGame(bool _pause)
+    {
+        if (_pause)
+        {
+            Time.timeScale = 0; 
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+    }
 }

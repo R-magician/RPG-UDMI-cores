@@ -89,6 +89,18 @@ public class UI : MonoBehaviour,ISaveManager
             //显示
             _menu.SetActive(true);
         }
+
+        if (GameManager.instance != null)
+        {
+            if (_menu == inGameUI)
+            {
+                GameManager.instance.PauseGame(false);
+            }
+            else
+            {
+                GameManager.instance.PauseGame(true);
+            }
+        }
     }
 
     //按键开关

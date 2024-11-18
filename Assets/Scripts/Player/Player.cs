@@ -123,7 +123,7 @@ public class Player : Enity
         
         //初始化状态机--等待
         playerStateMachine.initialize(playerIdleState);
-
+ 
         defaultMoveSpeed = moveSpeed;
         defaultJumpForce = jumpForce;
         defaultDashSpeed = dashSpeed;
@@ -131,6 +131,10 @@ public class Player : Enity
 
     protected override void Update()
     {
+        if(Time.timeScale==0)
+        {
+            return;
+        }
         base.Update();
         //获取移动时候的值
         inputDirection = InputManager.instance.inputDirection;
