@@ -1,6 +1,8 @@
 //音频管理器
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -85,12 +87,35 @@ public class AudioManager : MonoBehaviour
         PlayBGM(bgmIndex);
     }
 
+    //声音渐进式结束
+    private IEnumerator DecreaseVolume(AudioSource _audioSource)
+    {
+        float defaultVolume = _audioSource.volume;
+        while (_audioSource.volume>.1f)
+        {
+            _audioSource.volume -= _audioSource.volume * .2f;
+            yield return new WaitForSeconds(.6f);
+
+            if (_audioSource.volume <= .1f)
+            {
+                _audioSource.Stop();
+                _audioSource.volume = defaultVolume;
+                break;
+            }
+        }
+    }
+    
+    public void StopSFXWithTime(int _index)
+    {
+        StartCoroutine(DecreaseVolume(sfx[_index]));
+    }
+
     //停止特效声 
     public void StopSFX(int _sfxIndex)
     {
         sfx[_sfxIndex].Stop();
     }
-
+    
     //开始BGM
     public void PlayBGM(int _bgmIndex)
     {
