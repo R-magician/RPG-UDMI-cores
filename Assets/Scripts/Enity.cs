@@ -2,6 +2,7 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Enity : MonoBehaviour
 {
@@ -15,9 +16,10 @@ public class Enity : MonoBehaviour
    public CharacterStats stats { get; private set; }
    public CapsuleCollider2D cd { get; private set; }
 
+   [FormerlySerializedAs("knockbackDirection")]
    [Header("击退信息")] 
    //击退方向
-   [SerializeField] protected Vector2 knockbackDirection;
+   [SerializeField] protected Vector2 knockbackPower;
    //击退间隔时长
    [SerializeField] protected float knockbackDuration;
    //是否被击退
@@ -44,6 +46,8 @@ public class Enity : MonoBehaviour
    public int facingDir { get; private set; } = 1;
    //角色是否翻转-是
    protected bool facingRight = true;
+
+   public int knokcbackDir { get; private set; }
 
    //创建一个事件
    public System.Action onFlipped;
@@ -90,11 +94,23 @@ public class Enity : MonoBehaviour
       StartCoroutine("HitKnockback");
    }
 
+   //设置击退指令
+   public virtual void SetupKnockbackDir(Transform _danageDirection)
+   {
+      if (_danageDirection.position.x > transform.position.x)
+      {
+         knokcbackDir = -1;
+      }else if (_danageDirection.position.x < transform.position.x)
+      {
+         knokcbackDir = 1;
+      }
+   }
+
    //击退携程
    protected virtual IEnumerator HitKnockback()
    {
       isKnockback = true;
-      rb.linearVelocity = new Vector2(knockbackDirection.x * -facingDir, knockbackDirection.y);
+      rb.linearVelocity = new Vector2(knockbackPower.x * knokcbackDir, knockbackPower.y);
       yield return new WaitForSeconds(knockbackDuration);
       isKnockback = false;
    }

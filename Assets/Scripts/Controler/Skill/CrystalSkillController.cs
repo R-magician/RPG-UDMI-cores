@@ -113,6 +113,7 @@ public class CrystalSkillController : MonoBehaviour
             //如果检测到敌人
             if (hit.GetComponent<Enemy>() != null)
             {
+                hit.GetComponent<Enity>().SetupKnockbackDir(transform);
                 //执行受伤
                 player.stats.DoMagicalDamage(hit.GetComponent<CharacterStats>());
 

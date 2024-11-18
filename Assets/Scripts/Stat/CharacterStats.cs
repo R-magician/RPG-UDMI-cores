@@ -189,6 +189,8 @@ public class CharacterStats : MonoBehaviour
     {
         //闪避攻击判断
         if ( TargetCanAvoidAttack(_targetStats)) return;
+        
+        _targetStats.GetComponent<Enity>().SetupKnockbackDir(transform);
 
         //总伤害=基础伤害+攻击力
         int totalDamage = strength.GetValue() + damage.GetValue();
