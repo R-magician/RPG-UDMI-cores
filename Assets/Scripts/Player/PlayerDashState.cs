@@ -16,6 +16,8 @@ public class PlayerDashState : PlayerState
         
         //冲刺时间
         stateTimer = player.dashDuration;
+        //无敌状态
+        player.stats.MakeInvincible(true);
     }
 
     public override void Update()
@@ -45,5 +47,7 @@ public class PlayerDashState : PlayerState
         player.skill.dash.CloneOnArrival();
         //退出状态的时候重置一下速度
         player.SetVelocity(0,rb.linearVelocity.y);
+        //无敌状态
+        player.stats.MakeInvincible(false);
     }
 }

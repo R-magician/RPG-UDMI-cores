@@ -100,6 +100,8 @@ public class CharacterStats : MonoBehaviour
     public System.Action onHealthChanged;
     //死亡状态
     public bool isDead { get; private set; }
+    //无敌状态
+    public bool isInvincible { get; private set; }
     //易损状态
     private bool isVulnerable;
     
@@ -426,6 +428,12 @@ public class CharacterStats : MonoBehaviour
     //受到伤害
     public virtual void TakeDamage(int _damage)
     {
+
+        if (isInvincible)
+        {
+            return;
+        }
+        
         //减少生命值
         DecreaseHealthBy(_damage);
         
@@ -489,6 +497,12 @@ public class CharacterStats : MonoBehaviour
         {
             Die();
         }
+    }
+
+    //无敌状态
+    public void MakeInvincible(bool _invincible)
+    {
+        isInvincible = _invincible;
     }
 
     #region 计算区域
