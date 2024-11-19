@@ -73,5 +73,8 @@ public class EnemyStats : CharacterStats
         //玩家自身增加灵魂
         PlayerManager.instance.currency += soulsDropAmount.GetValue();
         myDropSystem.GenerateDrop();
+        
+        //删除敌人
+        Destroy(gameObject,3f);
     }
 }

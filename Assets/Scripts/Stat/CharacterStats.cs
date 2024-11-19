@@ -483,6 +483,14 @@ public class CharacterStats : MonoBehaviour
         isDead = true;
     }
 
+    public void KillEntity()
+    {
+        if (!isDead)
+        {
+            Die();
+        }
+    }
+
     #region 计算区域
 
 
