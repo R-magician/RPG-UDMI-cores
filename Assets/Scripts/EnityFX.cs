@@ -6,6 +6,15 @@ public class EnityFX : MonoBehaviour
 {
     //精灵渲染器
     private SpriteRenderer sr;
+
+    [Header("残影")]
+    //残影冷却时间
+    [SerializeField] private GameObject afterImagePrefab;
+    //丢失率
+    [SerializeField] private float colorloseRate;
+    [SerializeField] private float afterImageCooldown;
+    private float afterImageCooldownTimer;
+    
     
     [Header("动画特效")]
     //默认材质
@@ -37,6 +46,24 @@ public class EnityFX : MonoBehaviour
         sr = GetComponentInChildren<SpriteRenderer>();
         //获取材质
         orignalMat = sr.material;
+    }
+
+    private void Update()
+    {
+        afterImageCooldownTimer -= Time.deltaTime;
+    }
+
+    //残影
+    public void CreateAfterImage()
+    {
+        if (afterImageCooldownTimer < 0)
+        {
+            afterImageCooldownTimer = afterImageCooldown;
+            //创建预制体
+            GameObject newAfterImage = Instantiate(afterImagePrefab, transform.position, transform.rotation);
+            newAfterImage.GetComponent<AfterImageFX>().SetupAfterImgae(colorloseRate,sr.sprite);
+        }
+       
     }
     
     //设置透明

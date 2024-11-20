@@ -39,6 +39,8 @@ public class PlayerDashState : PlayerState
             //当冲刺时间结束，切换成等待状态
             stateMachine.ChangeState(player.playerIdleState);
         }
+        
+        player.fx.CreateAfterImage();
     }
 
     public override void Exit()
