@@ -22,6 +22,14 @@ public class EnityFX : MonoBehaviour
     [SerializeField] private Color[] igniteColors;
     //雷电颜色
     [SerializeField] private Color[] shockColor;
+
+    [Header("粒子效果")]
+    //火
+    [SerializeField] private ParticleSystem igniteFx;
+    //冰
+    [SerializeField] private ParticleSystem chillFx;
+    //电
+    [SerializeField] private ParticleSystem shockFx;
     
 
     private void Start()
@@ -74,11 +82,15 @@ public class EnityFX : MonoBehaviour
     {
         CancelInvoke();
         sr.color = Color.white;
+        igniteFx.Stop();
+        chillFx.Stop();
+        shockFx.Stop();
     }
 
     //重复点燃特效
     public void IgniteFxFor(float _seconds)
     {
+        igniteFx.Play();
         //从0s开始每0.3s执行一次
         InvokeRepeating("IgniteColorFx",0,.2f);
         //_seconds秒后恢复成原本的颜色
@@ -88,6 +100,7 @@ public class EnityFX : MonoBehaviour
     //冰冻特效
     public void ChillFxFor(float _seconds)
     {
+        chillFx.Play();
         //从0s开始每0.3s执行一次
         InvokeRepeating("ChillColorFx",0,.2f);
         //_seconds秒后恢复成原本的颜色
@@ -97,6 +110,7 @@ public class EnityFX : MonoBehaviour
     //雷电特效
     public void ShockFxFor(float _seconds)
     {
+        shockFx.Play();
         //从0s开始每0.3s执行一次
         InvokeRepeating("ShockColorFx",0,.2f);
         //_seconds秒后恢复成原本的颜色
