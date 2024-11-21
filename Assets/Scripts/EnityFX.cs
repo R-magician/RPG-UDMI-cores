@@ -1,11 +1,24 @@
 using System;
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnityFX : MonoBehaviour
 {
     //精灵渲染器
     private SpriteRenderer sr;
+    private Player player;
+
+    [Header("相机抖动")]
+    private CinemachineImpulseSource screenShake;
+    //抖动幅度
+    [SerializeField] private float shakeMultiplier;
+    //回收剑抖动力
+    public Vector3 shakeSwordImpact;
+    //高频伤害
+    public Vector3 shakeHigdamage;
+    
 
     [Header("残影")]
     //残影冷却时间
@@ -44,6 +57,8 @@ public class EnityFX : MonoBehaviour
     private void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
+        player = PlayerManager.instance.Player;
+        screenShake = GetComponent<CinemachineImpulseSource>();
         //获取材质
         orignalMat = sr.material;
     }
@@ -51,6 +66,12 @@ public class EnityFX : MonoBehaviour
     private void Update()
     {
         afterImageCooldownTimer -= Time.deltaTime;
+    }
+
+    public void ScreenShake(Vector3 _shakePower)
+    {
+        screenShake.m_DefaultVelocity = new Vector3(_shakePower.x * player.facingDir, _shakePower.y) * shakeMultiplier;
+        screenShake.GenerateImpulse();
     }
 
     //残影

@@ -13,6 +13,9 @@ public class PlayerCatchSwordState : PlayerState
     {
         base.Enter();
 
+        //屏幕抖动
+        player.fx.ScreenShake(player.fx.shakeSwordImpact);
+        
         sword = player.sword.transform;
         //判断鼠标在player的左边,并且玩家朝右
         if (player.transform.position.x > sword.position.x && player.facingDir ==1)

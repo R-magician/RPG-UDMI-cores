@@ -35,6 +35,9 @@ public class PlayerStats : CharacterStats
         if (_damage > GetMaxHealthValue() * .3f)
         {
             player.SetupKnockbackPower(new Vector2(7f,10f));
+            
+            player.fx.ScreenShake(player.fx.shakeHigdamage);
+            
             AudioManager.instance.PlaySFX(6,null);
         }
         

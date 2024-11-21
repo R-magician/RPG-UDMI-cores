@@ -417,6 +417,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935c1ea8cc3c58146a8fac2070428586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  afterImagePrefab: {fileID: 0}
+  colorloseRate: 0
+  afterImageCooldown: 0
   flashDuration: 0.3
   hitMat: {fileID: 2100000, guid: a283c3827c63ef84d929553a7afc4c82, type: 2}
   chillColors:
@@ -428,6 +431,9 @@ MonoBehaviour:
   shockColor:
   - {r: 0.990566, g: 0.9872577, b: 0.53733534, a: 1}
   - {r: 1, g: 0.87516385, b: 0.051886797, a: 1}
+  igniteFx: {fileID: 0}
+  chillFx: {fileID: 0}
+  shockFx: {fileID: 0}
 --- !u!114 &1718129928367132244
 MonoBehaviour:
   m_ObjectHideFlags: 0
