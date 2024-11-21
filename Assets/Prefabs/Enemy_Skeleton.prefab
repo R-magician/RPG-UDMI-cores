@@ -417,6 +417,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935c1ea8cc3c58146a8fac2070428586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popUpTextPrefab: {fileID: 3257258151268766726, guid: 832ceda6f76795e4bad1982e4e98dffd, type: 3}
+  shakeMultiplier: 0
+  shakeSwordImpact: {x: 0, y: 0, z: 0}
+  shakeHigdamage: {x: 0, y: 0, z: 0}
   afterImagePrefab: {fileID: 0}
   colorloseRate: 0
   afterImageCooldown: 0
@@ -431,9 +435,9 @@ MonoBehaviour:
   shockColor:
   - {r: 0.990566, g: 0.9872577, b: 0.53733534, a: 1}
   - {r: 1, g: 0.87516385, b: 0.051886797, a: 1}
-  igniteFx: {fileID: 0}
-  chillFx: {fileID: 0}
-  shockFx: {fileID: 0}
+  igniteFx: {fileID: 4422040675290038218}
+  chillFx: {fileID: 6405523948685831993}
+  shockFx: {fileID: 3308988395833834450}
 --- !u!114 &1718129928367132244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -807,7 +811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6706134689731566963
 Transform:
   m_ObjectHideFlags: 0
@@ -840,7 +844,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -5715,7 +5719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &578662546520980636
 Transform:
   m_ObjectHideFlags: 0
@@ -5748,7 +5752,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -10548,7 +10552,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5396242710059213652
 Transform:
   m_ObjectHideFlags: 0
@@ -10581,7 +10585,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:

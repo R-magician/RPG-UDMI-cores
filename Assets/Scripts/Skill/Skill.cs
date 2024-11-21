@@ -44,6 +44,7 @@ public class Skill : MonoBehaviour
             return true;
         }
         
+        player.fx.CreatePopUpText("技能冷却中");
         //技能在冷却中
         return false;
     }

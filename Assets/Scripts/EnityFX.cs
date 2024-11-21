@@ -1,14 +1,20 @@
 using System;
 using System.Collections;
 using Cinemachine;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class EnityFX : MonoBehaviour
 {
     //精灵渲染器
     private SpriteRenderer sr;
     private Player player;
+
+    [Header("弹出文本")] 
+    [SerializeField] private GameObject popUpTextPrefab;
+    
 
     [Header("相机抖动")]
     private CinemachineImpulseSource screenShake;
@@ -66,6 +72,18 @@ public class EnityFX : MonoBehaviour
     private void Update()
     {
         afterImageCooldownTimer -= Time.deltaTime;
+    }
+
+    //创建弹出文字
+    public void CreatePopUpText(string _text)
+    {
+        float randomX = Random.Range(-1, 1);
+        float randomY = Random.Range(1, 5);
+        Vector3 positionOffset = new Vector3(randomX,randomY,0);
+        
+        GameObject nextText = Instantiate(popUpTextPrefab, transform.position+positionOffset, Quaternion.identity);
+
+        nextText.GetComponent<TextMeshPro>().text = _text;
     }
 
     public void ScreenShake(Vector3 _shakePower)

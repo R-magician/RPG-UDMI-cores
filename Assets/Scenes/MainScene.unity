@@ -9907,11 +9907,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336661784}
   m_CullTransparentMesh: 1
---- !u!198 &351412150 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4422040675290038218, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-  m_PrefabInstance: {fileID: 2853150116580118538}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &355156676
 GameObject:
   m_ObjectHideFlags: 0
@@ -14070,6 +14065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935c1ea8cc3c58146a8fac2070428586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popUpTextPrefab: {fileID: 3257258151268766726, guid: 832ceda6f76795e4bad1982e4e98dffd, type: 3}
   shakeMultiplier: 0.2
   shakeSwordImpact: {x: 0.5, y: 0.5, z: 0}
   shakeHigdamage: {x: 1, y: 1, z: 0}
@@ -57662,11 +57658,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1424004774}
   m_CullTransparentMesh: 1
---- !u!198 &1427745632 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3308988395833834450, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-  m_PrefabInstance: {fileID: 2853150116580118538}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1430871224
 GameObject:
   m_ObjectHideFlags: 0
@@ -67363,11 +67354,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2638777057518381472, guid: f67e6b27378b1554c8547ce67ba830e7, type: 3}
   m_PrefabInstance: {fileID: 2139820194}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &2145468380 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6405523948685831993, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-  m_PrefabInstance: {fileID: 2853150116580118538}
-  m_PrefabAsset: {fileID: 0}
 --- !u!222 &974440029463401276
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -67433,57 +67419,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 132699493}
     m_Modifications:
-    - target: {fileID: 2320194570900881765, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-      propertyPath: chillFx
-      value: 
-      objectReference: {fileID: 2145468380}
-    - target: {fileID: 2320194570900881765, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-      propertyPath: shockFx
-      value: 
-      objectReference: {fileID: 1427745632}
-    - target: {fileID: 2320194570900881765, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-      propertyPath: igniteFx
-      value: 
-      objectReference: {fileID: 351412150}
     - target: {fileID: 2460528060281676729, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
       propertyPath: m_Name
       value: Enemy_Skeleton
-      objectReference: {fileID: 0}
-    - target: {fileID: 3308988395833834450, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-      propertyPath: prewarm
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3308988395833834450, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422040675290038218, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-      propertyPath: prewarm
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4422040675290038218, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4677002701260222665, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5713117611728644101, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6405523948685831993, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-      propertyPath: prewarm
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6405523948685831993, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7199213559914996240, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7269830626588730342, guid: 68e6bf0403963524d878bfe6bab7e100, type: 3}
       propertyPath: m_LocalPosition.x

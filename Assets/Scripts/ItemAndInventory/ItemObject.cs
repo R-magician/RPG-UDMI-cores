@@ -39,6 +39,7 @@ public class ItemObject : MonoBehaviour
       if (!Inventory.instance.CanAdddItem() && itemData.itemType == ItemType.Equipment)
       {
          rb.linearVelocity = new Vector2(0, 7);
+         PlayerManager.instance.Player.fx.CreatePopUpText("没有更多的空间");
          return;
       }
       AudioManager.instance.PlaySFX(7,transform);
