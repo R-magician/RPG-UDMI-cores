@@ -99,7 +99,7 @@ public class SaveManager : MonoBehaviour
     //是否有文件保存
     public bool HasSavedData()
     {
-        if (dataHandler.Load() != null)
+        if (dataHandler?.Load() != null)
         {
             //有保存
             return true;
