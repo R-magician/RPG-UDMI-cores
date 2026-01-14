@@ -15,7 +15,7 @@ public class CrystalSkill : Skill
     
     [Header("基础水晶")]
     [SerializeField] private UI_SkillTreeSlot unlockCrystalButton;
-    [SerializeField] public bool crystalUnlocked{get; private set;}
+    [field: SerializeField] public bool crystalUnlocked{get; private set;}
     
     //克隆代替水晶
     [Header("水晶克隆")] 

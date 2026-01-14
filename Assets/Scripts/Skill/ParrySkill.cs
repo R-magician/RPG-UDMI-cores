@@ -6,7 +6,7 @@ public class ParrySkill : Skill
 {
     [Header("格挡反击")] 
     [SerializeField] private UI_SkillTreeSlot parryUnlockButton;
-    [SerializeField] public bool parryUnlocked { get;private set; }
+    [field: SerializeField] public bool parryUnlocked { get;private set; }
     
     [Header("格挡反击回血")]
     [SerializeField] private UI_SkillTreeSlot restoreUnlockButton;
